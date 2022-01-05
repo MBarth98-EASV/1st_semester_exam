@@ -1,8 +1,6 @@
 package easv.app.dal;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -13,12 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import easv.app.be.Movie;
-import easv.app.be.SearchResult;
+import easv.app.be.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -102,7 +97,8 @@ import java.util.regex.Pattern;
             String json = sendGetRequest(requestURL);
 
             try {
-                return new ObjectMapper().readValue(json, new TypeReference<SearchResult>() {}).movies;
+                SearchResult result = new ObjectMapper().readValue(json, new TypeReference<SearchResult>() {});
+                return result.movies;
             } catch (IOException e) {
                 return new ArrayList<>();
             }
