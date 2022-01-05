@@ -18,6 +18,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import easv.app.be.Movie;
+import easv.app.be.SearchResult;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -89,6 +90,23 @@ import java.util.regex.Pattern;
             } else return returnList;
         }
 
+
+
+        public static List<Movie> getMovies(String title) throws JsonProcessingException {
+            try {
+                title = URLEncoder.encode(title, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            String requestURL = SEARCH_URL.replaceAll("TITLE", title);
+            String json = sendGetRequest(requestURL);
+
+            try {
+                return  new ObjectMapper().readValue(json, new TypeReference<SearchResult>() {}).movies;
+            } catch (IOException e) {
+                return new ArrayList<>();
+            }
+        }
 
 
         /**
