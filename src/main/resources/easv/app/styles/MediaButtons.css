@@ -1,0 +1,202 @@
+.playButton {
+    -fx-border-color: #e2e2e2;
+    -fx-graphic: url(../images/play16x.png);
+    -fx-content-display: CENTER;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: #262626;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 1pt;
+    -fx-text-fill: #d8d8d8;
+}
+
+.playButton:hover {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 30;
+}
+
+.playButton:pressed, .button:default:hover:pressed {
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-radius: 30;
+
+}
+
+.playButton:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 30;
+}
+
+.playButton:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.playButton:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.playButton:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+
+/* ____________________________________________________________________ */
+
+
+
+.nextButton {
+    -fx-border-color: #e2e2e2;
+    -fx-graphic: url(../images/next16x.png);
+    -fx-content-display: CENTER;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: #262626;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 10pt;
+    -fx-text-fill: #d8d8d8;
+}
+
+.nextButton:hover {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 30;
+}
+
+.nextButton:pressed, .button:default:hover:pressed {
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
+    fx-border-radius: 30;
+}
+
+.nextButton:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 30;
+}
+
+.nextButton:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.nextButton:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.nextButton:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+/* ____________________________________________________________________ */
+
+.prevButton {
+    -fx-border-color: #e2e2e2;
+    -fx-graphic: url(../images/prev16x.png);
+    -fx-content-display: CENTER;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: #262626;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 10pt;
+    -fx-text-fill: #d8d8d8;
+
+}
+
+.prevButton:hover {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 30;
+
+}
+
+.prevButton:pressed, .button:default:hover:pressed {
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
+    fx-border-radius: 30;
+
+}
+
+.prevButton:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 30;
+
+}
+
+.prevButton:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.prevButton:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.prevButton:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+
+/* ____________________________________________________________________ */
+
+.shuffleButton {
+    -fx-border-color: #e2e2e2;
+    -fx-graphic: url(../images/shuffle.png);
+    -fx-content-display: CENTER;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: #262626;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 10pt;
+    -fx-text-fill: #d8d8d8;
+
+}
+
+.shuffleButton:hover {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 30;
+
+}
+
+.shuffleButton:pressed, .button:default:hover:pressed {
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
+    fx-border-radius: 30;
+
+}
+
+.shuffleButton:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 30;
+
+}
+
+.shuffleButton:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.shuffleButton:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.shuffleButton:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
