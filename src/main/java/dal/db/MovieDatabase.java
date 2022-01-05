@@ -13,16 +13,35 @@ public class MovieDatabase {
         dbaccess = new EASVDatabaseConnector();
     }
 
-    private void execute()
+    private void execute(String sql)
     {
         try (Connection connection = dbaccess.getConnection()) {
             Statement statement = connection.createStatement();
-        } catch (SQLException e) {
+            statement.execute(sql);
+
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
     }
 
+    private void addMovie(String name, int rating, String filelink, String imdblink, int lastviewed)
+    {
+        try (Connection connection = dbaccess.getConnection())
+        {
+            String sql = "";
+
+            this.execute(sql);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
     private void getMovie()
     {
+
     }
 }
