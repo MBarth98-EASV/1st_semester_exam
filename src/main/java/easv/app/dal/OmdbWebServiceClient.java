@@ -40,7 +40,7 @@ import java.util.List;
                 return new ArrayList<>();
             }
         }
-        
+
         /**
          * returns as JSON: Title, Year, Rated, Released, Runtime, Genre, Director, Writer, Actors, Plot, Language, Country, Awards, Poster, Ratings
          * @param movie  Movie to get IMDB ID from.
