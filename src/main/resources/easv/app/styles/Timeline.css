@@ -1,0 +1,13 @@
+.slider{
+
+}
+
+.slider .track {
+    -fx-background-color: #5786cb;
+}
+
+.slider .thumb {
+    -fx-pref-height: 15;
+    -fx-pref-width: 8;
+    -fx-background-color: white;
+}

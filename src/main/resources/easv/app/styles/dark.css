@@ -1,0 +1,654 @@
+.background {
+    -fx-background-color: #1d1d1d;
+}
+
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 0.6;
+}
+
+.label-bright {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-header {
+    -fx-font-size: 32pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-small {
+    -fx-font-size: 9pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.table-view {
+    -fx-base: #1d1d1d;
+    -fx-control-inner-background: #1d1d1d;
+    -fx-background-color: #1d1d1d;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: #1d1d1d;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
+    -fx-background-color: transparent, derive(#1d1d1d,20%);
+}
+
+.split-pane {
+    -fx-padding: 1 0 0 0;
+}
+
+.menu-bar {
+    -fx-background-color: derive(#1d1d1d,20%);
+}
+
+.context-menu {
+    -fx-background-color: derive(#1d1d1d,50%);
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.menu .left-container {
+	-fx-background-color: black;
+}
+
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+}
+
+/* 
+ * Metro style Push Button
+ * Author: Pedro Duque Vieira
+ * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
+ */
+.button {
+    -fx-padding: 5 22 5 22;   
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #1d1d1d;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: white;
+  -fx-text-fill: #1d1d1d;
+}
+
+.button:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.button:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: rgb(150, 150, 150);;
+    -fx-text-fill: black;
+}
+
+.list-cell:even {
+    -fx-background-color: rgba(61, 61, 61, .2);
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: rgba(61, 61, 61, .2);;
+    -fx-text-fill: white;
+}
+
+.list-view{
+    -fx-background-color: rgba(61, 61, 61, .2);
+    -fx-text-fill: white;
+}
+
+.list-cell {
+    -fx-control-inner-background: rgba(61, 61, 61, .2);
+
+}
+
+/* The main scrollbar **track** CSS class  */
+.workspace-grid .scroll-bar:horizontal .track,
+.workspace-grid .scroll-bar:vertical .track{
+    -fx-background-color: rgb(61, 61, 61);
+    -fx-border-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius:2em;
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.workspace-grid .scroll-bar:horizontal .increment-button ,
+.workspace-grid .scroll-bar:horizontal .decrement-button {
+    -fx-background-color: rgb(61, 61, 61);
+    -fx-background-radius: 0em;
+    -fx-padding:0 0 10 0;
+
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+
+.workspace-grid .scroll-bar:vertical .increment-button ,
+.workspace-grid .scroll-bar:vertical .decrement-button {
+
+    -fx-background-color: rgb(61, 61, 61);
+    -fx-background-radius: 0em;
+    -fx-padding:0 10 0 0;
+
+}
+
+.workspace-grid .scroll-bar .increment-arrow,
+.workspace-grid .scroll-bar .decrement-arrow
+{
+    -fx-shape: " ";
+    -fx-padding:0;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.workspace-grid .scroll-bar:horizontal .thumb,
+.workspace-grid .scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+
+.button2 {
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: #a3a0a3;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: rgba(61, 61, 61, .2);
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 10pt;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button2:hover {
+    -fx-background-color: #2b2b2b;
+}
+
+.button2:pressed, .button:default:hover:pressed {
+    -fx-background-color: #a3a0a3;
+
+}
+
+.button2:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+
+}
+
+.button2:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.button2:default {
+    -fx-background-color: -fx-focus-color;
+
+}
+
+.button2:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+.radio-button .radio {
+    -fx-border-width: 2px;
+    -fx-border-color: WHITE;
+    -fx-border-radius: 20px;
+    -fx-background-color: rgba(61, 61, 61, .2);
+    -fx-background-image: null;
+    -fx-padding: 1px;
+
+
+}
+.radio-button .radio:selected {
+    -fx-background-color: rgba(61, 61, 61, .2);
+    -fx-background-image: null;
+}
+.radio-button -radio:armed {
+    -fx-background-color: rgba(61, 61, 61, .2);
+    -fx-background-image: null;
+}
+.radio-button -radio:determinate {
+    -fx-background-color: rgba(61, 61, 61, .2);
+    -fx-background-image: null;
+}
+.radio-button -radio:indeterminate {
+    -fx-background-color: rgba(61, 61, 61, .2);
+    -fx-background-image: null;
+}
+.radio-button .dot {
+    -fx-background-radius: 15px;
+    -fx-background-color: rgba(61, 61, 61, .2);
+    -fx-padding: 8px;
+}
+
+.radio-button:selected .radio .dot {
+    -fx-background-color: derive(white,50%);
+    -fx-background-insets: 0;
+}
+
+
+/* The following scrollbar was inserted without testing, but should work */
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+}
+
+
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 0.0 10.0 0.0;
+
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color :derive(black,90.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color :derive(#4D4C4F,10.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+
+.labelButton {
+    -fx-padding: 5 5 5 5;
+    -fx-text-fill: rgb(100, 100, 100);
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 12pt;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.labelButton:hover {
+    -fx-text-fill: rgb(180,180,180);
+}
+
+.labelButton:pressed, .button:default:hover:pressed {
+    -fx-text-fill: white;
+
+}
+
+.labelButton:focused {
+    -fx-text-fill: rgb(180,180,180);
+
+}
+
+.labelButton:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-text-fill: white;
+}
+
+.labelButton:default {
+    -fx-background-color: -fx-focus-color;
+
+}
+
+.labelButton:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+/*______________________________________________________________________*/
+
+.roundButton {
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: #1d1d1d;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 10pt;
+    -fx-text-fill: #d8d8d8;
+
+}
+
+.roundButton:hover {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 30;
+
+}
+
+.roundButton:pressed, .button:default:hover:pressed {
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
+    fx-border-radius: 30;
+
+}
+
+.roundButton:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 30;
+
+}
+
+.roundButton:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.roundButton:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.roundButton:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+.transparrentButton {
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: #262626;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 10pt;
+    -fx-text-fill: #d8d8d8;
+
+}
+
+.transparrentButton:hover {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 30;
+
+}
+
+.transparrentButton:pressed, .button:default:hover:pressed {
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
+    fx-border-radius: 30;
+
+}
+
+.transparrentButton:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 30;
+
+}
+
+.transparrentButton:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.transparrentButton:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.transparrentButton:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+
+/* ____________________________________________________________________ TABLE VIEW */
+
+
+.table-view{
+    -fx-background-color: transparent;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+
+.table-view .column-header-background{
+    -fx-background-color: #424141
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #616161;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #424242;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #005797;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background,
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button,
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}
+
+
+.menu-item .label {
+    -fx-text-fill: white;
+}
+
+.menu-item:focused {
+    -fx-background-color: #e2e2e2;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: #005797;
+}
+
+.context-menu {
+    -fx-background-color: #404040;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+    /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+}
+
+
+.blackSeparator.separator .line {
+    -fx-border-width: 1px;
+    -fx-border-color: #404040;
+}
+
+.choice-box {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color:  derive( #404040,20%);
+    -fx-background-radius: 5;
+    -fx-border-width: 1;
+    -fx-mark-color: #5786cb;
+}
+
+.combo-box .list-cell
+{
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-text-fill: #d8d8d8;
+    -fx-cell-size: 2.66667em;
+}
+
+.combo-box-popup .list-view
+{
+    -fx-background-color: #404040;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+}
+
+.combo-box-popup .list-view .list-cell
+{
+    -fx-padding: 4 0 4 5;
+
+    /* No alternate highlighting */
+    -fx-background-color: #404040;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover
+{
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-text-fill: #d8d8d8;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover
+{
+    -fx-background-color: #5786cb;
+    -fx-text-fill: #d8d8d8;
+}
+
+.combo-box-base
+{
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.combo-box-base:hover
+{
+    -fx-color: #5786cb;
+}
+
+.combo-box-base:showing
+{
+    -fx-color: #5786cb;
+    -fx-border-color: #5786cb;
+}
+
+.combo-box-base:focused {
+    -fx-color: transparent;
+    -fx-border-color: #5786cb;
+
+}
+
+.combo-box-base:disabled {
+    -fx-opacity: .4;
+}
