@@ -1,4 +1,4 @@
-package dal;
+package dal.db;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 
@@ -14,6 +14,25 @@ public class EASVDatabase {
         dbaccess.setUser("CSe21A_29");
         dbaccess.setPassword("itsikkerhed");
         dbaccess.setPortNumber(1433);
+    }
+
+    private void execute(String sql)
+    {
+        try
+        {
+            Statement statement = dbaccess.getConnection().createStatement();
+            statement.execute(sql);
+        }
+        catch(SQLException e)
+        {
+            return null;
+        }
+
+    }
+
+    private void addMovie(String name, int rating, String filepath, String imdblink, int lastview)
+    {
+
     }
 
 

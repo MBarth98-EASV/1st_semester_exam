@@ -44,6 +44,12 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>10.1.0.jre17-preview</version>
         </dependency>
+        <dependency>
+            <groupId>com.exasol</groupId>
+            <artifactId>sql-statement-builder</artifactId>
+            <version>4.5.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
