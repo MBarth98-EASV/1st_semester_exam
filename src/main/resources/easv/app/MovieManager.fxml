@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.Rating?>
 
 <GridPane cache="true" cacheHint="QUALITY" prefHeight="845.0" prefWidth="1200.0" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MovieManagerController">
   <columnConstraints>
@@ -71,36 +72,19 @@
       <GridPane style="-fx-background-color: #262626;" GridPane.columnIndex="1" GridPane.rowIndex="3">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="605.0" prefWidth="1157.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="43.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane GridPane.columnIndex="1">
-              <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
-                  <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-                  <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints maxHeight="68.66668701171875" minHeight="4.000020345052084" prefHeight="19.333333333333332" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="68.66668701171875" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="33.33331298828125" minHeight="7.33331298828125" prefHeight="12.666666666666671" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <GridPane.margin>
-                  <Insets left="25.0" />
-               </GridPane.margin>
-            </GridPane>
-            <TableView fx:id="tblViewMovies" prefHeight="200.0" prefWidth="200.0" stylesheets="@styles/Tableview.css">
+            <TableView fx:id="tblViewMovies" prefHeight="417.0" prefWidth="1133.0" stylesheets="@styles/Tableview.css">
               <columns>
-                <TableColumn fx:id="tblClmPoster" prefWidth="104.0" text="Thumbnail" />
-                <TableColumn fx:id="tblClmTitle" editable="false" prefWidth="356.0" sortable="false" text="Title" />
-                  <TableColumn fx:id="tblClmYear" prefWidth="174.0" text="Year" />
-                  <TableColumn fx:id="tblClmIMDBRating" prefWidth="138.0" text="IMDB Rating" />
-                  <TableColumn fx:id="tblClmPersonalRating" prefWidth="188.0" text="Personal Rating" />
-                  <TableColumn fx:id="tblClmLastViewed" prefWidth="192.0" text="Last Viewed" />
+                <TableColumn fx:id="tblClmPoster" prefWidth="109.33334589004517" text="Thumbnail" />
+                <TableColumn fx:id="tblClmTitle" editable="false" prefWidth="392.66666412353516" sortable="false" text="Title" />
+                  <TableColumn fx:id="tblClmYear" prefWidth="148.666748046875" text="Year" />
+                  <TableColumn fx:id="tblClmImbdRating" prefWidth="170.66668701171875" text="IMDB Rating" />
+                  <TableColumn fx:id="tblClmPersonalRating" prefWidth="234.66668701171875" text="Personal Rating" />
+                  <TableColumn fx:id="tblClmLastViewed" prefWidth="142.00006103515625" text="Last Viewed" />
               </columns>
             </TableView>
          </children>
@@ -117,7 +101,7 @@
           <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="290.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <ImageView fx:id="imgViewMovPoster" fitHeight="290.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <GridPane GridPane.columnIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="683.0" minWidth="10.0" prefWidth="391.0" />
@@ -129,21 +113,21 @@
                   <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="147.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label style="-fx-font-size: 22;" text="John Wick" GridPane.valignment="BOTTOM">
+                  <Label fx:id="lblMovTitle" style="-fx-font-size: 22;" text="No Movie Selected" GridPane.valignment="BOTTOM">
                      <font>
                         <Font size="42.0" />
                      </font>
                   </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <children>
-                        <Label text="2020" />
+                        <Label fx:id="lblMovYear" />
                         <Label text=" • " />
-                        <Label text="PG-13" />
+                        <Label fx:id="lblMovRating" />
                         <Label text=" • " />
-                        <Label text="140 min" />
+                        <Label fx:id="lblMovRuntime" />
                      </children>
                   </HBox>
-                  <TextArea prefHeight="68.0" prefWidth="611.0" GridPane.rowIndex="2" />
+                  <TextArea fx:id="txtAreaMovPlot" editable="false" prefHeight="68.0" prefWidth="611.0" text="Select a movie below." GridPane.rowIndex="2" />
                   <GridPane GridPane.rowIndex="3">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -160,31 +144,31 @@
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
                               <Label text="Director: " />
-                              <Label text="Chad Stahelski" />
+                              <Label fx:id="lblMovDirector" />
                            </children>
                         </HBox>
                         <HBox GridPane.rowIndex="2">
                            <children>
                               <Label text="Writers: " />
-                              <Label text="Label" />
+                              <Label fx:id="lblMovWriters" />
                            </children>
                         </HBox>
                         <HBox GridPane.rowIndex="3">
                            <children>
                               <Label text="Actors: " />
-                              <Label text="Label" />
+                              <Label fx:id="lblMovActors" />
                            </children>
                         </HBox>
                         <HBox GridPane.rowIndex="4">
                            <children>
                               <Label text="Country: " />
-                              <Label text="Label" />
+                              <Label fx:id="lblMovCountry" />
                            </children>
                         </HBox>
                         <HBox GridPane.rowIndex="5">
                            <children>
                               <Label text="Language: " />
-                              <Label text="Label" />
+                              <Label fx:id="lblMovLanguage" />
                            </children>
                         </HBox>
                      </children>
@@ -208,28 +192,43 @@
                         <Insets right="2.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <Label text="7.9" GridPane.columnIndex="1">
+                  <Label fx:id="lblMovImbdRating" text="0.0" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets left="2.0" />
                      </GridPane.margin>
                   </Label>
                </children>
             </GridPane>
-            <GridPane GridPane.columnIndex="2" GridPane.rowSpan="2147483647">
+            <GridPane fx:id="Rating" GridPane.columnIndex="2" GridPane.rowSpan="2147483647">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="416.0" minWidth="10.0" prefWidth="416.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="110.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="155.33334350585938" minHeight="10.0" prefHeight="120.66667429606119" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="305.99999237060547" minHeight="10.0" prefHeight="219.9999923706055" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="54.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 40;" text="▶" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                  <Button fx:id="btnPlayMovie" mnemonicParsing="false" prefHeight="48.0" prefWidth="39.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 40;" text="▶" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="15.0" right="15.0" />
                      </GridPane.margin>
                   </Button>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints fx:id="gridPaneRating" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox fillHeight="false" prefHeight="113.0" prefWidth="416.0" GridPane.valignment="CENTER">
+                           <children>
+                              <Rating maxHeight="72.0" minHeight="33.0" prefHeight="33.0" prefWidth="190.0" rating="0.0" stylesheets="@styles/rating.css" updateOnHover="true" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </GridPane>
                </children>
             </GridPane>
          </children>
@@ -243,7 +242,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView orientation="HORIZONTAL" prefHeight="27.0" prefWidth="1177.0" stylesheets="@styles/Tableview.css" />
+            <ListView fx:id="lstViewGenre" orientation="HORIZONTAL" prefHeight="27.0" prefWidth="1177.0" stylesheets="@styles/Tableview.css" />
+            <Button fx:id="btnGenreOptions" maxWidth="23.0" minWidth="23.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="6.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>
