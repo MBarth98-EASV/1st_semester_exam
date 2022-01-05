@@ -29,7 +29,10 @@ public class MovieDatabase {
     {
         try (Connection connection = dbaccess.getConnection())
         {
-            String sql = "";
+            String sql = """
+                    INSERT INTO Movie (name, rating, filelink, imdblink, lastviewed)
+                    VALUES ('%s', '%s', '%s', '%s','&s')
+                    """;
 
             this.execute(sql);
         }
