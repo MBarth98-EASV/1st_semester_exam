@@ -184,7 +184,7 @@ import java.util.regex.Pattern;
         public static void main(String[] args) {
             //System.out.println(searchMovieByTitle(trimFileName(filename)));
             //System.out.println(searchMovieByIMDB(searchMovieByTitle(trimFileName(filename)).get(0)));
-            System.out.println(searchMovieByIMDB(searchMovieByTitle("avengers").get(0)));
+            System.out.println(getMovies("avengers"));
             //System.out.println(trimFileName(filename));
         }
 
