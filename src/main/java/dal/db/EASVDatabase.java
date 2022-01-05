@@ -1,6 +1,9 @@
 package dal.db;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class EASVDatabase {
 
@@ -16,6 +19,17 @@ public class EASVDatabase {
         dbaccess.setPortNumber(1433);
     }
 
+    public Connection getConnection()
+    {
+        try {
+            return dbaccess.getConnection();
+        }
+        catch (SQLException e)
+        {
+            return null;
+        }
+    }
+
     private void execute(String sql)
     {
         try
@@ -25,7 +39,7 @@ public class EASVDatabase {
         }
         catch(SQLException e)
         {
-            return null;
+
         }
 
     }
