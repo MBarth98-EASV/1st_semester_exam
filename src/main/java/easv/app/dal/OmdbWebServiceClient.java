@@ -92,7 +92,7 @@ import java.util.regex.Pattern;
 
 
 
-        public static List<Movie> getMovies(String title) throws JsonProcessingException {
+        public static List<Movie> getMovies(String title) {
             try {
                 title = URLEncoder.encode(title, "UTF-8");
             } catch (UnsupportedEncodingException e) {
@@ -102,7 +102,7 @@ import java.util.regex.Pattern;
             String json = sendGetRequest(requestURL);
 
             try {
-                return  new ObjectMapper().readValue(json, new TypeReference<SearchResult>() {}).movies;
+                return new ObjectMapper().readValue(json, new TypeReference<SearchResult>() {}).movies;
             } catch (IOException e) {
                 return new ArrayList<>();
             }
