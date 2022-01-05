@@ -3,7 +3,7 @@ package easv.app.be;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+
 
 public class FXMLProperties {
 
@@ -21,7 +21,7 @@ public class FXMLProperties {
     @FXML public Label lblMovLanguage;
     @FXML public Label lblMovImbdRating;
     @FXML public ImageView imgViewMovPoster;
-    
+
 
     @FXML public ListView lstViewGenre;
     @FXML public Button btnGenreOptions;

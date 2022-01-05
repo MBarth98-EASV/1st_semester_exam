@@ -26,7 +26,7 @@
   -fx-background-image-repeat: no-repeat;
 }
 
-.rating > .container > .button.weak {
+.rating > .container > .button.half {
   -fx-background-color: transparent;
   -fx-background-image: url("star-half.png");
   -fx-padding: 16 16; 

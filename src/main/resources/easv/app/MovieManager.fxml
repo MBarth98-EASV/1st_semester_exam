@@ -91,13 +91,13 @@
       </GridPane>
       <GridPane style="-fx-background-color: #303030;" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="395.0" minWidth="10.0" prefWidth="214.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="832.0" minWidth="10.0" prefWidth="460.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="214.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="460.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="526.0" minWidth="10.0" prefWidth="526.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="304.0" minHeight="10.0" prefHeight="298.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="298.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="34.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -209,22 +209,44 @@
                 <RowConstraints maxHeight="305.99999237060547" minHeight="10.0" prefHeight="219.9999923706055" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btnPlayMovie" mnemonicParsing="false" prefHeight="48.0" prefWidth="39.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 40;" text="▶" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                     <GridPane.margin>
-                        <Insets bottom="15.0" right="15.0" />
-                     </GridPane.margin>
-                  </Button>
                   <GridPane>
                     <columnConstraints>
-                      <ColumnConstraints fx:id="gridPaneRating" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.33333333333337" minWidth="10.0" prefWidth="205.00004069010416" />
+                      <ColumnConstraints fx:id="gridPaneRating" hgrow="SOMETIMES" maxWidth="318.0" minWidth="10.0" prefWidth="210.33329264322916" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="88.66665649414062" minHeight="10.0" prefHeight="81.33333841959636" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="55.333343505859375" minHeight="10.0" prefHeight="39.999994913736984" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox fillHeight="false" prefHeight="113.0" prefWidth="416.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <children>
+                              <Rating maxHeight="72.0" minHeight="33.0" prefHeight="33.0" prefWidth="190.0" rating="0.0" stylesheets="@styles/rating.css" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <HBox fillHeight="false" prefHeight="113.0" prefWidth="416.0" GridPane.valignment="CENTER">
+                        <Button fx:id="btnPlayMovie" mnemonicParsing="false" prefHeight="29.0" prefWidth="54.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 27;" text="▶" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                           <GridPane.margin>
+                              <Insets bottom="15.0" right="15.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <children>
-                              <Rating maxHeight="72.0" minHeight="33.0" prefHeight="33.0" prefWidth="190.0" rating="0.0" stylesheets="@styles/rating.css" updateOnHover="true" />
+                              <Button fx:id="btnPlayMovie1" mnemonicParsing="false" prefHeight="34.0" prefWidth="58.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 15;" text="+" />
+                              <Button fx:id="btnPlayMovie11" mnemonicParsing="false" prefHeight="34.0" prefWidth="58.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 15;" text="+" />
+                              <Button fx:id="btnPlayMovie111" mnemonicParsing="false" prefHeight="34.0" prefWidth="58.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 15;" text="+" />
                            </children>
                         </HBox>
                      </children>
@@ -235,11 +257,11 @@
       </GridPane>
       <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1177.0" minWidth="10.0" prefWidth="1177.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="23.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1177.3333333333333" minWidth="10.0" prefWidth="1176.0000813802083" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="24.666585286458258" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <ListView fx:id="lstViewGenre" orientation="HORIZONTAL" prefHeight="27.0" prefWidth="1177.0" stylesheets="@styles/Tableview.css" />
