@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -19,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
-<GridPane cache="true" cacheHint="QUALITY" prefHeight="845.0" prefWidth="1200.0" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MovieManagerController">
+<GridPane cache="true" cacheHint="QUALITY" prefHeight="845.0" prefWidth="1200.0" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MovieManagerController">
   <columnConstraints>
     <ColumnConstraints />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -58,8 +59,8 @@
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <ComboBox fx:id="cmboBoxFilter" maxWidth="94.0" minHeight="32.0" onAction="#onComboBox" prefHeight="34.0" prefWidth="94.0" promptText="Filter" style="-fx-max-height: 34; -fx-min-height: 34; -fx-border-radius: 5;" styleClass="choice-box" translateY="-1.0" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" />
-            <Button fx:id="btnClearSearchFilter" maxHeight="32.0" maxWidth="55.0" minHeight="32.0" minWidth="55.0" mnemonicParsing="false" onAction="#onClearSearchFilter" prefHeight="32.0" prefWidth="55.0" styleClass="Button2" text="X" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <ComboBox fx:id="cmboBoxFilter" maxWidth="94.0" minHeight="32.0" onAction="#onComboBox" prefHeight="34.0" prefWidth="94.0" promptText="Filter" style="-fx-max-height: 34; -fx-min-height: 34; -fx-border-radius: 5;" styleClass="choice-box" stylesheets="@styles/dark.css" translateY="-1.0" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" />
+            <Button fx:id="btnClearSearchFilter" maxHeight="32.0" maxWidth="55.0" minHeight="32.0" minWidth="55.0" mnemonicParsing="false" onAction="#onClearSearchFilter" prefHeight="32.0" prefWidth="55.0" style="-fx-background-color: #464646; -fx-border-color: derive( #404040,20%); -fx-border-width: 1; -fx-min-height: 33;" styleClass="Button2" stylesheets="@styles/button.css" text="X" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font name="Consolas" size="28.0" />
                </font>
@@ -101,7 +102,10 @@
           <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="imgViewMovPoster" fitHeight="290.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <ImageView fx:id="imgViewMovPoster" fitHeight="290.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@styles/posterError.png" />
+               </image></ImageView>
             <GridPane GridPane.columnIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="683.0" minWidth="10.0" prefWidth="391.0" />
@@ -120,14 +124,14 @@
                   </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <children>
-                        <Label fx:id="lblMovYear" />
+                        <Label fx:id="lblMovYear" text="N/A" />
                         <Label text=" • " />
-                        <Label fx:id="lblMovRating" />
+                        <Label fx:id="lblMovRating" text="N/A" />
                         <Label text=" • " />
-                        <Label fx:id="lblMovRuntime" />
+                        <Label fx:id="lblMovRuntime" text="N/A" />
                      </children>
                   </HBox>
-                  <TextArea fx:id="txtAreaMovPlot" editable="false" prefHeight="68.0" prefWidth="611.0" text="Select a movie below." GridPane.rowIndex="2" />
+                  <TextArea fx:id="txtAreaMovPlot" editable="false" prefHeight="68.0" prefWidth="611.0" stylesheets="@styles/TextArea.css" text="Select a movie below." wrapText="true" GridPane.rowIndex="2" />
                   <GridPane GridPane.rowIndex="3">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -209,10 +213,11 @@
                 <RowConstraints maxHeight="305.99999237060547" minHeight="10.0" prefHeight="219.9999923706055" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="AnchorPane" stylesheets="@styles/AnchorPaneBG.css" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647" />
                   <GridPane>
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.33333333333337" minWidth="10.0" prefWidth="205.00004069010416" />
-                      <ColumnConstraints fx:id="gridPaneRating" hgrow="SOMETIMES" maxWidth="318.0" minWidth="10.0" prefWidth="210.33329264322916" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.33333333333337" minWidth="10.0" prefWidth="164.0" />
+                      <ColumnConstraints fx:id="gridPaneRating" hgrow="SOMETIMES" maxWidth="318.0" minWidth="10.0" prefWidth="252.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="88.66665649414062" minHeight="10.0" prefHeight="81.33333841959636" vgrow="SOMETIMES" />
@@ -232,21 +237,26 @@
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="105.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="btnPlayMovie" mnemonicParsing="false" prefHeight="29.0" prefWidth="54.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 27;" text="▶" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                        <Button fx:id="btnPlayMovie" mnemonicParsing="false" prefHeight="36.0" prefWidth="62.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 27;" styleClass="playButton" stylesheets="@styles/CrudButtons.css" text="▶" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                            <GridPane.margin>
                               <Insets bottom="15.0" right="15.0" />
                            </GridPane.margin>
                         </Button>
-                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <HBox fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="33.0" prefWidth="154.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <children>
-                              <Button fx:id="btnPlayMovie1" mnemonicParsing="false" prefHeight="34.0" prefWidth="58.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 15;" text="+" />
-                              <Button fx:id="btnPlayMovie11" mnemonicParsing="false" prefHeight="34.0" prefWidth="58.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 15;" text="+" />
-                              <Button fx:id="btnPlayMovie111" mnemonicParsing="false" prefHeight="34.0" prefWidth="58.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 15;" text="+" />
+                              <Button fx:id="btnPlayMovie1" accessibleHelp="Edit this movies info." maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="34.0" prefWidth="40.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 15;" styleClass="AddButton" stylesheets="@styles/CrudButtons.css" text="+">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin></Button>
+                              <Button fx:id="btnPlayMovie11" accessibleHelp="Add another movie" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="34.0" prefWidth="40.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 15;" styleClass="DeleteButton" stylesheets="@styles/CrudButtons.css" text="+">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin></Button>
+                              <Button fx:id="btnPlayMovie111" accessibleHelp="Delete this movie" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="34.0" prefWidth="40.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 15;" styleClass="EditButton" stylesheets="@styles/CrudButtons.css" text="+" />
                            </children>
                         </HBox>
                      </children>
@@ -255,7 +265,7 @@
             </GridPane>
          </children>
       </GridPane>
-      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <GridPane style="-fx-background-color: #262626;" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="1177.3333333333333" minWidth="10.0" prefWidth="1176.0000813802083" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="24.666585286458258" />
@@ -264,8 +274,8 @@
           <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView fx:id="lstViewGenre" orientation="HORIZONTAL" prefHeight="27.0" prefWidth="1177.0" stylesheets="@styles/Tableview.css" />
-            <Button fx:id="btnGenreOptions" maxWidth="23.0" minWidth="23.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="6.0" GridPane.columnIndex="1" />
+            <ListView fx:id="lstViewGenre" orientation="HORIZONTAL" prefHeight="27.0" prefWidth="1177.0" stylesheets="@styles/ListViewHorizontal.css" />
+            <Button fx:id="btnGenreOptions" maxWidth="23.0" minWidth="23.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="6.0" styleClass="EditButton2" stylesheets="@styles/CrudButtons.css" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>
