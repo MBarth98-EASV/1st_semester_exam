@@ -3,13 +3,12 @@ package dal.db;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class EASVDatabase {
+public class EASVDatabaseConnector {
 
     private SQLServerDataSource dbaccess;
 
-    public EASVDatabase()
+    public EASVDatabaseConnector()
     {
         dbaccess = new SQLServerDataSource();
         dbaccess.setServerName("10.176.111.31");
@@ -29,26 +28,4 @@ public class EASVDatabase {
             return null;
         }
     }
-
-    private void execute(String sql)
-    {
-        try
-        {
-            Statement statement = dbaccess.getConnection().createStatement();
-            statement.execute(sql);
-        }
-        catch(SQLException e)
-        {
-
-        }
-
-    }
-
-    private void addMovie(String name, int rating, String filepath, String imdblink, int lastview)
-    {
-
-    }
-
-
-
 }
