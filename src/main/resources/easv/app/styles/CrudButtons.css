@@ -108,6 +108,11 @@
 
 .playButton {
     -fx-border-color: #e2e2e2;
+    -fx-background-image: url(play.png);
+    -fx-background-size: 16px 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 55%;
+    -fx-content-display: CENTER;
     -fx-border-width: 2;
     -fx-border-radius: 30;
     -fx-background-radius: 30;
