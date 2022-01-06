@@ -41,6 +41,8 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="-Infinity" percentHeight="100.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints />
+            <RowConstraints />
         </rowConstraints>
          <children>
             <TextField fx:id="txtFieldSearch" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="199.0" onAction="#onSearch" prefHeight="32.0" prefWidth="711.0" scaleY="1.04" style="-fx-background-color: #464646; -fx-max-height: 32; -fx-min-height: 32; -fx-font-size: 13; -fx-border-color: derive( #404040,20%); -fx-border-radius: 5;" styleClass="text-field" translateY="-1.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowSpan="3" GridPane.valignment="CENTER">
@@ -95,8 +97,7 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="298.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="34.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="16.0" minHeight="16.0" prefHeight="16.0" vgrow="NEVER" />
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="15.0" prefHeight="34.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <ImageView fx:id="imgViewMovPoster" fitHeight="290.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -240,6 +241,7 @@
                            </children>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                              <RowConstraints />
                            </rowConstraints>
                         </GridPane>
                      </children>
