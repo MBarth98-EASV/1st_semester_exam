@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import easv.app.be.Movie;
 import easv.app.be.SearchResult;
+import easv.app.dal.api.OpenMovieNetwork;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -108,6 +109,14 @@ import java.util.List;
             //System.out.println(searchMovieByTitle(trimFileName(filename)));
             //System.out.println(searchMovieByIMDB(searchMovieByTitle(trimFileName(filename)).get(0)));
             System.out.println(searchMovieByIMDB(getMovies("avengers").get(0)));
+
+            try
+            {
+            System.out.println(OpenMovieNetwork.getInstance().get("avengers").body().getMovies().stream().toList());
+
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
             //System.out.println(trimFileName(filename));
         }
 
