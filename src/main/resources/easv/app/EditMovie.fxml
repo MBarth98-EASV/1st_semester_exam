@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="easv.app.CrudController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="353.0" style="-fx-background-color: #262626; -fx-background-position: 30%;" styleClass="AnchorPane2" stylesheets="@styles/AnchorPaneBG.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.CrudController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.0" minWidth="4.0" prefWidth="12.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.0" minWidth="10.0" prefWidth="111.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="112.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="111.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.0" minWidth="0.0" prefWidth="9.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="306.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="306.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="306.0" minHeight="0.0" prefHeight="39.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="306.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="306.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="306.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <TextField fx:id="txtFieldEditMovieTitle" prefHeight="30.0" prefWidth="241.0" promptText="Movie Title" stylesheets="@styles/SearchBar.css" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <GridPane.margin>
+                <Insets left="5.0" right="5.0" />
+            </GridPane.margin>
+        </TextField>
+        <Button fx:id="btnEditMovieFinish" mnemonicParsing="false" onAction="#onEditMovieSave" styleClass="Button2" stylesheets="@styles/button.css" text="Save" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+            <GridPane.margin>
+                <Insets right="5.0" />
+            </GridPane.margin>
+        </Button>
+      <ComboBox fx:id="cmboBoxEditGenre1" prefWidth="100.0" promptText="Genre" style="-fx-border-radius: 5; -fx-background-color: #262626;" styleClass="choice-box" stylesheets="@styles/dark.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <ComboBox fx:id="cmboBoxEditGenre2" prefWidth="100.0" promptText="Genre" style="-fx-border-radius: 5; -fx-background-color: #262626;" styleClass="choice-box" stylesheets="@styles/dark.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <ComboBox fx:id="cmboBoxEditGenre3" prefWidth="100.0" promptText="Genre" style="-fx-border-radius: 5; -fx-background-color: #262626;" styleClass="choice-box" stylesheets="@styles/dark.css" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+    </children>
+</GridPane>

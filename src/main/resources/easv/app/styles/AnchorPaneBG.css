@@ -4,3 +4,11 @@
     -fx-background-image-repeat: no-repeat;
 
 }
+
+
+.AnchorPane2{
+    -fx-background-image: url("backsplash1.png");
+    -fx-background-color: transparent;
+    -fx-background-image-repeat: no-repeat;
+
+}

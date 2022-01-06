@@ -1,0 +1,10 @@
+.text-field {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 10pt;
+    -fx-text-fill: #d5d4d4;
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+    -fx-border-color: #e2e2e2;
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+}
