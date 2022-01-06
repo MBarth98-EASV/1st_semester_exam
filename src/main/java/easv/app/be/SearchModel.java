@@ -1,28 +1,24 @@
-package easv.app.be.api.search;
+package easv.app.be;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializer;
 import com.google.gson.annotations.SerializedName;
-import easv.app.Utils.Json.MovieModelList;
-import easv.app.be.api.MovieModel;
 import javafx.beans.property.*;
-import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchModel
 {
-    public SearchModel(MovieModelList movies, int count, String response)
+    public SearchModel() {}
+
+    public SearchModel(List<MovieModel> movies, int count, String response)
     {
-        this.movies.set(movies);
-        this.itemCount.set(count);
-        this.response.set(response);
+        this.setMovies(movies);
+        this.setItemCount(count);
+        this.setResponse(response);
     }
 
     @SerializedName("Search")
-    private SimpleObjectProperty<MovieModelList> movies = new SimpleObjectProperty<MovieModelList>();
+    private SimpleListProperty<MovieModel> movies = new SimpleListProperty<>();
 
     @SerializedName("totalResults")
     private SimpleIntegerProperty itemCount = new SimpleIntegerProperty();
@@ -30,22 +26,19 @@ public class SearchModel
     @SerializedName("Response")
     private SimpleStringProperty response = new SimpleStringProperty();
 
-    @SerializedName("Error")
-    private String error;
-
-    public MovieModelList getMovies()
-    {
-        return movies.get();
-    }
-
-    public SimpleObjectProperty<MovieModelList> moviesProperty()
+    public List<MovieModel> getMovies()
     {
         return movies;
     }
 
-    public void setMovies(MovieModelList movies)
+    public SimpleListProperty<MovieModel> moviesProperty()
     {
-        this.movies.set(movies);
+        return movies;
+    }
+
+    public void setMovies(List<MovieModel> movies)
+    {
+        this.movies.set(FXCollections.observableList(movies));
     }
 
     public int getItemCount()

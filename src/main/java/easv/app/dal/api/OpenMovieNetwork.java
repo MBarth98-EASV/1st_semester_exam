@@ -1,14 +1,13 @@
 package easv.app.dal.api;
 
-import com.google.gson.GsonBuilder;
-
 import java.io.IOException;
+import java.util.ArrayList;
 
-import easv.app.Utils.Json.MovieModelDeserializer;
-import easv.app.Utils.Json.MovieModelList;
-import easv.app.Utils.Json.SearchModelDeserializer;
-import easv.app.be.api.MovieModel;
-import easv.app.be.api.search.SearchModel;
+import com.google.gson.Gson;
+import easv.app.Utils.Json.*;
+import easv.app.be.MovieModel;
+import easv.app.be.SearchModel;
+import easv.app.be.json.SearchDataJson;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -21,13 +20,14 @@ public class OpenMovieNetwork
 
     private OpenMovieNetwork()
     {
-        GsonBuilder gson = new GsonBuilder();
-        gson.registerTypeAdapter(SearchModel.class, new SearchModelDeserializer());
-        gson.registerTypeAdapter(MovieModelList.class, new MovieModelDeserializer());
+        Gson gson = JsonParserFactory.create(
+                SearchDataJson.class,
+                AnonymousGenericClass.create(ArrayList.class, MovieModel.class).getClass()
+        );
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://www.omdbapi.com/")
-                .addConverterFactory(GsonConverterFactory.create(gson.create()))
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         omdbAPI = retrofit.create(OpenMovieDatabaseAPI.class);
@@ -42,7 +42,7 @@ public class OpenMovieNetwork
         return instance;
     }
 
-    public Response<SearchModel> get(String title) throws IOException
+    public Response<SearchDataJson> get(String title) throws IOException
     {
         return omdbAPI.getSearchInfo("f51b4727", title).execute();
     }

@@ -1,14 +1,11 @@
 package easv.app.Utils.Json;
 
 import com.google.gson.*;
-import easv.app.be.api.MovieModel;
-import easv.app.be.api.search.SearchModel;
+import easv.app.be.MovieModel;
+import easv.app.be.SearchModel;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.List;
 
 public class SearchModelDeserializer implements JsonDeserializer<SearchModel>
 {
@@ -21,8 +18,7 @@ public class SearchModelDeserializer implements JsonDeserializer<SearchModel>
         int elementCount = jsonElement.getAsJsonObject().get("totalResults").getAsInt();
 
         String response = jsonElement.getAsJsonObject().get("Response").getAsString();
-
-        MovieModelList movieModels = jsonDeserializationContext.deserialize(searchResult, MovieModelList.class);
+        ArrayList<MovieModel> movieModels = jsonDeserializationContext.deserialize(searchResult, AnonymousGenericClass.create(ArrayList.class, MovieModel.class));
 
         return new SearchModel(movieModels, elementCount, response);
     }

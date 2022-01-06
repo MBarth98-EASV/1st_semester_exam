@@ -1,19 +1,23 @@
 package easv.app.Utils.Json;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import easv.app.be.api.MovieModel;
+import com.google.gson.*;
+import easv.app.be.MovieModel;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
-public class MovieModelDeserializer implements JsonDeserializer<MovieModelList>
+public class MovieModelDeserializer implements JsonDeserializer<ArrayList<MovieModel>>
 {
-
     @Override
-    public MovieModelList deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException
+    public ArrayList<MovieModel> deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException
     {
-        return new MovieModelList();
+        JsonArray array = jsonElement.getAsJsonArray();
+
+        for (int i = 0; i < array.size(); i++)
+        {
+            System.out.println(array.get(i).getAsJsonObject());
+        }
+
+        return new ArrayList<>();
     }
 }

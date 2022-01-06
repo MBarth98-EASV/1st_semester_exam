@@ -5,8 +5,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import easv.app.be.Movie;
 import easv.app.be.SearchResult;
-import easv.app.be.api.MovieModel;
-import easv.app.be.api.search.SearchModel;
+import easv.app.be.MovieModel;
+import easv.app.be.SearchModel;
+import easv.app.be.json.MovieDataJson;
+import easv.app.be.json.SearchDataJson;
 import easv.app.dal.api.OpenMovieNetwork;
 
 import java.io.*;
@@ -111,11 +113,11 @@ import java.util.List;
         {
             try
             {
-                SearchModel search = OpenMovieNetwork.getInstance().get("avengers").body();
+                SearchDataJson search = OpenMovieNetwork.getInstance().get("avengers").body();
 
-                System.out.println(search.getResponse());
-                System.out.println(search.getItemCount());
-                for (MovieModel mm : search.getMovies())
+                System.out.println(search.response);
+                System.out.println(search.results);
+                for (MovieDataJson mm : search.movies)
                 {
                     System.out.println(mm);
                 }

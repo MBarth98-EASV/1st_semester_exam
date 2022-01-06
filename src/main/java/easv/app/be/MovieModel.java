@@ -1,4 +1,4 @@
-package easv.app.be.api;
+package easv.app.be;
 
 import com.google.gson.annotations.SerializedName;
 import javafx.beans.property.SimpleStringProperty;
