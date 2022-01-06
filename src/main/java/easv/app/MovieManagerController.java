@@ -36,7 +36,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     public void onPlayMovie(ActionEvent event) {
         try {
-            Desktop.getDesktop().open(new File(movie.getPath()));
+            Desktop.getDesktop().open(new File(selectedMovie.getPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
