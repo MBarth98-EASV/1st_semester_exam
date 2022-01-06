@@ -50,4 +50,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     public void onEditMovie(ActionEvent event) {
     }
+
+    public void onEditGenre(ActionEvent event) {
+    }
 }
