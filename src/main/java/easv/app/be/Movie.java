@@ -14,7 +14,6 @@ public class Movie {
     @JsonProperty("Poster")
     private String poster;
     private String ratings;
-
     private String runtime;
     private String rated;
     private String genre;
@@ -25,9 +24,11 @@ public class Movie {
     private String language;
     private String country;
 
+    private String path;
+
     public Movie(String title, String year, String imdbID, String type, String poster, String ratings,
-                 String runtime, String rated, String genre, String director, String writer,
-                 String actors, String plot, String language, String country) {
+                         String runtime, String rated, String genre, String director, String writer,
+                 String actors, String plot, String language, String country, String path) {
         this.title = title;
         this.year = year;
         this.imdbID = imdbID;
@@ -43,6 +44,7 @@ public class Movie {
         this.plot = plot;
         this.language = language;
         this.country = country;
+        this.path = path;
     }
 
     public Movie(String title, String year, String imdbID, String genre) {
@@ -173,6 +175,14 @@ public class Movie {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     @Override
