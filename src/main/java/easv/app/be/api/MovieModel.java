@@ -6,13 +6,11 @@ import javafx.beans.property.StringProperty;
 
 public class MovieModel
 {
-
-
     @SerializedName("imdbID")
     private SimpleStringProperty ID;
 
     @SerializedName("Title")
-    private SimpleStringProperty title;
+    private SimpleStringProperty title = new SimpleStringProperty("test");
 
     @SerializedName("Year")
     private SimpleStringProperty year;
@@ -30,7 +28,6 @@ public class MovieModel
 
     @SerializedName("Poster")
     private SimpleStringProperty poster;
-
 
     @Override
     public String toString()

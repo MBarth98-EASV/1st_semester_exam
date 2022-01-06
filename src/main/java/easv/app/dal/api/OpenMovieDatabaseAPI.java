@@ -8,6 +8,6 @@ import retrofit2.http.Query;
 public interface OpenMovieDatabaseAPI
 {
     @GET("/")
-    Call<SearchModel> getSearchInfo(@Query("apikey") String key, @Query("t") String title);
+    Call<SearchModel> getSearchInfo(@Query("apikey") String key, @Query("s") String title);
 
 }

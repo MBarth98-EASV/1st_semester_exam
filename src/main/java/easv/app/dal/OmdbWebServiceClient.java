@@ -5,6 +5,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import easv.app.be.Movie;
 import easv.app.be.SearchResult;
+import easv.app.be.api.MovieModel;
+import easv.app.be.api.search.SearchModel;
 import easv.app.dal.api.OpenMovieNetwork;
 
 import java.io.*;
@@ -105,21 +107,21 @@ import java.util.List;
         }
 
 
-        public static void main(String[] args) {
-            //System.out.println(searchMovieByTitle(trimFileName(filename)));
-            //System.out.println(searchMovieByIMDB(searchMovieByTitle(trimFileName(filename)).get(0)));
-            System.out.println(searchMovieByIMDB(getMovies("avengers").get(0)));
-
+        public static void main(String[] args)
+        {
             try
             {
-            System.out.println(OpenMovieNetwork.getInstance().get("avengers").body().getMovies().stream().toList());
+                SearchModel search = OpenMovieNetwork.getInstance().get("avengers").body();
+
+                System.out.println(search.getResponse());
+                System.out.println(search.getItemCount());
+                for (MovieModel mm : search.getMovies())
+                {
+                    System.out.println(mm);
+                }
 
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+                System.out.println("Exception: " + ex.getMessage());
             }
-            //System.out.println(trimFileName(filename));
         }
-
     }
-
-

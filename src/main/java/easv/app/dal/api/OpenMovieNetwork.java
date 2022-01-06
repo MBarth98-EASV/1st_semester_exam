@@ -1,11 +1,13 @@
 package easv.app.dal.api;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 
-import easv.app.Utils.Json.Adapters;
+import easv.app.Utils.Json.MovieModelDeserializer;
+import easv.app.Utils.Json.MovieModelList;
+import easv.app.Utils.Json.SearchModelDeserializer;
+import easv.app.be.api.MovieModel;
 import easv.app.be.api.search.SearchModel;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -17,11 +19,11 @@ public class OpenMovieNetwork
     private static OpenMovieNetwork instance;
     private OpenMovieDatabaseAPI omdbAPI;
 
-    public OpenMovieNetwork()
+    private OpenMovieNetwork()
     {
-        new SearchModel(null, 0 ,null);
         GsonBuilder gson = new GsonBuilder();
-        gson.registerTypeAdapter(SearchModel.class, Adapters.get(SearchModel.class.getName()));
+        gson.registerTypeAdapter(SearchModel.class, new SearchModelDeserializer());
+        gson.registerTypeAdapter(MovieModelList.class, new MovieModelDeserializer());
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://www.omdbapi.com/")
@@ -31,7 +33,7 @@ public class OpenMovieNetwork
         omdbAPI = retrofit.create(OpenMovieDatabaseAPI.class);
     }
 
-    public static synchronized OpenMovieNetwork getInstance()
+    public static OpenMovieNetwork getInstance()
     {
         if (instance == null)
         {
