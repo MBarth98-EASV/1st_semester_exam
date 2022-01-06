@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
-<GridPane cache="true" cacheHint="QUALITY" minHeight="845.0" minWidth="900.0" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MovieManagerController">
+<GridPane cache="true" cacheHint="QUALITY" minHeight="845.0" minWidth="900.0" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MovieManagerController">
   <columnConstraints>
     <ColumnConstraints />
       <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
@@ -209,7 +209,7 @@
          <children>
             <ListView fx:id="lstViewGenre" maxHeight="45.0" minHeight="45.0" orientation="HORIZONTAL" prefHeight="45.0" prefWidth="1176.0" stylesheets="@styles/ListViewHorizontal.css" />
             <HBox />
-            <Button fx:id="btnGenreOptions" maxWidth="23.0" minWidth="23.0" mnemonicParsing="false" onAction="#onEditGenre" prefHeight="23.0" prefWidth="6.0" styleClass="EditButton2" stylesheets="@styles/CrudButtons.css" GridPane.columnIndex="1" />
+            <Button fx:id="btnGenreOptions" maxWidth="23.0" minWidth="23.0" mnemonicParsing="false" onAction="#onEditGenre" prefHeight="23.0" prefWidth="6.0" style="-fx-border-radius: 5;" styleClass="EditButton2" stylesheets="@styles/CrudButtons.css" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <GridPane style="-fx-background-color: #404040;" styleClass="background" stylesheets="@styles/dark.css" GridPane.columnIndex="1">

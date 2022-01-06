@@ -3,6 +3,7 @@ package easv.app;
 import easv.app.be.FXMLProperties;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +23,7 @@ public class CrudController extends FXMLProperties implements Initializable {
     }
 
     public void onSaveEditGenre(ActionEvent event) {
+        ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 
 
@@ -30,6 +32,7 @@ public class CrudController extends FXMLProperties implements Initializable {
     }
 
     public void onNewMovieDone(ActionEvent event) {
+        ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 
     public void onPickFile(ActionEvent event) {
@@ -37,5 +40,6 @@ public class CrudController extends FXMLProperties implements Initializable {
 
     //EditMovie
     public void onEditMovieSave(ActionEvent event) {
+        ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 }
