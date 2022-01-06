@@ -30,7 +30,7 @@ public class MovieDatabase {
     {
         try (Connection connection = dbaccess.getConnection()) {
             Statement statement =dbaccess.getConnection().createStatement();
-            return statement.executeQuery(sql)
+            return statement.executeQuery(sql);
         }
         catch (SQLException e)
         {
@@ -45,7 +45,7 @@ public class MovieDatabase {
             String sql = """
                     INSERT INTO Movie (name, rating, filelink, imdblink, lastviewed)
                     VALUES ('%s', '%s', '%s', '%s','&s')
-                    """;
+                    """.formatted(movie.getTitle(), movie.getRatings(), movie.missing, movie.getImdbID(), movie.missing);
 
             this.execute(sql);
         }
@@ -55,17 +55,27 @@ public class MovieDatabase {
         }
     }
 
-    private void getMovie()
+    private void getMovie(int id)
+    {
+        
+    }
+
+    private void getMovie(String title)
     {
 
     }
 
-    private void deleteMovie()
+    private void deleteMovie(int id)
     {
 
     }
 
     private void getAllMoves()
+    {
+
+    }
+
+    private void testMethod()
     {
 
     }
