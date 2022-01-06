@@ -38,7 +38,7 @@ public class MovieDatabase {
         }
     }
 
-    private void addMovie(Movie movie)
+    private void addMovie(easv.app.be.Movie movie)
     {
         try (Connection connection = dbaccess.getConnection())
         {
