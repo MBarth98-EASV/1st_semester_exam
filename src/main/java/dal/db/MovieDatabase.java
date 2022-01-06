@@ -1,6 +1,7 @@
 package dal.db;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -25,7 +26,19 @@ public class MovieDatabase {
         }
     }
 
-    private void addMovie(String name, int rating, String filelink, String imdblink, int lastviewed)
+    private ResultSet query(String sql)
+    {
+        try (Connection connection = dbaccess.getConnection()) {
+            Statement statement =dbaccess.getConnection().createStatement();
+            return statement.executeQuery(sql)
+        }
+        catch (SQLException e)
+        {
+            return null;
+        }
+    }
+
+    private void addMovie(Movie movie)
     {
         try (Connection connection = dbaccess.getConnection())
         {
@@ -40,10 +53,19 @@ public class MovieDatabase {
         {
             e.printStackTrace();
         }
-
     }
 
     private void getMovie()
+    {
+
+    }
+
+    private void deleteMovie()
+    {
+
+    }
+
+    private void getAllMoves()
     {
 
     }
