@@ -4,6 +4,7 @@ import easv.app.be.FXMLProperties;
 import easv.app.be.Movie;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 import org.controlsfx.control.Rating;
 
 import java.awt.*;
@@ -52,5 +53,8 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
     public void onEditGenre(ActionEvent event) {
+    }
+
+    public void onMovieRated(MouseEvent mouseEvent) {
     }
 }

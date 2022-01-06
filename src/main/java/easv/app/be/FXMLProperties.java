@@ -3,6 +3,7 @@ package easv.app.be;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import org.controlsfx.control.Rating;
 
 
 public class FXMLProperties {
@@ -21,6 +22,11 @@ public class FXMLProperties {
     @FXML public Label lblMovLanguage;
     @FXML public Label lblMovImbdRating;
     @FXML public ImageView imgViewMovPoster;
+
+    @FXML public Button btnLblGenre1;
+    @FXML public Button btnLblGenre2;
+    @FXML public Button btnLblGenre3;
+    @FXML public Rating rating;
 
 
     @FXML public ListView lstViewGenre;
