@@ -12,7 +12,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -20,16 +19,16 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
-<GridPane cache="true" cacheHint="QUALITY" prefHeight="845.0" prefWidth="1200.0" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MovieManagerController">
+<GridPane cache="true" cacheHint="QUALITY" minHeight="845.0" minWidth="900.0" prefWidth="1200.0" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MovieManagerController">
   <columnConstraints>
     <ColumnConstraints />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="63.33333206176758" minHeight="45.333335876464844" prefHeight="49.333335876464844" valignment="TOP" vgrow="NEVER" />
-    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="256.0" prefHeight="340.0" valignment="CENTER" vgrow="ALWAYS" />
-      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="38.0" valignment="CENTER" vgrow="ALWAYS" />
-    <RowConstraints maxHeight="425.0" minHeight="75.0" prefHeight="417.0" valignment="BOTTOM" vgrow="NEVER" />
+    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="6.0" prefHeight="49.333335876464844" valignment="TOP" vgrow="NEVER" />
+    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" percentHeight="40.0" prefHeight="340.0" valignment="CENTER" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="59.99998982747394" minHeight="0.0" percentHeight="5.0" prefHeight="42.66667683919269" valignment="CENTER" vgrow="NEVER" />
+    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="75.0" percentHeight="49.0" prefHeight="413.3333231608073" valignment="BOTTOM" vgrow="NEVER" />
   </rowConstraints>
    <children>
       <GridPane prefHeight="49.0" prefWidth="1200.0" style="-fx-background-color: #404040;" styleClass="background" stylesheets="@styles/dark.css" GridPane.columnIndex="1">
@@ -41,9 +40,7 @@
             <ColumnConstraints maxWidth="789.3333333333335" minWidth="0.0" prefWidth="111.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="-Infinity" percentHeight="100.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <TextField fx:id="txtFieldSearch" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="199.0" onAction="#onSearch" prefHeight="32.0" prefWidth="711.0" scaleY="1.04" style="-fx-background-color: #464646; -fx-max-height: 32; -fx-min-height: 32; -fx-font-size: 13; -fx-border-color: derive( #404040,20%); -fx-border-radius: 5;" styleClass="text-field" translateY="-1.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowSpan="3" GridPane.valignment="CENTER">
@@ -60,7 +57,7 @@
                </GridPane.margin>
             </TextField>
             <ComboBox fx:id="cmboBoxFilter" maxWidth="94.0" minHeight="32.0" onAction="#onComboBox" prefHeight="34.0" prefWidth="94.0" promptText="Filter" style="-fx-max-height: 34; -fx-min-height: 34; -fx-border-radius: 5;" styleClass="choice-box" stylesheets="@styles/dark.css" translateY="-1.0" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" />
-            <Button fx:id="btnClearSearchFilter" maxHeight="32.0" maxWidth="55.0" minHeight="32.0" minWidth="55.0" mnemonicParsing="false" onAction="#onClearSearchFilter" prefHeight="32.0" prefWidth="55.0" style="-fx-background-color: #464646; -fx-border-color: derive( #404040,20%); -fx-border-width: 1; -fx-min-height: 33;" styleClass="Button2" stylesheets="@styles/button.css" text="X" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Button fx:id="btnClearSearchFilter" maxHeight="32.0" maxWidth="55.0" minHeight="32.0" minWidth="55.0" mnemonicParsing="false" onAction="#onClearSearchFilter" prefHeight="32.0" prefWidth="55.0" style="-fx-background-color: #464646; -fx-border-color: derive( #404040,20%); -fx-border-width: 1; -fx-min-height: 33;" styleClass="Button2" stylesheets="@styles/button.css" text="X" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                <font>
                   <Font name="Consolas" size="28.0" />
                </font>
@@ -75,7 +72,7 @@
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="605.0" prefWidth="1157.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <TableView fx:id="tblViewMovies" prefHeight="417.0" prefWidth="1133.0" stylesheets="@styles/Tableview.css">
@@ -99,7 +96,7 @@
         <rowConstraints>
           <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="298.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="34.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="16.0" minHeight="16.0" prefHeight="16.0" vgrow="NEVER" />
         </rowConstraints>
          <children>
             <ImageView fx:id="imgViewMovPoster" fitHeight="290.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -203,32 +200,48 @@
                   </Label>
                </children>
             </GridPane>
-            <GridPane fx:id="Rating" GridPane.columnIndex="2" GridPane.rowSpan="2147483647">
+            <GridPane fx:id="Rating" styleClass="AnchorPane" stylesheets="@styles/AnchorPaneBG.css" GridPane.columnIndex="2" GridPane.rowSpan="2147483647">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="416.0" minWidth="10.0" prefWidth="416.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="110.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="155.33334350585938" minHeight="10.0" prefHeight="120.66667429606119" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="305.99999237060547" minHeight="10.0" prefHeight="219.9999923706055" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="221.99998474121094" minHeight="10.0" prefHeight="221.99998474121094" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="305.99999237060547" minHeight="10.0" prefHeight="120.00001525878906" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="AnchorPane" stylesheets="@styles/AnchorPaneBG.css" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647" />
-                  <GridPane>
+                  <GridPane GridPane.columnSpan="2147483647">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.33333333333337" minWidth="10.0" prefWidth="164.0" />
-                      <ColumnConstraints fx:id="gridPaneRating" hgrow="SOMETIMES" maxWidth="318.0" minWidth="10.0" prefWidth="252.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.33333333333337" minWidth="10.0" prefWidth="160.3333740234375" />
+                      <ColumnConstraints fx:id="gridPaneRating" hgrow="SOMETIMES" maxWidth="379.6666463216145" minWidth="10.0" prefWidth="364.99995930989576" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="88.66665649414062" minHeight="10.0" prefHeight="81.33333841959636" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="55.333343505859375" minHeight="10.0" prefHeight="39.999994913736984" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="88.66665649414062" minHeight="0.0" prefHeight="9.000011761983245" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="165.0" minHeight="10.0" prefHeight="96.99999237060548" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="124.33334096272787" minHeight="10.0" prefHeight="112.33334096272787" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <HBox fillHeight="false" prefHeight="113.0" prefWidth="416.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <HBox fillHeight="false" prefHeight="113.0" prefWidth="416.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <children>
                               <Rating maxHeight="72.0" minHeight="33.0" prefHeight="33.0" prefWidth="190.0" rating="0.0" stylesheets="@styles/rating.css" />
                            </children>
                         </HBox>
+                        <GridPane GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="231.66668701171875" minWidth="10.0" prefWidth="87.33333333333331" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="437.3333333333333" minWidth="10.0" prefWidth="168.99995930989581" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="437.3333333333333" minWidth="10.0" prefWidth="194.33337402343753" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="437.3333333333333" minWidth="10.0" prefWidth="240.99995930989576" />
+                          </columnConstraints>
+                           <children>
+                              <Button disable="true" mnemonicParsing="false" style="-fx-background-color: #262626; -fx-opacity: 1;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                              <Button disable="true" mnemonicParsing="false" style="-fx-background-color: #262626; -fx-opacity: 1;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                              <Button disable="true" mnemonicParsing="false" style="-fx-background-color: #262626; -fx-opacity: 1;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                           </children>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                           </rowConstraints>
+                        </GridPane>
                      </children>
                   </GridPane>
                   <GridPane GridPane.rowIndex="1">
@@ -237,8 +250,8 @@
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="105.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="43.33331298828125" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="105.0" minHeight="10.0" prefHeight="76.66668701171875" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Button fx:id="btnPlayMovie" mnemonicParsing="false" prefHeight="36.0" prefWidth="62.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 27;" styleClass="playButton" stylesheets="@styles/CrudButtons.css" text="▶" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
@@ -255,7 +268,8 @@
                               <Button fx:id="btnPlayMovie11" accessibleHelp="Add another movie" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="34.0" prefWidth="40.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 15;" styleClass="DeleteButton" stylesheets="@styles/CrudButtons.css" text="+">
                                  <HBox.margin>
                                     <Insets right="5.0" />
-                                 </HBox.margin></Button>
+                                 </HBox.margin>
+                              </Button>
                               <Button fx:id="btnPlayMovie111" accessibleHelp="Delete this movie" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="34.0" prefWidth="40.0" style="-fx-border-radius: 30; -fx-background-radius: 30; -fx-font-size: 15;" styleClass="EditButton" stylesheets="@styles/CrudButtons.css" text="+" />
                            </children>
                         </HBox>
@@ -267,15 +281,15 @@
       </GridPane>
       <GridPane style="-fx-background-color: #262626;" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1177.3333333333333" minWidth="10.0" prefWidth="1176.0000813802083" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="24.666585286458258" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1177.3333333333333" minWidth="10.0" prefWidth="1176.0000813802083" />
+          <ColumnConstraints hgrow="NEVER" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="47.0" minHeight="47.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
         </rowConstraints>
          <children>
-            <ListView fx:id="lstViewGenre" orientation="HORIZONTAL" prefHeight="27.0" prefWidth="1177.0" stylesheets="@styles/ListViewHorizontal.css" />
-            <Button fx:id="btnGenreOptions" maxWidth="23.0" minWidth="23.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="6.0" styleClass="EditButton2" stylesheets="@styles/CrudButtons.css" GridPane.columnIndex="1" />
+            <ListView fx:id="lstViewGenre" maxHeight="45.0" minHeight="45.0" orientation="HORIZONTAL" prefHeight="45.0" prefWidth="1176.0" stylesheets="@styles/ListViewHorizontal.css" />
+            <Button fx:id="btnGenreOptions" maxWidth="23.0" minWidth="23.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="6.0" styleClass="EditButton2" stylesheets="@styles/CrudButtons.css" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </children>
