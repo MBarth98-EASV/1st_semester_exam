@@ -26,13 +26,13 @@ public class FXMLProperties {
     @FXML public Button btnLblGenre1;
     @FXML public Button btnLblGenre2;
     @FXML public Button btnLblGenre3;
-    @FXML public Rating rating;
+    @FXML public Rating movieRating;
 
 
     @FXML public ListView lstViewGenre;
     @FXML public Button btnGenreOptions;
 
-    @FXML public TableView tblViewMovies;
+    @FXML public TableView<Movie> tblViewMovies;
     @FXML public TableColumn tblClmPoster;
     @FXML public TableColumn tblClmTitle;
     @FXML public TableColumn tblClmYear;

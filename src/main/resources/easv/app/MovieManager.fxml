@@ -191,7 +191,7 @@
                         <Insets top="25.0" />
                      </GridPane.margin>
                   </HBox>
-                  <Rating fx:id="rating" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" onMouseClicked="#onMovieRated" prefHeight="33.0" prefWidth="179.0" rating="0.0" stylesheets="@styles/rating.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                  <Rating fx:id="movieRating" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" onMouseClicked="#onMovieRated" prefHeight="33.0" prefWidth="179.0" rating="0.0" stylesheets="@styles/rating.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                </children>
             </GridPane>
          </children>

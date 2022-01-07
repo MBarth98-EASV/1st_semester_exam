@@ -2,6 +2,8 @@ package easv.app.be;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
+
 public class Movie {
 
     @JsonProperty("Title")
@@ -25,6 +27,7 @@ public class Movie {
     private String country;
 
     private String path;
+    private LocalDate lastViewed;
 
     public Movie(String title, String year, String imdbID, String type, String poster, String ratings,
                          String runtime, String rated, String genre, String director, String writer,
@@ -45,6 +48,7 @@ public class Movie {
         this.language = language;
         this.country = country;
         this.path = path;
+        this.lastViewed = LocalDate.parse("0");
     }
 
     public Movie(String title, String year, String imdbID, String genre) {
@@ -185,6 +189,14 @@ public class Movie {
         this.path = path;
     }
 
+    public LocalDate getLastViewed() {
+        return lastViewed;
+    }
+
+    public void setLastViewed(LocalDate lastViewed) {
+        this.lastViewed = lastViewed;
+    }
+
     @Override
     public String toString() {
         return "Movie: " +
@@ -202,5 +214,4 @@ public class Movie {
                 ", writer = " + writer + ' ' +
                 ", genre = " + genre + ' ';
     }
-
 }
