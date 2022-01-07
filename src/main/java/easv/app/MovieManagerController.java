@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.controlsfx.control.Rating;
@@ -21,7 +22,7 @@ import java.util.ResourceBundle;
 public class MovieManagerController extends FXMLProperties implements Initializable {
 
     Movie selectedMovie;
-    
+    String imageURL = "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg";
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -30,7 +31,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         for (int i = 0; i < 20; i++){
             lstViewGenre.getItems().add("Romance");
         }
-
+        imgViewMovPoster.setImage(new Image(imageURL));
 
     }
 
@@ -71,7 +72,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
     public void onDeleteMovie(ActionEvent event) {
-        System.out.println(lstViewGenre.getSelectionModel().getSelectedItem());
+
     }
 
     public void onEditMovie(ActionEvent event) {

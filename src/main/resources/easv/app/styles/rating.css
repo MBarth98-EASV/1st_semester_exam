@@ -14,24 +14,19 @@
 			
 .rating > .container > .button {
     -fx-background-color: transparent;
-    -fx-background-image: url("star-empty.png");
+    -fx-background-image: url("../images/star-empty.png");;
     -fx-padding: 16 16; 
     -fx-background-image-repeat: no-repeat;
 }
 
 .rating > .container > .button.strong {
   -fx-background-color: transparent;
-  -fx-background-image: url("star-full.png");
+  -fx-background-image: url("../images/star-full.png");
   -fx-padding: 16 16; 
   -fx-background-image-repeat: no-repeat;
 }
 
-.rating > .container > .button.half {
-  -fx-background-color: transparent;
-  -fx-background-image: url("star-half.png");
-  -fx-padding: 16 16; 
-  -fx-background-image-repeat: no-repeat;
-}
+
 
 
 .button {
@@ -51,7 +46,7 @@
 }
 
 .button:disabled, .button:default:disabled {
-
+    -
 }
 
 .button:default {
