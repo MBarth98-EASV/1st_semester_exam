@@ -201,8 +201,8 @@
       </GridPane>
       <GridPane style="-fx-background-color: #262626;" GridPane.columnIndex="1" GridPane.rowIndex="3">
         <columnConstraints>
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="871.39990234375" minWidth="867.39990234375" prefWidth="867.39990234375" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="28.800097656250045" prefWidth="32.800097656250045" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="867.39990234375" prefWidth="871.9999267578125" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="28.800073242187523" minWidth="-Infinity" prefWidth="28.800073242187523" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="47.0" minHeight="47.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
