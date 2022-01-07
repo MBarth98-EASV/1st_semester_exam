@@ -1,14 +1,17 @@
 package easv.app.be.json;
 
 import com.google.gson.annotations.SerializedName;
-import easv.app.be.Movie;
 
-import java.util.List;
-
-public class SearchDataJson
+/**
+ *
+ *
+ *
+ * @author mads-
+ * */
+public class SearchResult
 {
     @SerializedName("Search")
-    public List<MovieDataJson> movies;
+    public SearchedMovieInfo[] movies;
 
     @SerializedName("totalResults")
     public String results;

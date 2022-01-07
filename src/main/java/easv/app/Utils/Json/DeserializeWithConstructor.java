@@ -10,20 +10,20 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class Deserializer<T> implements com.google.gson.JsonDeserializer<T>
+public class DeserializeWithConstructor<T> implements com.google.gson.JsonDeserializer<T>
 {
     private final Class<T> targetClass;
 
-    public Deserializer(Class<T> cls)
+    public DeserializeWithConstructor(Class<T> cls)
     {
         targetClass = cls;
     }
 
-    private T instantiate(Object... args)
+    private T instantiate(Class<?>[] params, Object... args)
     {
         try
         {
-            return targetClass.getDeclaredConstructor().newInstance(args);
+            return targetClass.getDeclaredConstructor(params).newInstance(args);
         }
         catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ex)
         {
@@ -41,23 +41,27 @@ public class Deserializer<T> implements com.google.gson.JsonDeserializer<T>
         // get most descriptive constructor
         Constructor<?> constructor = Arrays.stream(targetClass.getConstructors()).max(Comparator.comparingInt(value -> value.getParameterTypes().length)).orElseThrow();
 
+        // only a parameterless or default constructor exist
+        if (constructor.getParameterTypes().length == 0)
+        {
+            return instantiate(constructor.getParameterTypes());
+        }
+
         // ordered parameter list
-        for (var param : constructor.getParameters())
+        for (var param : constructor.getParameterTypes())
         {
             System.out.println(type);
             System.out.println(param);
             System.out.println(jsonElement);
+
+            // todo: make args correct
+            callerArgs.add(null);
         }
 
-        if (callerArgs.isEmpty())
-        {
-            // only a parameterless or default constructor exist
-            return instantiate();
-        }
-        else
-        {
-            // create new instance with data from json
-            return instantiate(callerArgs);
-        }
+        System.out.println(Arrays.toString(constructor.getParameterTypes()));
+        System.out.println(callerArgs);
+
+        // create new instance with data from json
+        return instantiate(constructor.getParameterTypes(), callerArgs);
     }
 }

@@ -11,7 +11,7 @@ public class JsonParserFactory
 
         for (Class<?> inst : cls)
         {
-            gson.registerTypeAdapter(inst, new Deserializer<>(inst));
+            gson.registerTypeAdapter(inst, new Deserialize<>(inst));
         }
 
         return gson.create();
