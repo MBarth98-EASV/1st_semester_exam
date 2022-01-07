@@ -27,6 +27,10 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     public void initialize(URL location, ResourceBundle resources) {
         selectedMovie = new Movie();
         selectedMovie.setPath("C:\\Users\\Sandbxk\\Desktop\\test.mp4");
+        for (int i = 0; i < 20; i++){
+            lstViewGenre.getItems().add("Romance");
+        }
+
 
     }
 
@@ -67,6 +71,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
     public void onDeleteMovie(ActionEvent event) {
+        System.out.println(lstViewGenre.getSelectionModel().getSelectedItem());
     }
 
     public void onEditMovie(ActionEvent event) {

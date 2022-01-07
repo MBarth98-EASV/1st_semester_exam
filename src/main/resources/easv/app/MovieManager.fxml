@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -22,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
-<GridPane cache="true" cacheHint="QUALITY" minHeight="845.0" minWidth="900.0" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MovieManagerController">
+<GridPane cache="true" cacheHint="QUALITY" minHeight="845.0" minWidth="900.0" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MovieManagerController">
   <columnConstraints>
     <ColumnConstraints />
       <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
@@ -182,9 +183,9 @@
                   </ButtonBar>
                   <HBox fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="0.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                      <children>
-                        <Button fx:id="btnLblGenre1" disable="true" mnemonicParsing="false" style="-fx-background-color: #303030; -fx-opacity: 1;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre" />
-                        <Button fx:id="btnLblGenre2" disable="true" mnemonicParsing="false" style="-fx-background-color: #303030; -fx-opacity: 1;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre" />
-                        <Button fx:id="btnLblGenre3" disable="true" mnemonicParsing="false" style="-fx-background-color: #303030; -fx-opacity: 1;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre" />
+                        <Button fx:id="btnLblGenre1" disable="true" mnemonicParsing="false" style="-fx-background-color: #303030; -fx-opacity: 1; -fx-border-radius: 30;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre" />
+                        <Button fx:id="btnLblGenre2" disable="true" mnemonicParsing="false" style="-fx-background-color: #303030; -fx-opacity: 1; -fx-border-radius: 30;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre" />
+                        <Button fx:id="btnLblGenre3" disable="true" mnemonicParsing="false" style="-fx-background-color: #303030; -fx-opacity: 1; -fx-border-radius: 30;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre" />
                      </children>
                      <GridPane.margin>
                         <Insets top="25.0" />
@@ -200,16 +201,19 @@
       </GridPane>
       <GridPane style="-fx-background-color: #262626;" GridPane.columnIndex="1" GridPane.rowIndex="3">
         <columnConstraints>
-          <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="871.39990234375" minWidth="867.39990234375" prefWidth="867.39990234375" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="28.800097656250045" prefWidth="32.800097656250045" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="47.0" minHeight="47.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
         </rowConstraints>
          <children>
-            <ListView fx:id="lstViewGenre" maxHeight="45.0" minHeight="45.0" orientation="HORIZONTAL" prefHeight="45.0" prefWidth="1176.0" stylesheets="@styles/ListViewHorizontal.css" />
-            <HBox />
-            <Button fx:id="btnGenreOptions" maxWidth="23.0" minWidth="23.0" mnemonicParsing="false" onAction="#onEditGenre" prefHeight="23.0" prefWidth="6.0" style="-fx-border-radius: 5;" styleClass="EditButton2" stylesheets="@styles/CrudButtons.css" GridPane.columnIndex="1" />
+            <ListView fx:id="lstViewGenre" maxHeight="45.0" minHeight="45.0" orientation="HORIZONTAL" prefHeight="45.0" prefWidth="1176.0" stylesheets="@styles/ListViewHorizontal.css">
+               <styleClass>
+                  <String fx:value="list-view" />
+                  <String fx:value="workspace-grid" />
+               </styleClass></ListView>
+            <Button fx:id="btnGenreOptions" maxWidth="23.0" minWidth="23.0" mnemonicParsing="false" onAction="#onEditGenre" prefHeight="23.0" prefWidth="6.0" style="-fx-border-radius: 5;" styleClass="EditButton2" stylesheets="@styles/CrudButtons.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
          </children>
       </GridPane>
       <GridPane style="-fx-background-color: #404040;" styleClass="background" stylesheets="@styles/dark.css" GridPane.columnIndex="1">
