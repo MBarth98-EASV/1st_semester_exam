@@ -2,6 +2,7 @@ package easv.app.be;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.controlsfx.control.Rating;
 
@@ -33,7 +34,7 @@ public class FXMLProperties {
     @FXML public Button btnGenreOptions;
 
     @FXML public TableView<Movie> tblViewMovies;
-    @FXML public TableColumn tblClmPoster;
+    @FXML public TableColumn tblClmPoster = new TableColumn<Movie, Image>();
     @FXML public TableColumn tblClmTitle;
     @FXML public TableColumn tblClmYear;
     @FXML public TableColumn tblClmImbdRating;

@@ -2,6 +2,11 @@ package easv.app;
 
 import easv.app.be.FXMLProperties;
 import easv.app.be.Movie;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,7 +38,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     public MovieManagerController(){
         tblViewMovies= new TableView();
-        tblClmPoster = new TableColumn();
+        tblClmPoster = new TableColumn<Movie, ImageView>();
         tblClmTitle = new TableColumn();
         tblClmYear = new TableColumn();
         tblClmImbdRating = new TableColumn();
@@ -50,10 +55,15 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initializeMovieTable();
+        initializePosterClm();
+
         selectedMovie = new Movie();
         selectedMovie.setPoster(imageURL);
         selectedMovie.setTitle("Jgon");
         selectedMovie.setPath("C:\\Users\\Sandbxk\\Desktop\\test.mp4");
+        selectedMovie.setPersonalRating("5");
+        movieRating.setRating(Double.parseDouble(selectedMovie.getPersonalRating()));
         for (int i = 0; i < 20; i++){
             lstViewGenre.getItems().add("Romance");
         }
@@ -142,41 +152,50 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     public void onMovieRated(MouseEvent mouseEvent) {
         int rating = (int) movieRating.getRating();
         selectedMovie.setRated(String.valueOf(rating));
+        System.out.println(rating);
     }
 
     private void initializeMovieTable(){
-        this.tblClmPoster.setCellValueFactory(new PropertyValueFactory<Movie, String>("poster"));
+        //this.tblClmPoster.setCellValueFactory();
+        //this.tblClmPoster.setCellValueFactory(new PropertyValueFactory<Movie, ImageView>("poster"));
         this.tblClmTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("title"));
         this.tblClmYear.setCellValueFactory(new PropertyValueFactory<Movie, String>("year"));
-        this.tblClmImbdRating.setCellValueFactory(new PropertyValueFactory<Movie, String>("imbdRating"));
+        this.tblClmImbdRating.setCellValueFactory(new PropertyValueFactory<Movie, String>("ratings"));
         this.tblClmPersonalRating.setCellValueFactory(new PropertyValueFactory<Movie, String>("personalRating"));
         this.tblClmLastViewed.setCellValueFactory(new PropertyValueFactory<Movie, LocalDate>("lastViewed"));
     }
 
     //TODO: TEST
-    private void initializePosterClm(){
-        tblClmPoster.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override
-            public TableCell call(TableColumn param) {
-
+    private void initializePosterClm() {
+        this.tblClmPoster.setCellFactory(param -> new TableCell<>());
+        //tblClmPoster.setCellValueFactory(cellData -> new SimpleObjectProperty<Movie>());
+        /*
+        tblClmPoster.setCellFactory(param -> {
             //Set up the ImageView
-            ImageView imageview = new ImageView();
-            imageview.setFitHeight(50);
-            imageview.setFitWidth(50);
+            param.
 
+            final ImageView imageview = new ImageView();
+            imageview.setFitHeight(10);
+            imageview.setFitWidth(10);
+            ///imageview.setImage(imageComputer); //uncommenting this places the image on all cells, even empty ones
             //Set up the Table
-            TableCell<Movie, Image> cell = new TableCell<Movie, Image>() {
+            TableCell<Movie, Movie> cell = new TableCell<>() {
+                @Override
                 public void updateItem(Movie item, boolean empty) {
-                    if (item != null) {
-                        imageview.setImage(new Image(item.getPoster()));
+                    if (item != null) {  // choice of image is based on values from item, but it doesn't matter now
+                        imageview.setImage(item.getPoster());
+                    } else {
+                        imageview.setImage(null);
                     }
+
                 }
             };
 
             // Attach the imageview to the cell
-                cell.setGraphic(imageview);
-                return cell;
-        }
-    });
+            cell.setGraphic(imageview);
+            return cell;
+        });
+
+         */
     }
 }

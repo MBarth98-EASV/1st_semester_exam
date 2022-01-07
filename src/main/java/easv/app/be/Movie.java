@@ -1,6 +1,7 @@
 package easv.app.be;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javafx.scene.image.Image;
 
 import java.time.LocalDate;
 
@@ -14,7 +15,7 @@ public class Movie {
     @JsonProperty("Type")
     private String type;
     @JsonProperty("Poster")
-    private String poster;
+    private Image poster;
     private String ratings;
     private String runtime;
     private String rated;
@@ -25,18 +26,19 @@ public class Movie {
     private String plot;
     private String language;
     private String country;
+    private String personalRating;
 
     private String path;
     private LocalDate lastViewed;
 
     public Movie(String title, String year, String imdbID, String type, String poster, String ratings,
-                         String runtime, String rated, String genre, String director, String writer,
-                 String actors, String plot, String language, String country, String path) {
+                 String runtime, String rated, String genre, String director, String writer,
+                 String actors, String plot, String language, String country, String path, LocalDate lastViewed, String personalRating) {
         this.title = title;
         this.year = year;
         this.imdbID = imdbID;
         this.type = type;
-        this.poster = poster;
+        this.poster = new Image(poster);
         this.ratings = ratings;
         this.runtime = runtime;
         this.rated = rated;
@@ -49,6 +51,7 @@ public class Movie {
         this.country = country;
         this.path = path;
         this.lastViewed = LocalDate.parse("0");
+        this.personalRating = personalRating;
     }
 
     public Movie(String title, String year, String imdbID, String genre) {
@@ -93,12 +96,12 @@ public class Movie {
         this.type = type;
     }
 
-    public String getPoster() {
+    public Image getPoster() {
         return poster;
     }
 
     public void setPoster(String poster) {
-        this.poster = poster;
+        this.poster = new Image(poster);
     }
 
     public String getRatings() {
@@ -195,6 +198,14 @@ public class Movie {
 
     public void setLastViewed(LocalDate lastViewed) {
         this.lastViewed = lastViewed;
+    }
+
+    public String getPersonalRating() {
+        return personalRating;
+    }
+
+    public void setPersonalRating(String personalRating) {
+        this.personalRating = personalRating;
     }
 
     @Override
