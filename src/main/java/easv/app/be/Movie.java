@@ -2,6 +2,7 @@ package easv.app.be;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.time.LocalDate;
 
@@ -15,7 +16,7 @@ public class Movie {
     @JsonProperty("Type")
     private String type;
     @JsonProperty("Poster")
-    private Image poster;
+    private ImageView poster;
     private String ratings;
     private String runtime;
     private String rated;
@@ -29,7 +30,7 @@ public class Movie {
     private String personalRating;
 
     private String path;
-    private LocalDate lastViewed;
+    private String lastViewed;
 
     public Movie(String title, String year, String imdbID, String type, String poster, String ratings,
                  String runtime, String rated, String genre, String director, String writer,
@@ -38,7 +39,10 @@ public class Movie {
         this.year = year;
         this.imdbID = imdbID;
         this.type = type;
-        this.poster = new Image(poster);
+        this.poster = new ImageView();
+        this.poster.setImage(new Image(poster));
+        this.poster.setFitHeight(50);
+        this.poster.setPreserveRatio(true);
         this.ratings = ratings;
         this.runtime = runtime;
         this.rated = rated;
@@ -50,7 +54,7 @@ public class Movie {
         this.language = language;
         this.country = country;
         this.path = path;
-        this.lastViewed = LocalDate.parse("0");
+        this.lastViewed = LocalDate.parse("0").toString();
         this.personalRating = personalRating;
     }
 
@@ -62,6 +66,9 @@ public class Movie {
     }
 
     public Movie() {
+        this.poster = new ImageView();
+        this.poster.setFitHeight(50);
+        this.poster.setPreserveRatio(true);
     }
 
     public String getTitle() {
@@ -96,12 +103,12 @@ public class Movie {
         this.type = type;
     }
 
-    public Image getPoster() {
+    public ImageView getPoster() {
         return poster;
     }
 
     public void setPoster(String poster) {
-        this.poster = new Image(poster);
+        this.poster.setImage(new Image(poster));
     }
 
     public String getRatings() {
@@ -192,11 +199,11 @@ public class Movie {
         this.path = path;
     }
 
-    public LocalDate getLastViewed() {
+    public String getLastViewed() {
         return lastViewed;
     }
 
-    public void setLastViewed(LocalDate lastViewed) {
+    public void setLastViewed(String lastViewed) {
         this.lastViewed = lastViewed;
     }
 

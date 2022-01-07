@@ -10,6 +10,7 @@ import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableCell;
@@ -56,18 +57,18 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeMovieTable();
-        initializePosterClm();
 
         selectedMovie = new Movie();
         selectedMovie.setPoster(imageURL);
         selectedMovie.setTitle("Jgon");
         selectedMovie.setPath("C:\\Users\\Sandbxk\\Desktop\\test.mp4");
         selectedMovie.setPersonalRating("5");
+        selectedMovie.setLastViewed(LocalDate.now().toString());
         movieRating.setRating(Double.parseDouble(selectedMovie.getPersonalRating()));
         for (int i = 0; i < 20; i++){
             lstViewGenre.getItems().add("Romance");
         }
-        imgViewMovPoster.setImage(new Image(imageURL));
+        imgViewMovPoster.setImage(selectedMovie.getPoster().getImage());
         tblViewMovies.getItems().add(selectedMovie);
 
     }
@@ -88,7 +89,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         } catch (IOException e) {
             e.printStackTrace();
         }
-        selectedMovie.setLastViewed(LocalDate.now());
+        selectedMovie.setLastViewed(LocalDate.now().toString());
     }
 
     public void onNewMovie(ActionEvent event) {
@@ -156,46 +157,48 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
     private void initializeMovieTable(){
-        //this.tblClmPoster.setCellValueFactory();
-        //this.tblClmPoster.setCellValueFactory(new PropertyValueFactory<Movie, ImageView>("poster"));
+        this.tblClmPoster.setStyle("-fx-alignment: CENTER;");
+
+        this.tblClmPoster.setCellValueFactory(new PropertyValueFactory<Movie, ImageView>("poster"));
+        setCellFactory(tblClmTitle);
         this.tblClmTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("title"));
+        setCellFactory(tblClmYear);
         this.tblClmYear.setCellValueFactory(new PropertyValueFactory<Movie, String>("year"));
+        setCellFactory(tblClmImbdRating);
         this.tblClmImbdRating.setCellValueFactory(new PropertyValueFactory<Movie, String>("ratings"));
+        setCellFactory(tblClmPersonalRating);
         this.tblClmPersonalRating.setCellValueFactory(new PropertyValueFactory<Movie, String>("personalRating"));
-        this.tblClmLastViewed.setCellValueFactory(new PropertyValueFactory<Movie, LocalDate>("lastViewed"));
-    }
-
-    //TODO: TEST
-    private void initializePosterClm() {
-        this.tblClmPoster.setCellFactory(param -> new TableCell<>());
-        //tblClmPoster.setCellValueFactory(cellData -> new SimpleObjectProperty<Movie>());
-        /*
-        tblClmPoster.setCellFactory(param -> {
-            //Set up the ImageView
-            param.
-
-            final ImageView imageview = new ImageView();
-            imageview.setFitHeight(10);
-            imageview.setFitWidth(10);
-            ///imageview.setImage(imageComputer); //uncommenting this places the image on all cells, even empty ones
-            //Set up the Table
-            TableCell<Movie, Movie> cell = new TableCell<>() {
-                @Override
-                public void updateItem(Movie item, boolean empty) {
-                    if (item != null) {  // choice of image is based on values from item, but it doesn't matter now
-                        imageview.setImage(item.getPoster());
-                    } else {
-                        imageview.setImage(null);
-                    }
-
-                }
-            };
-
-            // Attach the imageview to the cell
-            cell.setGraphic(imageview);
-            return cell;
-        });
+        setCellFactory(tblClmLastViewed);
+        this.tblClmLastViewed.setCellValueFactory(new PropertyValueFactory<Movie, String>("lastViewed"));
+        /*this.tblClmLastViewed.setCellFactory(param -> {
+                TableCell<?, ?> tc = new TableCell<Movie, LocalDate>(){
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        if (item != null){
+                            setItem(item);
+                        } } };
+                tc.setAlignment(Pos.CENTER);
+                return tc;
+            });
 
          */
     }
+
+    private void setCellFactory(TableColumn tblClm){
+        tblClm.setCellFactory(param -> {
+
+            TableCell<?, ?> tc = new TableCell<Movie, String>(){
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    if (item != null){
+                        setText(item);
+                    }
+                }
+            };
+            tc.setAlignment(Pos.CENTER);
+            return tc;
+    });
+    }
+
+
 }
