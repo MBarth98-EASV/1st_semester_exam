@@ -36,7 +36,7 @@ public class FXMLProperties {
     @FXML public TableView<Movie> tblViewMovies;
     @FXML public TableColumn tblClmPoster = new TableColumn<Movie, Image>();
     @FXML public TableColumn tblClmTitle;
-    @FXML public TableColumn tblClmYear;
+    @FXML public TableColumn tblClmType;
     @FXML public TableColumn tblClmImbdRating;
     @FXML public TableColumn tblClmPersonalRating;
     @FXML public TableColumn tblClmLastViewed;

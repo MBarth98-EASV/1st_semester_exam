@@ -4,7 +4,10 @@ import easv.app.be.FXMLProperties;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,6 +39,9 @@ public class CrudController extends FXMLProperties implements Initializable {
     }
 
     public void onPickFile(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+
+        File selectedFile =  fc.showOpenDialog(new Stage());
     }
 
     //EditMovie
