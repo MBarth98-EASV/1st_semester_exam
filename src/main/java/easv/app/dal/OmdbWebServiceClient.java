@@ -14,13 +14,14 @@ public class OmdbWebServiceClient
     {
         try
         {
-            SearchResult search = OpenMovieNetwork.getInstance().search("abc");
+           //SearchResult search = OpenMovieNetwork.getInstance().search("avengers");
 
-            assert search != null;
-            for (SearchedMovieInfo mm : Arrays.stream(search.movies).toList())
-            {
-                System.out.println(mm);
-            }
+            System.out.println(OpenMovieNetwork.getInstance().get(null, "a", false));
+
+            //for (SearchedMovieInfo mm : search.movies)
+            //{
+            //    System.out.println(OpenMovieNetwork.getInstance().get(mm.ID, "", false));
+            //}
 
         }
         catch (Exception ex)

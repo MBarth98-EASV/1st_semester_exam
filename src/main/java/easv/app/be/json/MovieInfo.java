@@ -98,4 +98,25 @@ public class MovieInfo
     @SerializedName("imdbRating")
     public String imdbRating;
 
+    @Override
+    public String toString()
+    {
+        return "MovieInfo{" +
+                "ID='" + ID + '\'' +
+                ", title='" + title + '\'' +
+                ", year='" + year + '\'' +
+                ", type='" + type + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", ageRating='" + ageRating + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", runtime='" + runtime + '\'' +
+                ", genre='" + genre + '\'' +
+                ", director='" + director + '\'' +
+                ", writers='" + writers + '\'' +
+                ", actors='" + actors + '\'' +
+                ", movieSummary='" + movieSummary + '\'' +
+                ", country='" + country + '\'' +
+                ", imdbRating='" + imdbRating + '\'' +
+                '}';
+    }
 }

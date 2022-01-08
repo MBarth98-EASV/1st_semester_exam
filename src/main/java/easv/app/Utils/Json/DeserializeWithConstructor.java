@@ -3,13 +3,38 @@ package easv.app.Utils.Json;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * <b>EXPERIMENTAL & RESEARCH CLASS</b><p></p>
+ *
+ * <p>
+ * this class is an unused and experimental generic json deserializer that will create new
+ * objects using javas reflection system to find the most suitable constructor and possibly
+ * using set methods if variables aren't public (may not be needed, because during runtime we can request that
+ * a private variable becomes accessible).
+ * </p>
+ *  <p></p>
+ * <p>
+ * the unsolved problem is forwarding constructor parameters when the type is generic and very limited class
+ * information is available, regarding the datatypes especially if one or more are classes with typed parameters.
+ * (i.e. ArrayList<<c>T</c>>)
+ * </p>
+ *  <p></p>
+ * <p>
+ * parameters that expects an implementation of interface has so far resulted in a wrong parameter list.
+ * </p>
+ *  <p></p>
+ * <p>
+ * <b>ALL THIS MUST BE DONE WHILE CONVERTING JSON ELEMENTS TO THE CORRECT DATA TYPE</b>
+ * </p>
+ *
+ * @author mads-
+ * */
 public class DeserializeWithConstructor<T> implements com.google.gson.JsonDeserializer<T>
 {
     private final Class<T> targetClass;

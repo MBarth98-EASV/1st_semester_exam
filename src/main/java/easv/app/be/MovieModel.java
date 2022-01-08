@@ -10,7 +10,7 @@ public class MovieModel
     private SimpleStringProperty ID;
 
     @SerializedName("Title")
-    private SimpleStringProperty title = new SimpleStringProperty("test");
+    private SimpleStringProperty title;
 
     @SerializedName("Year")
     private SimpleStringProperty year;
@@ -29,19 +29,7 @@ public class MovieModel
     @SerializedName("Poster")
     private SimpleStringProperty poster;
 
-    @Override
-    public String toString()
-    {
-        return "MovieModel{" +
-                "ID=" + ID +
-                ", title=" + title +
-                ", year=" + year +
-                ", ageRating=" + ageRating +
-                ", releaseDate=" + releaseDate +
-                ", type=" + type +
-                ", poster=" + poster +
-                '}';
-    }
+
 
     public String getTitle()
     {

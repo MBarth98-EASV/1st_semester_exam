@@ -50,7 +50,6 @@ public class Deserialize<T> implements com.google.gson.JsonDeserializer<T>
                 }
             }
 
-
             return result;
         }
         catch (InstantiationException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e)
