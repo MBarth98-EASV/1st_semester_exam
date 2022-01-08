@@ -157,7 +157,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             Stage stage = new Stage();
             stage.setScene(scene); // Setting the scene to stage
             stage.show(); // Showing the stage
-            
+
         */
     }
 
