@@ -30,7 +30,7 @@ public class MovieDatabase {
     private ResultSet query(String sql)
     {
         try (Connection connection = dbaccess.getConnection()) {
-            Statement statement =dbaccess.getConnection().createStatement();
+            Statement statement = dbaccess.getConnection().createStatement();
             return statement.executeQuery(sql);
         }
         catch (SQLException e)
@@ -46,7 +46,7 @@ public class MovieDatabase {
             this.execute("""
                     INSERT INTO Movie (name, rating, filelink, imdblink, lastviewed)
                     VALUES ('%s', '%s', '%s', '%s','&s')
-                    """.formatted(movie.getTitle(), movie.getRatings(), movie.missing, movie.getImdbID(), movie.missing));
+                    """.formatted(movie.getTitle(), movie.getRatings(), movie.id, movie.getImdbID(), movie.missing));
         }
         catch (SQLException e)
         {
@@ -85,8 +85,12 @@ public class MovieDatabase {
             if (movie != null)
             {
                 this.execute("""
+                        DELETE FROM CatMovie WHERE movieid = %s
+                        """.formatted(movie.id));
+
+                this.execute("""
                         DELETE FROM Movie WHERE id = %s
-                        """.formatted(movie.missing));
+                        """.formatted(movie.id));
             }
         }
         catch (SQLException e)
@@ -98,6 +102,14 @@ public class MovieDatabase {
 
     private void getAllMoves()
     {
+        try (Connection connection = dbaccess.getConnection())
+        {
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
 
     }
 
