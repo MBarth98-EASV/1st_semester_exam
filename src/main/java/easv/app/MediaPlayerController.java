@@ -153,6 +153,8 @@ public class MediaPlayerController implements Initializable {
         progBar.setOnMouseClicked(progBarMouseListener());
         progBar.setOnMouseDragged(progBarMouseListener());
 
+        mediaView.setOnMouseEntered(uIMouseInOutListener());
+        mediaView.setOnMouseExited(uIMouseInOutListener());
         userControls.setOnMouseEntered(uIMouseInOutListener());
         userControls.setOnMouseExited(uIMouseInOutListener());
 
@@ -262,7 +264,7 @@ public class MediaPlayerController implements Initializable {
                     fadeTransition.setFromValue(1.0);
                     fadeTransition.setToValue(0.0);
                     fadeTransition.play();
-                    Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+                    Stage stage = (Stage) playBtn.getScene().getWindow();
                     stage.getScene().setCursor(Cursor.NONE);
                     showUI = HIDE_UI;
                 }));
