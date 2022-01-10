@@ -1,0 +1,58 @@
+.rating {
+    button-width: 10;
+    button-height: 10;
+}
+
+ .rating > .container .button {
+	 -fx-pref-width: button-width;
+     -fx-pref-height: button-height;
+     -fx-background-size: cover;
+     -fx-padding: 0; 
+	 -fx-border-width: 0;
+	 }
+			
+			
+.rating > .container > .button {
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/star-empty.png");;
+    -fx-padding: 16 16; 
+    -fx-background-image-repeat: no-repeat;
+}
+
+.rating > .container > .button.strong {
+  -fx-background-color: transparent;
+  -fx-background-image: url("../images/star-full.png");
+  -fx-padding: 16 16; 
+  -fx-background-image-repeat: no-repeat;
+}
+
+
+
+
+.button {
+    
+}
+
+.button:hover {
+    
+}
+
+.button:pressed, .button:default:hover:pressed {
+  
+}
+
+.button:focused {
+   
+}
+
+.button:disabled, .button:default:disabled {
+    -
+}
+
+.button:default {
+    
+}
+
+.button:default:hover {
+    
+}

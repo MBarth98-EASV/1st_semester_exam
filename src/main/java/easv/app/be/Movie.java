@@ -1,6 +1,10 @@
 package easv.app.be;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import java.time.LocalDate;
 
 public class Movie {
 
@@ -12,9 +16,8 @@ public class Movie {
     @JsonProperty("Type")
     private String type;
     @JsonProperty("Poster")
-    private String poster;
+    private ImageView poster;
     private String ratings;
-
     private String runtime;
     private String rated;
     private String genre;
@@ -24,15 +27,22 @@ public class Movie {
     private String plot;
     private String language;
     private String country;
+    private String personalRating;
+
+    private String path;
+    private String lastViewed;
 
     public Movie(String title, String year, String imdbID, String type, String poster, String ratings,
                  String runtime, String rated, String genre, String director, String writer,
-                 String actors, String plot, String language, String country) {
+                 String actors, String plot, String language, String country, String path, LocalDate lastViewed, String personalRating) {
         this.title = title;
         this.year = year;
         this.imdbID = imdbID;
         this.type = type;
-        this.poster = poster;
+        this.poster = new ImageView();
+        this.poster.setImage(new Image(poster));
+        this.poster.setFitHeight(50);
+        this.poster.setPreserveRatio(true);
         this.ratings = ratings;
         this.runtime = runtime;
         this.rated = rated;
@@ -43,6 +53,9 @@ public class Movie {
         this.plot = plot;
         this.language = language;
         this.country = country;
+        this.path = path;
+        this.lastViewed = LocalDate.parse("0").toString();
+        this.personalRating = personalRating;
     }
 
     public Movie(String title, String year, String imdbID, String genre) {
@@ -53,6 +66,9 @@ public class Movie {
     }
 
     public Movie() {
+        this.poster = new ImageView();
+        this.poster.setFitHeight(50);
+        this.poster.setPreserveRatio(true);
     }
 
     public String getTitle() {
@@ -87,12 +103,12 @@ public class Movie {
         this.type = type;
     }
 
-    public String getPoster() {
+    public ImageView getPoster() {
         return poster;
     }
 
     public void setPoster(String poster) {
-        this.poster = poster;
+        this.poster.setImage(new Image(poster));
     }
 
     public String getRatings() {
@@ -175,6 +191,30 @@ public class Movie {
         this.country = country;
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getLastViewed() {
+        return lastViewed;
+    }
+
+    public void setLastViewed(String lastViewed) {
+        this.lastViewed = lastViewed;
+    }
+
+    public String getPersonalRating() {
+        return personalRating;
+    }
+
+    public void setPersonalRating(String personalRating) {
+        this.personalRating = personalRating;
+    }
+
     @Override
     public String toString() {
         return "Movie: " +
@@ -192,5 +232,4 @@ public class Movie {
                 ", writer = " + writer + ' ' +
                 ", genre = " + genre + ' ';
     }
-
 }
