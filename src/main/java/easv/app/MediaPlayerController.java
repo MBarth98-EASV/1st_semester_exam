@@ -2,16 +2,14 @@ package easv.app;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import easv.app.be.Movie;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -19,25 +17,22 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
-import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
-//TODO: Fix Cursor, Fix closing, fix buttons.
+//TODO: fix buttons, add gradient to userControlPane.
 /**
  * The Controller for the MediaPlayerView. Contains the UI functionality and
  * media playback logic.
@@ -51,29 +46,24 @@ public class MediaPlayerController implements Initializable {
     private static final boolean SHOW_UI = true;
     private static final boolean HIDE_UI = false;
 
-    @FXML
-    public MediaView mediaView;
+    @FXML public MediaView mediaView;
 
-    @FXML
-    public ProgressBar progBar;
+    @FXML public ProgressBar progBar;
 
-    @FXML
-    public Button playBtn;
+    @FXML public Button playBtn;
 
-    @FXML
-    public Button fScreenBtn;
+    @FXML public Button fScreenBtn;
 
-    @FXML
-    public Button volBtn;
+    @FXML public Button volBtn;
 
-    @FXML
-    public Label timeLabel;
+    @FXML public Label timeLabel;
 
-    @FXML
-    public Slider volSlider;
+    @FXML public Slider volSlider;
 
-    @FXML
-    public AnchorPane userControls;
+    @FXML public AnchorPane userControls;
+
+    @FXML public AnchorPane rootPane;
+
 
     private Stage thisStage;
 
@@ -92,7 +82,7 @@ public class MediaPlayerController implements Initializable {
     /**
      * The playback paused flag. Initialized to <i>false</i> locally.
      */
-    private boolean paused;
+    //private boolean paused;
     /**
      * The media mute flag. Initialized to <i>false</i> locally.
      */
@@ -124,7 +114,7 @@ public class MediaPlayerController implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         this.playing = false;
-        this.paused = false;
+        //this.paused = false;
         this.muted = false;
         this.showUI = true;
 
@@ -136,8 +126,11 @@ public class MediaPlayerController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        thisStage.widthProperty().addListener(sceneSizeChangedListener());
+        initMedia();
+        initListeners();
+    }
 
+    private void initMedia(){
         File file = new File(movie.getPath());
         try {
             media = new Media(file.toURI().toURL().toString());
@@ -146,13 +139,9 @@ public class MediaPlayerController implements Initializable {
         }
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
+    }
 
-        //Adding tooltips
-        playBtn.setTooltip(new Tooltip("Play / Pause"));
-        fScreenBtn.setTooltip(new Tooltip("Toggle Fullscreen"));
-        volBtn.setTooltip(new Tooltip("Toggle Mute"));
-        volSlider.setTooltip(new Tooltip("Volume"));
-
+    private void initListeners(){
         progBar.setOnMouseClicked(progBarMouseListener());
         progBar.setOnMouseDragged(progBarMouseListener());
 
@@ -160,6 +149,12 @@ public class MediaPlayerController implements Initializable {
         userControls.setOnMouseExited(uIMouseInOutListener());
 
         mediaPlayer.currentTimeProperty().addListener(progressChangedListener());
+        rootPane.setOnMouseMoved(sceneMouseMovedListener());
+
+
+        thisStage.widthProperty().addListener(sceneSizeChangedListener());
+        thisStage.setOnCloseRequest(stopOnClose());
+        thisStage.setOnHiding(stopOnClose());
 
 
         volSlider.setValue(0.5);
@@ -172,23 +167,30 @@ public class MediaPlayerController implements Initializable {
      * the <i>paused</i> flag by flipping it.
      */
     @FXML
-    public void playRequestHandler() {
+    public void playRequestHandler(ActionEvent event) {
         if (!playing) {
             mediaPlayer.play();
+            playBtn.setStyle("-fx-background-image: url('images/play2.png'); -fx-background-size: 20 20;");
+
         }
         //Otherwise, check the paused flag.
-        else {
-            //If not paused, pause.
+        else if (playing){
+            mediaPlayer.pause();
+            playBtn.setStyle("-fx-background-image: url('images/pause.png'); -fx-background-size: 16 16; -fx-background-position: 8;");
+
+           /* //If not paused, pause.
             if (!paused) {
-                playBtn.setStyle("-fx-graphic: url('images/play2.png'); -fx-padding: 2 4 2 4;");
+                playBtn.setStyle("-fx-background-image: url('images/play2.png'); -fx-background-size: 16 16; -fx-background-position: 8;");
                 mediaPlayer.pause();
             }
             //Otherwise, resume.
             else {
-                playBtn.setStyle("-fx-graphic: url('images/pause.png'); -fx-padding: 2 4 2 4;");
+                playBtn.setStyle("-fx-background-image: url('images/pause.png'); -fx-background-size: 16 16; -fx-background-position: 8;");
                 mediaPlayer.play();
             }
             this.paused = !paused;
+
+            */
         }
     }
 
@@ -200,9 +202,7 @@ public class MediaPlayerController implements Initializable {
     @FXML
     public void fullScreenRequestHandler(ActionEvent event)
     {
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-
-        stage.setFullScreen(!stage.isFullScreen());
+        thisStage.setFullScreen(!thisStage.isFullScreen());
     }
 
     /**
@@ -210,7 +210,7 @@ public class MediaPlayerController implements Initializable {
      * status of MediaPlayer's muteProperty.
      */
     @FXML
-    public void muteRequestHandler()
+    public void muteRequestHandler(ActionEvent event)
     {
         //If not initialized, nothing happens. Otherwise,
         if(mediaPlayer != null)
@@ -220,7 +220,7 @@ public class MediaPlayerController implements Initializable {
             {
                 mediaPlayer.muteProperty().set(!muted);
                 muted = !muted;
-                volBtn.setStyle("-fx-graphic: url('images/voldown.png'); -fx-padding: 2 4 2 4;");
+                volBtn.setStyle("-fx-background-image: url('images/volmute.png'); -fx-background-size: 15 15");
             }
             //Otherwise, demute.
             else
@@ -234,7 +234,7 @@ public class MediaPlayerController implements Initializable {
                 }
                 else if(volSlider.getValue() > 0)
                 {
-                    volBtn.setStyle("-fx-graphic: url('images/voldown.png'); -fx-padding: 2 4 2 4;");
+                    volBtn.setStyle("-fx-graphic: url('images/volup.png'); -fx-padding: 2 4 2 4;");
                 }
             }
         }
@@ -268,8 +268,7 @@ public class MediaPlayerController implements Initializable {
                     fadeTransition.setFromValue(1.0);
                     fadeTransition.setToValue(0.0);
                     fadeTransition.play();
-                    Stage stage = (Stage) playBtn.getScene().getWindow();
-                    stage.getScene().setCursor(Cursor.NONE);
+                    thisStage.getScene().setCursor(Cursor.NONE);
                     showUI = HIDE_UI;
                 }));
                 timeLine.play();
@@ -396,10 +395,6 @@ public class MediaPlayerController implements Initializable {
                     mediaPlayer.seek(mediaPlayer.getTotalDuration().multiply(
                             event.getX() / progBar.getWidth()));
 
-                    //Console printout for easier testing.
-                    System.out.println("Setting media progress to "
-                            + (int)(event.getX() / progBar.getWidth() * 100)
-                            + " %");
                 }
             }
         };
@@ -459,6 +454,54 @@ public class MediaPlayerController implements Initializable {
                     stage.getScene().setCursor(Cursor.DEFAULT);
                 }
             }
+        };
+    }
+
+    private EventHandler<WindowEvent> stopOnClose(){
+        return new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                mediaPlayer.stop();
+            }
+        };
+    }
+
+    protected EventHandler<? super KeyEvent> pauseOnEnter(){
+        return new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent key) {
+                if (key.getCode().equals(KeyCode.SPACE)) {
+                    if (!playing) {
+                        mediaPlayer.play();
+                    }
+                    if (playing){
+                        mediaPlayer.stop();
+                    }
+                    }
+                    /*if (!playing) {
+                        mediaPlayer.play();
+                    }
+                    if (playing){
+                        mediaPlayer.stop();
+                    }
+                    //Otherwise, check the paused flag.
+                    else {
+                        //If not paused, pause.
+                        if (!paused) {
+                            playBtn.setStyle("-fx-background-image: url('images/play2.png'); -fx-background-size: 20 20;");
+                            mediaPlayer.pause();
+                        }
+                        //Otherwise, resume.
+                        else {
+                            playBtn.setStyle("-fx-background-image: url('images/pause.png'); -fx-background-size: 20 20;");
+                            mediaPlayer.play();
+                        }
+                        paused = !paused;
+
+
+                }*/
+            }
+
         };
     }
 }

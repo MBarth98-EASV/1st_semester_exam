@@ -111,11 +111,12 @@ public class MovieManagerController extends FXMLProperties implements Initializa
                     return new Object[][]{
                             {"selectedMovie", selectedMovie}, {"playerStage", stage}};}};
 
+
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Player.fxml")), resources);
             stage.setTitle("Player");
             stage.setMinHeight(400);
             stage.setMinWidth(600);
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(root, 1280, 720));
             stage.show();
 
         } catch (IOException e) {

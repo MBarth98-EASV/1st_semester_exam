@@ -169,24 +169,28 @@
  */
 #playBtn{
     -fx-background-image: url('../images/play2.png');
-    -fx-background-size: 20, 20;
+    -fx-background-size: 16, 16;
     -fx-background-repeat: no-repeat;
-    -fx-background-position: 5;
+	-fx-background-radius: 30;
+    -fx-background-position: 8;
     -fx-padding: 2 4 2 4;
 }
 
 
 #fScreenBtn{
-    -fx-background-image: url('../images/pause.png');
-    -fx-background-size: 20, 20;
+    -fx-background-image: url('../images/fullscreen.png');
+    -fx-background-size: 15, 15;
     -fx-background-repeat: no-repeat;
+	-fx-background-radius: 30;
+	-fx-background-position: 7;
     -fx-padding: 2 4 2 4;
 }
 
 #volBtn{
-    -fx-background-image: url('../images/voldown.png');
-    -fx-background-size: 20, 20;
+    -fx-background-image: url('../images/volup.png');
+    -fx-background-size: 16, 16;
     -fx-background-repeat: no-repeat;
+	-fx-background-radius: 30;
     -fx-padding: 2 4 2 4;
 }
 

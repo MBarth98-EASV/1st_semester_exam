@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 
-<AnchorPane prefHeight="425.0" prefWidth="640.0" stylesheets="@styles/MediaPlayer.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MediaPlayerController">
+<AnchorPane fx:id="rootPane" prefHeight="425.0" prefWidth="640.0" stylesheets="@styles/MediaPlayer.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MediaPlayerController">
     <children>
         <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="640.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -40,10 +40,9 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <HBox alignment="CENTER" prefHeight="44.0" prefWidth="520.0" spacing="5.0" translateX="150.0" GridPane.columnIndex="1">
+                                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" translateX="-10.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                                     <children>
-                                        <Label fx:id="timeLabel" maxWidth="60.0" minWidth="60.0" style="-fx-text-fill: white;" />
-                                        <Button fx:id="volBtn" mnemonicParsing="false" onAction="#muteRequestHandler" prefHeight="27.0" prefWidth="17.0" style="-fx-border-width: 0;" />
+                                        <Button fx:id="volBtn" mnemonicParsing="false" onAction="#muteRequestHandler" prefHeight="27.0" prefWidth="17.0" style="-fx-border-width: 0;" translateY="3.0" />
                                         <Slider fx:id="volSlider" blockIncrement="0.1" majorTickUnit="0.5" max="1.0" minorTickCount="5" showTickMarks="true" translateY="-3.0" value="0.5">
                                             <padding>
                                                 <Insets top="10.0" />
@@ -57,12 +56,13 @@
                                         <Insets />
                                     </GridPane.margin>
                                 </HBox>
-                                <Button fx:id="fScreenBtn" mnemonicParsing="false" onAction="#fullScreenRequestHandler" prefHeight="27.0" prefWidth="27.0" style="-fx-border-radius: 30;" GridPane.columnIndex="2">
+                                <Button fx:id="fScreenBtn" mnemonicParsing="false" onAction="#fullScreenRequestHandler" prefHeight="30.0" prefWidth="30.0" style="-fx-border-radius: 30;" GridPane.columnIndex="2">
                                     <GridPane.margin>
                                         <Insets right="5.0" />
                                     </GridPane.margin>
                                 </Button>
-                                  <Button fx:id="playBtn" mnemonicParsing="false" onAction="#playRequestHandler" prefHeight="30.0" prefWidth="29.0" style="-fx-border-radius: 30;" />
+                                  <Button fx:id="playBtn" mnemonicParsing="false" onAction="#playRequestHandler" prefHeight="30.0" prefWidth="30.0" style="-fx-border-radius: 30;" />
+                                  <Label fx:id="timeLabel" maxWidth="60.0" minWidth="60.0" style="-fx-text-fill: white;" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
                             </children>
                         </GridPane>
                     </children>
