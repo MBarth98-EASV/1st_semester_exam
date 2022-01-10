@@ -6,6 +6,7 @@ module easv.app {
     requires com.microsoft.sqlserver.jdbc;
     requires java.sql;
     requires com.fasterxml.jackson.annotation;
+    requires java.naming;
 
     opens easv.app to javafx.fxml;
     exports easv.app;

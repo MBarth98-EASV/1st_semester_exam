@@ -15,6 +15,7 @@ public class Movie {
     private String poster;
     private String ratings;
 
+    private int id;
     private String runtime;
     private String rated;
     private String genre;
@@ -24,6 +25,8 @@ public class Movie {
     private String plot;
     private String language;
     private String country;
+    private String filepath;
+    private int lastviewed;
 
     public Movie(String title, String year, String imdbID, String type, String poster, String ratings,
                  String runtime, String rated, String genre, String director, String writer,
@@ -45,11 +48,13 @@ public class Movie {
         this.country = country;
     }
 
-    public Movie(String title, String year, String imdbID, String genre) {
+    public Movie(int id, String title, String filepath, String imdbID) {
+        this.id = id;
         this.title = title;
         this.year = year;
         this.imdbID = imdbID;
         this.genre = genre;
+        this.filepath = filepath;
     }
 
     public Movie() {
@@ -174,6 +179,17 @@ public class Movie {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId (int id) { this.id = id;}
+
+    public String getFilepath() { return filepath;}
+
+    public void setFilepath() { this.filepath = filepath;}
 
     @Override
     public String toString() {

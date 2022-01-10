@@ -46,7 +46,7 @@ public class MovieDatabase {
             this.execute("""
                     INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
                     VALUES ('%s', '%s', '%s', '%s','&s')
-                    """.formatted(movie.getTitle(), movie.getRatings(), movie.filepath, movie.getImdbID(), movie.missing));
+                    """.formatted(movie.getTitle(), movie.getRatings(), movie.getFilepath(), movie.getImdbID()));
         }
         catch (SQLException e)
         {
@@ -62,11 +62,11 @@ public class MovieDatabase {
             {
                 this.execute("""
                         DELETE FROM CatMovie WHERE movieid = %s
-                        """.formatted(movie.id));
+                        """.formatted(movie.getId()));
 
                 this.execute("""
                         DELETE FROM Movie WHERE id = %s
-                        """.formatted(movie.id));
+                        """.formatted(movie.getId()));
             }
         }
         catch (SQLException e)
@@ -88,7 +88,7 @@ public class MovieDatabase {
                         filelink = '%s',
                         imdblink = '%s',
                         lastviewed = '%s'
-                        """.formatted(movie.getTitle(), movie.getRatings(), movie.filepath, movie.getImdbID(), movie.lastviewed));
+                        """.formatted(movie.getTitle(), movie.getRatings(), movie.getFilepath(), movie.getImdbID()));
             }
         }
         catch (SQLException e)
@@ -122,16 +122,12 @@ public class MovieDatabase {
             movieFilepath = result.getString("filepath");
             movieIMDBlink = result.getString("imdblink");
 
-            return new Movie()
+            return new Movie(movieid, movieTitle, movieFilepath, movieIMDBlink);
         }
         catch (SQLException e)
         {
             e.printStackTrace();
+            return null;
         }
-    }
-
-    private void testMethod()
-    {
-
     }
 }
