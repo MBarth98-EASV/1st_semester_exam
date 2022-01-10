@@ -24,6 +24,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -136,27 +137,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
     public void onDeleteMovie(ActionEvent event) {
-       /* MenuItem open = new MenuItem("Open");
-        Menu file = new Menu("File");
-        MenuBar menu = new MenuBar();
-        Player player;
-
-            // here you can choose any video
-            player = new Player(path2);
-
-            // Setting the menu at the top
-            player.setTop();
-
-            // Adding player to the Scene
-            Scene scene = new Scene(player, 720, 535);
-
-            // height and width of the video player
-            // background color set to Black
-            Stage stage = new Stage();
-            stage.setScene(scene); // Setting the scene to stage
-            stage.show(); // Showing the stage
-
-        */
+       FileChooser fileChooser = new FileChooser();
+        File selectedFile =  fileChooser.showOpenDialog(new Stage());
+        selectedMovie.setPath(selectedFile.getAbsolutePath());
     }
 
 
