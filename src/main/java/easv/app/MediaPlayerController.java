@@ -37,7 +37,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-//TODO: Fix Cursor, Fix MediaView resize, Fix closing, fix seekbar, fix buttons.
+//TODO: Fix Cursor, Fix closing, fix buttons.
 /**
  * The Controller for the MediaPlayerView. Contains the UI functionality and
  * media playback logic.
@@ -74,6 +74,8 @@ public class MediaPlayerController implements Initializable {
 
     @FXML
     public AnchorPane userControls;
+
+    private Stage thisStage;
 
     /**
      * The reusable MediaPlayer.
@@ -129,11 +131,12 @@ public class MediaPlayerController implements Initializable {
         try {
             if (resources.getObject("selectedMovie") != null) {
                 movie = (Movie) resources.getObject("selectedMovie");
+                thisStage = (Stage) resources.getObject("playerStage");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        thisStage.widthProperty().addListener(sceneSizeChangedListener());
 
         File file = new File(movie.getPath());
         try {
@@ -439,13 +442,6 @@ public class MediaPlayerController implements Initializable {
         };
     }
 
-    private void setListeners(ActionEvent event){
-        sceneMouseMovedListener();
-        /*Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.widthProperty().addListener(sceneSizeChangedListener());
-
-         */
-    }
 
     /**
      * Listens for mouse movement within the scene. Sets default Cursor on movement.
@@ -456,7 +452,8 @@ public class MediaPlayerController implements Initializable {
         return new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
-                Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+                //Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+                Stage stage = thisStage;
                 if(stage.getScene().getCursor() != Cursor.DEFAULT)
                 {
                     stage.getScene().setCursor(Cursor.DEFAULT);

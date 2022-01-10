@@ -104,14 +104,14 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         Parent root = null;
         try {
+            Stage stage = new Stage();
             ResourceBundle resources = new ListResourceBundle() {
                 @Override
                 protected Object[][] getContents() {
                     return new Object[][]{
-                            {"selectedMovie", selectedMovie}};}};
+                            {"selectedMovie", selectedMovie}, {"playerStage", stage}};}};
 
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Player.fxml")), resources);
-            Stage stage = new Stage();
             stage.setTitle("Player");
             stage.setMinHeight(400);
             stage.setMinWidth(600);
