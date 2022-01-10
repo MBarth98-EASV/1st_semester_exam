@@ -130,8 +130,9 @@
     -fx-padding: 1 1 1 1;
     -fx-border-color: #3a3a3a;
     -fx-border-width: 2;
-    -fx-background-radius: 0;
-    -fx-background-color: #000000;
+	-fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: #202020;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -182,7 +183,7 @@
     -fx-background-size: 15, 15;
     -fx-background-repeat: no-repeat;
 	-fx-background-radius: 30;
-	-fx-background-position: 7;
+	-fx-background-position: 7.5;
     -fx-padding: 2 4 2 4;
 }
 
@@ -190,7 +191,9 @@
     -fx-background-image: url('../images/volup.png');
     -fx-background-size: 16, 16;
     -fx-background-repeat: no-repeat;
+	-fx-border-width: 0;
 	-fx-background-radius: 30;
+	-fx-background-color: transparent;
     -fx-padding: 2 4 2 4;
 }
 

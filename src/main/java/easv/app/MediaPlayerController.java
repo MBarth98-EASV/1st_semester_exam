@@ -32,7 +32,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
-//TODO: fix buttons, add gradient to userControlPane.
+//TODO: fix buttons, add gradient to userControlPane. If possible, add keyboard shortcut for play/pause
 /**
  * The Controller for the MediaPlayerView. Contains the UI functionality and
  * media playback logic.
@@ -128,6 +128,7 @@ public class MediaPlayerController implements Initializable {
         }
         initMedia();
         initListeners();
+        mediaPlayer.play();
     }
 
     private void initMedia(){
@@ -220,22 +221,15 @@ public class MediaPlayerController implements Initializable {
             {
                 mediaPlayer.muteProperty().set(!muted);
                 muted = !muted;
-                volBtn.setStyle("-fx-background-image: url('images/volmute.png'); -fx-background-size: 15 15");
+                volBtn.setStyle("-fx-background-image: url('images/volmute.png');");
             }
             //Otherwise, demute.
             else
             {
                 mediaPlayer.muteProperty().set(!muted);
                 muted = !muted;
+                volBtn.setStyle("-fx-graphic: url('images/volup.png');");
                 //Set the appropriate volume button icon on return, based on current volume.
-                if(volSlider.getValue() > 0.6)
-                {
-                    volBtn.setStyle("-fx-graphic: url('images/volup.png'); -fx-padding: 2 4 2 4;");
-                }
-                else if(volSlider.getValue() > 0)
-                {
-                    volBtn.setStyle("-fx-graphic: url('images/volup.png'); -fx-padding: 2 4 2 4;");
-                }
             }
         }
     }
