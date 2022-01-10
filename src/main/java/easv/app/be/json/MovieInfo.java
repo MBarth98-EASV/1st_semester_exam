@@ -4,7 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * full structure of selected data that we retrieve from imdb through the omdb api (Open Movie Database api)
- * @author mads-
+ * @author mads
+ * @author Rasmus
  * */
 public class MovieInfo
 {

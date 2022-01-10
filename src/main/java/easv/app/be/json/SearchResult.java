@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
  *
  *
  * @author mads-
+ * @author Rasmus
  * */
 public class SearchResult
 {
