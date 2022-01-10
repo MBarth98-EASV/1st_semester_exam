@@ -1,0 +1,197 @@
+.AddButton {
+    -fx-border-color: #e2e2e2;
+    -fx-background-image: url(../images/plus.png);
+    -fx-background-size: 16px 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+    -fx-content-display: CENTER;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: #262626;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 1pt;
+    -fx-text-fill: #d8d8d8;
+}
+
+
+.AddButton:hover {
+    -fx-background-color: transparent;
+    -fx-border-color: #5786cb;
+    -fx-text-fill: #5786cb;
+}
+
+.AddButton:pressed {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #5786cb;
+    -fx-border-color: #5786cb;
+    -fx-border-radius: 5;
+}
+
+.AddButton:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #11223f;
+    -fx-text-fill: #d5d4d4;
+}
+
+.DeleteButton {
+    -fx-border-color: #e2e2e2;
+    -fx-background-image: url(../images/minus.png);
+    -fx-background-size: 12px 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+    -fx-content-display: CENTER;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: #262626;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 1pt;
+    -fx-text-fill: #d8d8d8;
+}
+
+
+.DeleteButton:hover {
+    -fx-background-color: transparent;
+    -fx-border-color: #5786cb;
+    -fx-text-fill: #5786cb;
+}
+
+.DeleteButton:pressed {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #5786cb;
+    -fx-border-color: #5786cb;
+    -fx-border-radius: 5;
+}
+
+.DeleteButton:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #11223f;
+    -fx-text-fill: #d5d4d4;
+}
+
+.EditButton {
+    -fx-border-color: #e2e2e2;
+    -fx-background-image: url(../images/edit.png);
+    -fx-background-size: 16px 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+    -fx-content-display: CENTER;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: #262626;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 1pt;
+    -fx-text-fill: #d8d8d8;
+}
+
+
+.EditButton:hover {
+    -fx-background-color: transparent;
+    -fx-border-color: #5786cb;
+    -fx-text-fill: #5786cb;
+}
+
+.EditButton:pressed {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #5786cb;
+    -fx-border-color: #5786cb;
+    -fx-border-radius: 5;
+}
+
+.EditButton:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #11223f;
+    -fx-text-fill: #d5d4d4;
+}
+
+.playButton {
+    -fx-border-color: #e2e2e2;
+    -fx-background-image: url(../images/play.png);
+    -fx-background-size: 16px 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 55%;
+    -fx-content-display: CENTER;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: #5786cb;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 1pt;
+    -fx-text-fill: #e2e2e2;
+}
+
+.playButton:hover {
+    -fx-background-color: #e2e2e2;
+    -fx-background-radius: 30;
+}
+
+.playButton:pressed, .button:default:hover:pressed {
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-radius: 30;
+
+}
+
+.playButton:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 30;
+}
+
+.playButton:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.playButton:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.playButton:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+.EditButton2 {
+    -fx-background-image: url(../images/edit.png);
+    -fx-background-size: 10px 10px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 10pt;
+    -fx-text-fill: #d5d4d4;
+    -fx-background-color: transparent;
+    -fx-content-display: CENTER;
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+    -fx-border-color: #e2e2e2;
+    -fx-background-radius: 5;
+}
+
+
+
+
+.EditButton2:hover {
+    -fx-background-color: transparent;
+    -fx-border-color: #5786cb;
+    -fx-text-fill: #5786cb;
+}
+
+.EditButton2:pressed {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #5786cb;
+    -fx-border-color: #5786cb;
+    -fx-border-radius: 5;
+}
+
+.EditButton2:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #11223f;
+    -fx-text-fill: #d5d4d4;
+}
+
+
