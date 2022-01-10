@@ -45,6 +45,18 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>10.1.0.jre17-preview</version>
+        </dependency>
+        <dependency>
+            <groupId>com.exasol</groupId>
+            <artifactId>sql-statement-builder</artifactId>
+            <version>4.5.0</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!--
                dependencies for working with REST api's
