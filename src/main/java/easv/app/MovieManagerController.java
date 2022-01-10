@@ -3,7 +3,10 @@ package easv.app;
 import easv.app.CustomComponent.Player;
 import easv.app.be.FXMLProperties;
 import easv.app.be.Movie;
+import java.io.File;
+import java.io.IOException;
 import javafx.event.ActionEvent;
+import java.awt.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,8 +32,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ListResourceBundle;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static java.awt.Desktop.*;
 
 public class MovieManagerController extends FXMLProperties implements Initializable {
 
@@ -89,33 +95,32 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
     public void onPlayMovie(ActionEvent event) {
-        /*try {
-            Desktop.getDesktop().open(new File(selectedMovie.getPath()));
+       /* try {
+            getDesktop().open(new File(selectedMovie.getPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
 
-         */
-        Media pick = new Media(selectedMovie.getPath());
-        MediaPlayer player = new MediaPlayer(pick);
+        Parent root = null;
+        try {
+            ResourceBundle resources = new ListResourceBundle() {
+                @Override
+                protected Object[][] getContents() {
+                    return new Object[][]{
+                            {"selectedMovie", selectedMovie}};}};
 
-        // Add a mediaView, to display the media. Its necessary !
-        // This mediaView is added to a Pane
-        MediaView mediaView = new MediaView(player);
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Player.fxml")), resources);
+            Stage stage = new Stage();
+            stage.setTitle("Player");
+            stage.setMinHeight(400);
+            stage.setMinWidth(600);
+            stage.setScene(new Scene(root, 600, 400));
+            stage.show();
 
-        // Add to scene
-        Group root = new Group(mediaView);
-        Scene scene = new Scene(root, 500, 200);
-
-        // Show the stage
-        Stage stage = new Stage();
-        stage.setTitle("Media Player");
-        stage.setScene(scene);
-        stage.show();
-
-        // Play the media once the stage is shown
-        player.play();
-        selectedMovie.setLastViewed(LocalDate.now().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onNewMovie(ActionEvent event) {

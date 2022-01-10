@@ -1,8 +1,14 @@
 package easv.app;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import easv.app.be.Movie;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -11,6 +17,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -38,36 +45,35 @@ import javafx.util.Duration;
  * @author Alex Hage, Rasmus Sandbæk
  *
  */
-public class MediaPlayerController {
+public class MediaPlayerController implements Initializable {
 
     private static final int HIDE_UI_TIMEOUT = 2500;
     private static final boolean SHOW_UI = true;
     private static final boolean HIDE_UI = false;
 
     @FXML
-    private MediaView mediaView;
+    public MediaView mediaView;
 
     @FXML
-    private ProgressBar progBar;
-
-
-    @FXML
-    private Button playBtn;
+    public ProgressBar progBar;
 
     @FXML
-    private Button fScreenBtn;
+    public Button playBtn;
 
     @FXML
-    private Button volBtn;
+    public Button fScreenBtn;
 
     @FXML
-    private Label timeLabel;
+    public Button volBtn;
 
     @FXML
-    private Slider volSlider;
+    public Label timeLabel;
 
     @FXML
-    private AnchorPane userControls;
+    public Slider volSlider;
+
+    @FXML
+    public AnchorPane userControls;
 
     /**
      * The reusable MediaPlayer.
@@ -99,6 +105,7 @@ public class MediaPlayerController {
      */
     private Timeline timeLine;
 
+    private Movie movie;
     /**
      * The default constructor.
      * Called before the <i>initialize()</i> method.
@@ -113,11 +120,29 @@ public class MediaPlayerController {
      * has been loaded.
      */
     @FXML
-    public void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
         this.playing = false;
         this.paused = false;
         this.muted = false;
         this.showUI = true;
+
+        try {
+            if (resources.getObject("selectedMovie") != null) {
+                movie = (Movie) resources.getObject("selectedMovie");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        File file = new File(movie.getPath());
+        try {
+            media = new Media(file.toURI().toURL().toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer = new MediaPlayer(media);
+        mediaView.setMediaPlayer(mediaPlayer);
 
         //Adding tooltips
         playBtn.setTooltip(new Tooltip("Play / Pause"));
@@ -142,7 +167,6 @@ public class MediaPlayerController {
      */
     @FXML
     public void playRequestHandler() {
-        //If not playing anything, play the list.
         if (!playing) {
             mediaPlayer.play();
         }
@@ -291,7 +315,7 @@ public class MediaPlayerController {
                 {
                     volBtn.setStyle("-fx-graphic: url('images/volup.png'); -fx-padding: 2 4 2 4;");
                 }
-                else if(newValue.doubleValue() == 0)
+                else if(newValue.doubleValue() == 0) //TODO: MUTE
                 {
                     volBtn.setStyle("-fx-graphic: url('images/volup.png'); -fx-padding: 2 4 2 4;");
                 }
