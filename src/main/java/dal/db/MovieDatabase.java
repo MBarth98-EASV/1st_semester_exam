@@ -110,6 +110,26 @@ public class MovieDatabase {
 
     }
 
+    private Movie createMovieFromDatabase (ResultSet result)
+    {
+        try (Connection connection = dbaccess.getConnection())
+        {
+            int movieid, rating, lastviewed;
+            String movieFilepath, movieIMDBlink, movieTitle;
+
+            movieTitle = result.getString("title");
+            movieid = result.getInt("id");
+            movieFilepath = result.getString("filepath");
+            movieIMDBlink = result.getString("imdblink");
+
+            return new Movie()
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     private void testMethod()
     {
 
