@@ -1,34 +1,21 @@
 package easv.app.controllers;
 
 import easv.app.be.FXMLProperties;
-import easv.app.be.MovieModel;
 import easv.app.bll.DataManager;
-import javafx.beans.WeakInvalidationListener;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.SelectionModel;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -47,7 +34,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         tblViewMovies.getColumns().add(tblClmImbdRating);
         tblViewMovies.getColumns().add(tblClmPersonalRating);
         tblViewMovies.getColumns().add(tblClmLastViewed);
-
     }
 
     @Override
@@ -199,16 +185,11 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         //this.tblClmPoster.setCellValueFactory(param -> param.getValue().posterProperty());
 
         this.tblClmTitle.setCellValueFactory(param -> param.getValue().titleProperty());
-
         this.tblClmType.setCellValueFactory(param -> param.getValue().typeProperty());
-
         this.tblClmImbdRating.setCellValueFactory(param -> param.getValue().ratedProperty());
-
         this.tblClmPersonalRating.setCellValueFactory(param -> param.getValue().personalRatingProperty());
-
         this.tblClmLastViewed.setCellValueFactory(param -> param.getValue().lastViewedProperty());
 
         this.tblViewMovies.itemsProperty().bindBidirectional(data.getMovies());
-
     }
 }

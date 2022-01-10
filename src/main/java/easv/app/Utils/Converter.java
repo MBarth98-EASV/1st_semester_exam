@@ -5,6 +5,7 @@ import easv.app.be.json.MovieInfo;
 
 public class Converter
 {
+    // temporary should be done in the data manager (combining api and database data)
     public static MovieModel convert(MovieInfo info)
     {
         MovieModel model = new MovieModel();

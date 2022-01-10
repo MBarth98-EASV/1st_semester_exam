@@ -2,20 +2,12 @@ package easv.app.bll;
 
 import easv.app.Utils.Converter;
 import easv.app.be.MovieModel;
-import easv.app.be.json.MovieInfo;
 import easv.app.dal.api.OpenMovieNetwork;
-import easv.app.dal.db.IDatabaseCRUD;
-import easv.app.dal.db.MovieDatabase;
 import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DataManager
 {
@@ -27,11 +19,18 @@ public class DataManager
         movies.set(FXCollections.observableArrayList());
     }
 
+    // may be initial load or reset later
     public void load() throws IOException
     {
-        var model = OpenMovieNetwork.getInstance().get(null, "john wick", false);
-        var model2 = OpenMovieNetwork.getInstance().get(null, "star wars", false);
-        movies.addAll(Converter.convert(model), Converter.convert(model2));
+        // get all movies from db
+
+        // get any and all movie info from api with id from db
+
+        // set all items in movies list with combined data (api movie info + db movie info)
+
+        var apiInfo1 = OpenMovieNetwork.getInstance().get(null, "john wick", false);
+        var apiInfo2 = OpenMovieNetwork.getInstance().get(null, "star wars", false);
+        movies.setAll(Converter.convert(apiInfo1), Converter.convert(apiInfo2));
     }
 
     public ListProperty<MovieModel> getMovies()
@@ -39,6 +38,12 @@ public class DataManager
         return movies;
     }
 
+
+    public void add( /* what parameters ? */ )
+    {
+        // add in db
+        // add to movies list to update GUI
+    }
 
     public void update(MovieModel selectedItem)
     {
