@@ -1,4 +1,4 @@
-package dal.db;
+package easv.app.dal.db;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import java.sql.Connection;

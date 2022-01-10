@@ -1,4 +1,4 @@
-package dal.db;
+package easv.app.dal.db;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -46,7 +46,7 @@ public class MovieDatabase {
             this.execute("""
                     INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
                     VALUES ('%s', '%s', '%s', '%s','&s')
-                    """.formatted(movie.getTitle(), movie.getRatings(), movie.getFilepath(), movie.getImdbID()));
+                    """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getImdbID()));
         }
         catch (SQLException e)
         {
@@ -62,11 +62,11 @@ public class MovieDatabase {
             {
                 this.execute("""
                         DELETE FROM CatMovie WHERE movieid = %s
-                        """.formatted(movie.getId()));
+                        """.formatted(movie.getImdbID()));
 
                 this.execute("""
                         DELETE FROM Movie WHERE id = %s
-                        """.formatted(movie.getId()));
+                        """.formatted(movie.getImdbID()));
             }
         }
         catch (SQLException e)
@@ -88,7 +88,7 @@ public class MovieDatabase {
                         filelink = '%s',
                         imdblink = '%s',
                         lastviewed = '%s'
-                        """.formatted(movie.getTitle(), movie.getRatings(), movie.getFilepath(), movie.getImdbID()));
+                        """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getImdbID()));
             }
         }
         catch (SQLException e)
@@ -114,11 +114,11 @@ public class MovieDatabase {
     {
         try (Connection connection = dbaccess.getConnection())
         {
-            int movieid, rating, lastviewed;
+            String movieid, rating, lastviewed;
             String movieFilepath, movieIMDBlink, movieTitle;
 
             movieTitle = result.getString("title");
-            movieid = result.getInt("id");
+            movieid = result.getString("id");
             movieFilepath = result.getString("filepath");
             movieIMDBlink = result.getString("imdblink");
 
