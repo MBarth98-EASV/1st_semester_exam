@@ -1,4 +1,4 @@
-package easv.app.CustomComponent;
+package easv.app.Utils.CustomComponent;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;

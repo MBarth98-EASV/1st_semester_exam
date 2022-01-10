@@ -1,4 +1,4 @@
-package easv.app;
+package easv.app.controllers;
 
 import easv.app.be.FXMLProperties;
 import javafx.event.ActionEvent;

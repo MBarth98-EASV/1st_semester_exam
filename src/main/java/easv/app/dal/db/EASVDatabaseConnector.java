@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class EASVDatabaseConnector {
 
-    private SQLServerDataSource dbaccess;
+    private final SQLServerDataSource dbaccess;
 
     public EASVDatabaseConnector()
     {

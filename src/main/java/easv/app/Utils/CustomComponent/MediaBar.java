@@ -1,4 +1,4 @@
-package easv.app.CustomComponent;
+package easv.app.Utils.CustomComponent;
 
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;

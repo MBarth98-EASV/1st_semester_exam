@@ -18,4 +18,5 @@ module easv.app {
 
     exports easv.app;
     exports easv.app.be;
+    exports easv.app.controllers;
 }

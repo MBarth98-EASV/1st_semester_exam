@@ -17,11 +17,12 @@ public class MovieDatabase {
 
     private void execute(String sql)
     {
-        try (Connection connection = dbaccess.getConnection()) {
+        try (Connection connection = dbaccess.getConnection())
+        {
             Statement statement = connection.createStatement();
             statement.execute(sql);
-
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
             e.printStackTrace();
         }
@@ -29,7 +30,8 @@ public class MovieDatabase {
 
     private ResultSet query(String sql)
     {
-        try (Connection connection = dbaccess.getConnection()) {
+        try
+        {
             Statement statement = dbaccess.getConnection().createStatement();
             return statement.executeQuery(sql);
         }
@@ -41,93 +43,55 @@ public class MovieDatabase {
 
     private void addMovie(Movie movie)
     {
-        try (Connection connection = dbaccess.getConnection())
-        {
-            this.execute("""
-                    INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
-                    VALUES ('%s', '%s', '%s', '%s','&s')
-                    """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getImdbID()));
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        this.execute("""
+                INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
+                VALUES ('%s', '%s', '%s', '%s','&s')
+                """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getImdbID()));
     }
 
     private void deleteMovie(Movie movie)
     {
-        try (Connection connection = dbaccess.getConnection())
+        if (movie != null)
         {
-            if (movie != null)
-            {
-                this.execute("""
-                        DELETE FROM CatMovie WHERE movieid = %s
-                        """.formatted(movie.getImdbID()));
+            this.execute("""
+                    DELETE FROM CatMovie WHERE movieid = %s
+                    """.formatted(movie.getImdbID()));
 
-                this.execute("""
-                        DELETE FROM Movie WHERE id = %s
-                        """.formatted(movie.getImdbID()));
-            }
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
+            this.execute("""
+                    DELETE FROM Movie WHERE id = %s
+                    """.formatted(movie.getImdbID()));
         }
 
     }
 
     private void updateMovie(Movie movie)
     {
-        try (Connection connection = dbaccess.getConnection())
+        if (movie != null)
         {
-            if (movie != null)
-            {
-                this.execute("""
-                        UPDATE Movie SET title = '%s',
-                        rating = '%s',
-                        filelink = '%s',
-                        imdblink = '%s',
-                        lastviewed = '%s'
-                        """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getImdbID()));
-            }
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
+            this.execute("""
+                    UPDATE Movie SET title = '%s',
+                    rating = '%s',
+                    filelink = '%s',
+                    imdblink = '%s',
+                    lastviewed = '%s'
+                    """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getImdbID(), movie.getLastViewed()));
         }
     }
 
     private void getAllMoves()
     {
-        try (Connection connection = dbaccess.getConnection())
-        {
-
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
 
     }
 
-    private Movie createMovieFromDatabase (ResultSet result)
+    private Movie createMovieFromDatabase(ResultSet result) throws SQLException
     {
-        try (Connection connection = dbaccess.getConnection())
-        {
-            String movieid, rating, lastviewed;
-            String movieFilepath, movieIMDBlink, movieTitle;
+        String movieId, rating, lastviewed;
+        String movieFilepath, movieIMDBlink, movieTitle;
+        movieTitle = result.getString("title");
+        movieId = result.getString("id");
+        movieFilepath = result.getString("filepath");
+        movieIMDBlink = result.getString("imdblink");
 
-            movieTitle = result.getString("title");
-            movieid = result.getString("id");
-            movieFilepath = result.getString("filepath");
-            movieIMDBlink = result.getString("imdblink");
-
-            return new Movie(movieid, movieTitle, movieFilepath, movieIMDBlink);
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
+        return new Movie(movieId, movieTitle, movieFilepath, movieIMDBlink);
     }
 }
