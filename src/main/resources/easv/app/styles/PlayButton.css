@@ -1,0 +1,24 @@
+.Button
+{
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    
+    -fx-background-color: transparent;
+    -fx-background-image: url(../images/play.png);
+    -fx-background-size: 20;
+    -fx-background-position: 9;
+    -fx-background-repeat: no-repeat;
+}
+
+.Button:hover {
+    -fx-background-color: transparent;
+    -fx-border-color: #5786cb;
+}
+
+.Button:pressed {
+    -fx-background-color: transparent;
+    -fx-border-color: #8592c0;
+}
+
+
