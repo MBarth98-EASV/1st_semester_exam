@@ -8,14 +8,11 @@ import java.util.List;
 
 public class SearchModel
 {
-    @SerializedName("Search")
-    private SimpleListProperty<MovieModel> movies = new SimpleListProperty<>();
+    private final SimpleListProperty<MovieModel> movies = new SimpleListProperty<>();
 
-    @SerializedName("totalResults")
-    private SimpleIntegerProperty itemCount = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty itemCount = new SimpleIntegerProperty();
 
-    @SerializedName("Response")
-    private SimpleStringProperty response = new SimpleStringProperty();
+    private final SimpleStringProperty response = new SimpleStringProperty();
 
     public SearchModel(List<MovieModel> movies, int count, String response)
     {

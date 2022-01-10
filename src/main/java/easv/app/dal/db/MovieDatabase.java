@@ -4,11 +4,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import easv.app.be.Movie;
 
-public class MovieDatabase {
+import easv.app.be.MovieModel;
 
-    private EASVDatabaseConnector dbaccess;
+public class MovieDatabase implements IDatabaseCRUD<MovieModel>
+{
+    private final EASVDatabaseConnector dbaccess;
 
     public MovieDatabase()
     {
@@ -41,30 +42,30 @@ public class MovieDatabase {
         }
     }
 
-    private void addMovie(Movie movie)
+    private void addMovie(MovieModel movie)
     {
         this.execute("""
                 INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
                 VALUES ('%s', '%s', '%s', '%s','&s')
-                """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getImdbID()));
+                """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getID()));
     }
 
-    private void deleteMovie(Movie movie)
+    private void deleteMovie(MovieModel movie)
     {
         if (movie != null)
         {
             this.execute("""
                     DELETE FROM CatMovie WHERE movieid = %s
-                    """.formatted(movie.getImdbID()));
+                    """.formatted(movie.getID()));
 
             this.execute("""
                     DELETE FROM Movie WHERE id = %s
-                    """.formatted(movie.getImdbID()));
+                    """.formatted(movie.getID()));
         }
 
     }
 
-    private void updateMovie(Movie movie)
+    private void updateMovie(MovieModel movie)
     {
         if (movie != null)
         {
@@ -74,7 +75,7 @@ public class MovieDatabase {
                     filelink = '%s',
                     imdblink = '%s',
                     lastviewed = '%s'
-                    """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getImdbID(), movie.getLastViewed()));
+                    """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getID(), movie.getLastViewed()));
         }
     }
 
@@ -83,7 +84,7 @@ public class MovieDatabase {
 
     }
 
-    private Movie createMovieFromDatabase(ResultSet result) throws SQLException
+    private MovieModel createMovieFromDatabase(ResultSet result) throws SQLException
     {
         String movieId, rating, lastviewed;
         String movieFilepath, movieIMDBlink, movieTitle;
@@ -91,7 +92,58 @@ public class MovieDatabase {
         movieId = result.getString("id");
         movieFilepath = result.getString("filepath");
         movieIMDBlink = result.getString("imdblink");
+        return null;
+       // return new MovieModel(movieId, movieTitle, movieFilepath, movieIMDBlink);
+    }
 
-        return new Movie(movieId, movieTitle, movieFilepath, movieIMDBlink);
+    @Override
+    public void create(MovieModel input)
+    {
+        this.execute("""
+                INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
+                VALUES ('%s', '%s', '%s', '%s','&s')
+                """.formatted(input.getTitle(), input.getRatings(), input.getPath(), input.getID()));
+    }
+
+    @Override
+    public MovieModel read(MovieModel input)
+    {
+        return null;
+    }
+
+    @Override
+    public MovieModel[] readAll()
+    {
+        return new MovieModel[0];
+    }
+
+    @Override
+    public void update(MovieModel input)
+    {
+        if (input != null)
+        {
+            this.execute("""
+                    UPDATE Movie SET title = '%s',
+                    rating = '%s',
+                    filelink = '%s',
+                    imdblink = '%s',
+                    lastviewed = '%s'
+                    """.formatted(input.getTitle(), input.getRatings(), input.getPath(), input.getID(), input.getLastViewed()));
+        }
+    }
+
+    @Override
+    public void delete(MovieModel input)
+    {
+        if (input != null)
+        {
+            this.execute("""
+                    DELETE FROM CatMovie WHERE movieid = %s
+                    """.formatted(input.getID()));
+
+            this.execute("""
+                    DELETE FROM Movie WHERE id = %s
+                    """.formatted(input.getID()));
+        }
     }
 }

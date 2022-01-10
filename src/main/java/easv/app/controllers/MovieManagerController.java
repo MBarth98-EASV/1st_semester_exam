@@ -1,7 +1,11 @@
 package easv.app.controllers;
 
 import easv.app.be.FXMLProperties;
-import easv.app.be.Movie;
+import easv.app.be.MovieModel;
+import easv.app.bll.DataManager;
+import javafx.beans.WeakInvalidationListener;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,56 +24,69 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MovieManagerController extends FXMLProperties implements Initializable {
 
-    Movie selectedMovie;
-    String imageURL = "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg";
-    String path1 = "C:\\Users\\Sandbxk\\Desktop\\test.mp4";
-    String path2 = "E:\\- Media\\Movies\\Life of Brian (1979) 1080p\\Life.Of.Brian..1979.1080p.BluRay.X264.YIFY.mp4";
+    DataManager data;
 
-    public MovieManagerController(){
-        tblViewMovies= new TableView();
-        tblClmPoster = new TableColumn<Movie, ImageView>();
-        tblClmTitle = new TableColumn();
-        tblClmType = new TableColumn();
-        tblClmImbdRating = new TableColumn();
-        tblClmPersonalRating = new TableColumn();
-        tblClmLastViewed = new TableColumn();
-        tblViewMovies.getColumns().add(this.tblClmPoster);
-        tblViewMovies.getColumns().add(this.tblClmTitle);
-        tblViewMovies.getColumns().add(this.tblClmType);
-        tblViewMovies.getColumns().add(this.tblClmImbdRating);
-        tblViewMovies.getColumns().add(this.tblClmPersonalRating);
-        tblViewMovies.getColumns().add(this.tblClmLastViewed);
+    public MovieManagerController()
+    {
+        data = new DataManager();
+
+        tblViewMovies.getColumns().add(tblClmPoster);
+        tblViewMovies.getColumns().add(tblClmTitle);
+        tblViewMovies.getColumns().add(tblClmType);
+        tblViewMovies.getColumns().add(tblClmImbdRating);
+        tblViewMovies.getColumns().add(tblClmPersonalRating);
+        tblViewMovies.getColumns().add(tblClmLastViewed);
 
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        try
+        {
+            data.load();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
         initializeMovieTable();
 
-        selectedMovie = new Movie();
-        selectedMovie.setPoster(imageURL);
-        selectedMovie.setTitle("John Wick");
-        selectedMovie.setPath(path2);
-        selectedMovie.setPersonalRating("5");
-        selectedMovie.setLastViewed(LocalDate.now().toString());
-        selectedMovie.setRatings("10/10");
-        selectedMovie.setType("Movie");
-        movieRating.setRating(Double.parseDouble(selectedMovie.getPersonalRating()));
-        for (int i = 0; i < 20; i++){
-            lstViewGenre.getItems().add("Romance");
-        }
-        imgViewMovPoster.setImage(selectedMovie.getPoster().getImage());
-        tblViewMovies.getItems().add(selectedMovie);
+        tblViewMovies.getSelectionModel().selectedItemProperty().addListener(observable -> updateSelectedItemBindings());
+        tblViewMovies.getSelectionModel().selectFirst();
+    }
 
+    public void updateSelectedItemBindings()
+    {
+        var selected = this.tblViewMovies.getSelectionModel().getSelectedItem();
+
+        // simple text fields
+        lblMovTitle.textProperty().set(selected.getTitle());
+        lblMovActors.textProperty().set(selected.getActors());
+        lblMovCountry.textProperty().set(selected.getCountry());
+        lblMovDirector.textProperty().set(selected.getDirector());
+        lblMovRating.textProperty().set(selected.getAgeRating());
+        lblMovImbdRating.textProperty().set(selected.getRated());
+        lblMovLanguage.textProperty().set(selected.getLanguage());
+        lblMovRuntime.textProperty().set(selected.getRuntime());
+        lblMovWriters.textProperty().set(selected.getWriter());
+        lblMovYear.textProperty().set(selected.getYear());
+        txtAreaMovPlot.setText(selected.getPlot());
+
+        imgViewMovPoster.setImage(selected.getPoster().getImage());
+        movieRating.setRating(Double.parseDouble(Optional.ofNullable(selected.getPersonalRating()).orElse("0.0")));
     }
 
     public void onSearch(ActionEvent event) {
@@ -82,15 +100,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     }
 
-    public void onPlayMovie(ActionEvent event) {
-        /*try {
-            Desktop.getDesktop().open(new File(selectedMovie.getPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-         */
-        Media pick = new Media(selectedMovie.getPath());
+    public void onPlayMovie(ActionEvent event)
+    {
+        Media pick = new Media(tblViewMovies.getSelectionModel().getSelectedItem().getPath());
         MediaPlayer player = new MediaPlayer(pick);
 
         // Add a mediaView, to display the media. Its necessary !
@@ -109,7 +121,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         // Play the media once the stage is shown
         player.play();
-        selectedMovie.setLastViewed(LocalDate.now().toString());
+       // data.getCurrentMovie().get().setLastViewed(LocalDate.now().toString());
     }
 
     public void onNewMovie(ActionEvent event) {
@@ -131,27 +143,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
     public void onDeleteMovie(ActionEvent event) {
-       /* MenuItem open = new MenuItem("Open");
-        Menu file = new Menu("File");
-        MenuBar menu = new MenuBar();
-        Player player;
 
-            // here you can choose any video
-            player = new Player(path2);
-
-            // Setting the menu at the top
-            player.setTop();
-
-            // Adding player to the Scene
-            Scene scene = new Scene(player, 720, 535);
-
-            // height and width of the video player
-            // background color set to Black
-            Stage stage = new Stage();
-            stage.setScene(scene); // Setting the scene to stage
-            stage.show(); // Showing the stage
-
-        */
     }
 
 
@@ -193,42 +185,30 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     public void onMovieRated(MouseEvent mouseEvent) {
         int rating = (int) movieRating.getRating();
-        selectedMovie.setRated(String.valueOf(rating));
-        System.out.println(rating);
+
+        var selected =  this.tblViewMovies.getSelectionModel().getSelectedItem();
+
+        selected.setPersonalRating(rating + "");
+        data.update(selected);
     }
 
-    private void initializeMovieTable(){
+    private void initializeMovieTable()
+    {
         this.tblClmPoster.setStyle("-fx-alignment: CENTER;");
 
-        this.tblClmPoster.setCellValueFactory(new PropertyValueFactory<Movie, ImageView>("poster"));
-        setCellFactory(tblClmTitle, Pos.CENTER_LEFT);
-        this.tblClmTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("title"));
-        setCellFactory(tblClmType, Pos.CENTER_LEFT);
-        this.tblClmType.setCellValueFactory(new PropertyValueFactory<Movie, String>("type"));
-        setCellFactory(tblClmImbdRating, Pos.CENTER_LEFT);
-        this.tblClmImbdRating.setCellValueFactory(new PropertyValueFactory<Movie, String>("ratings"));
-        setCellFactory(tblClmPersonalRating, Pos.CENTER_LEFT);
-        this.tblClmPersonalRating.setCellValueFactory(new PropertyValueFactory<Movie, String>("personalRating"));
-        setCellFactory(tblClmLastViewed, Pos.CENTER_LEFT);
-        this.tblClmLastViewed.setCellValueFactory(new PropertyValueFactory<Movie, String>("lastViewed"));
+        //this.tblClmPoster.setCellValueFactory(param -> param.getValue().posterProperty());
+
+        this.tblClmTitle.setCellValueFactory(param -> param.getValue().titleProperty());
+
+        this.tblClmType.setCellValueFactory(param -> param.getValue().typeProperty());
+
+        this.tblClmImbdRating.setCellValueFactory(param -> param.getValue().ratedProperty());
+
+        this.tblClmPersonalRating.setCellValueFactory(param -> param.getValue().personalRatingProperty());
+
+        this.tblClmLastViewed.setCellValueFactory(param -> param.getValue().lastViewedProperty());
+
+        this.tblViewMovies.itemsProperty().bindBidirectional(data.getMovies());
+
     }
-
-    private void setCellFactory(TableColumn tblClm, Pos pos){
-        tblClm.setCellFactory(param -> {
-
-            TableCell<?, ?> tc = new TableCell<Movie, String>(){
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    if (item != null){
-                        setText(item);
-                    }
-                }
-            };
-            tc.setAlignment(pos);
-            tc.setStyle("-fx-font-size: 14");
-            return tc;
-    });
-    }
-
-
 }

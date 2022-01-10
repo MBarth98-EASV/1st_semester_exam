@@ -33,13 +33,13 @@ public class FXMLProperties {
     @FXML public ListView lstViewGenre;
     @FXML public Button btnGenreOptions;
 
-    @FXML public TableView<Movie> tblViewMovies;
-    @FXML public TableColumn tblClmPoster = new TableColumn<Movie, Image>();
-    @FXML public TableColumn tblClmTitle;
-    @FXML public TableColumn tblClmType;
-    @FXML public TableColumn tblClmImbdRating;
-    @FXML public TableColumn tblClmPersonalRating;
-    @FXML public TableColumn tblClmLastViewed;
+    @FXML public TableView<MovieModel> tblViewMovies = new TableView<>();
+    @FXML public TableColumn<MovieModel, ImageView> tblClmPoster = new TableColumn<>();
+    @FXML public TableColumn<MovieModel, String> tblClmTitle = new TableColumn<>();
+    @FXML public TableColumn<MovieModel, String> tblClmType = new TableColumn<>();
+    @FXML public TableColumn<MovieModel, String> tblClmImbdRating = new TableColumn<>();
+    @FXML public TableColumn<MovieModel, String> tblClmPersonalRating = new TableColumn<>();
+    @FXML public TableColumn<MovieModel, String> tblClmLastViewed = new TableColumn<>();
 
 
     //NewMovie

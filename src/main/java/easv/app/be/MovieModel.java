@@ -1,42 +1,49 @@
 package easv.app.be;
 
-import com.google.gson.annotations.SerializedName;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.ImageView;
 
 public class MovieModel
 {
-    @SerializedName("imdbID")
-    private SimpleStringProperty ID;
+    /*
+    *   BELOW: bindable properties
+    */
 
-    @SerializedName("Title")
-    private SimpleStringProperty title;
+    private final StringProperty ID = new SimpleStringProperty();
+    private final StringProperty title = new SimpleStringProperty();
+    private final StringProperty year = new SimpleStringProperty();
+    private final StringProperty ageRating = new SimpleStringProperty();
+    private final StringProperty releaseDate = new SimpleStringProperty();
+    private final StringProperty ratings = new SimpleStringProperty();
+    private final StringProperty runtime = new SimpleStringProperty();
+    private final StringProperty rated = new SimpleStringProperty();
+    private final StringProperty genre = new SimpleStringProperty();
+    private final StringProperty director = new SimpleStringProperty();
+    private final StringProperty writer = new SimpleStringProperty();
+    private final StringProperty actors = new SimpleStringProperty();
+    private final StringProperty plot = new SimpleStringProperty();
+    private final StringProperty language = new SimpleStringProperty();
+    private final StringProperty country = new SimpleStringProperty();
+    private final StringProperty personalRating = new SimpleStringProperty();
+    private final StringProperty path = new SimpleStringProperty();
+    private final StringProperty lastViewed = new SimpleStringProperty();
+    private final StringProperty type = new SimpleStringProperty();
+    private final ObjectProperty<ImageView> poster = new SimpleObjectProperty<>();
 
-    @SerializedName("Year")
-    private SimpleStringProperty year;
 
-    @SerializedName("Rated")
-    private SimpleStringProperty ageRating;
-
-    @SerializedName("Released")
-    private SimpleStringProperty releaseDate;
-
-    /// ...
-
-    @SerializedName("Type")
-    private SimpleStringProperty type;
-
-    @SerializedName("Poster")
-    private SimpleStringProperty poster;
-
-
+    /*
+    *   BELOW: standard getters and setters
+    */
 
     public String getTitle()
     {
         return title.get();
     }
 
-    public SimpleStringProperty titleProperty()
+    public StringProperty titleProperty()
     {
         return title;
     }
@@ -51,7 +58,7 @@ public class MovieModel
         return ID.get();
     }
 
-    public SimpleStringProperty IDProperty()
+    public StringProperty IDProperty()
     {
         return ID;
     }
@@ -66,7 +73,7 @@ public class MovieModel
         return year.get();
     }
 
-    public SimpleStringProperty yearProperty()
+    public StringProperty yearProperty()
     {
         return year;
     }
@@ -76,51 +83,263 @@ public class MovieModel
         this.year.set(year);
     }
 
-    /// ...
-
-    /*
-
+    public String getAgeRating()
     {
-    "Title": "The Avengers",
-    "Year": "2012",
-    "Rated": "PG-13",
-    "Released": "04 May 2012",
+        return ageRating.get();
+    }
 
-    "Runtime": "143 min",
-    "Genre": "Action, Adventure, Sci-Fi",
-    "Director": "Joss Whedon",
-    "Writer": "Joss Whedon, Zak Penn",
-    "Actors": "Robert Downey Jr., Chris Evans, Scarlett Johansson",
-    "Plot": "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
-    "Language": "English, Russian, Hindi",
-    "Country": "United States",
-    "Awards": "Nominated for 1 Oscar. 38 wins & 80 nominations total",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
-    "Ratings": [
-        {
-            "Source": "Internet Movie Database",
-            "Value": "8.0/10"
-        },
-        {
-            "Source": "Rotten Tomatoes",
-            "Value": "91%"
-        },
-        {
-            "Source": "Metacritic",
-            "Value": "69/100"
-        }
-    ],
-    "Metascore": "69",
-    "imdbRating": "8.0",
-    "imdbVotes": "1,323,743",
-    "imdbID": "tt0848228",
-    "Type": "movie",
-    "DVD": "25 Sep 2012",
-    "BoxOffice": "$623,357,910",
-    "Production": "N/A",
-    "Website": "N/A",
-    "Response": "True"
-}
+    public StringProperty ageRatingProperty()
+    {
+        return ageRating;
+    }
 
-    * */
+    public void setAgeRating(String ageRating)
+    {
+        this.ageRating.set(ageRating);
+    }
+
+    public String getReleaseDate()
+    {
+        return releaseDate.get();
+    }
+
+    public StringProperty releaseDateProperty()
+    {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate)
+    {
+        this.releaseDate.set(releaseDate);
+    }
+
+    public String getType()
+    {
+        return type.get();
+    }
+
+    public StringProperty typeProperty()
+    {
+        return type;
+    }
+
+    public void setType(String type)
+    {
+        this.type.set(type);
+    }
+
+    public String getRatings()
+    {
+        return ratings.get();
+    }
+
+    public StringProperty ratingsProperty()
+    {
+        return ratings;
+    }
+
+    public void setRatings(String ratings)
+    {
+        this.ratings.set(ratings);
+    }
+
+    public String getRuntime()
+    {
+        return runtime.get();
+    }
+
+    public StringProperty runtimeProperty()
+    {
+        return runtime;
+    }
+
+    public void setRuntime(String runtime)
+    {
+        this.runtime.set(runtime);
+    }
+
+    public String getRated()
+    {
+        return rated.get();
+    }
+
+    public StringProperty ratedProperty()
+    {
+        return rated;
+    }
+
+    public void setImdbRating(String rated)
+    {
+        this.rated.set(rated);
+    }
+
+    public String getGenre()
+    {
+        return genre.get();
+    }
+
+    public StringProperty genreProperty()
+    {
+        return genre;
+    }
+
+    public void setGenre(String genre)
+    {
+        this.genre.set(genre);
+    }
+
+    public String getDirector()
+    {
+        return director.get();
+    }
+
+    public StringProperty directorProperty()
+    {
+        return director;
+    }
+
+    public void setDirector(String director)
+    {
+        this.director.set(director);
+    }
+
+    public String getWriter()
+    {
+        return writer.get();
+    }
+
+    public StringProperty writerProperty()
+    {
+        return writer;
+    }
+
+    public void setWriter(String writer)
+    {
+        this.writer.set(writer);
+    }
+
+    public String getActors()
+    {
+        return actors.get();
+    }
+
+    public StringProperty actorsProperty()
+    {
+        return actors;
+    }
+
+    public void setActors(String actors)
+    {
+        this.actors.set(actors);
+    }
+
+    public String getPlot()
+    {
+        return plot.get();
+    }
+
+    public StringProperty plotProperty()
+    {
+        return plot;
+    }
+
+    public void setPlot(String plot)
+    {
+        this.plot.set(plot);
+    }
+
+    public String getLanguage()
+    {
+        return language.get();
+    }
+
+    public StringProperty languageProperty()
+    {
+        return language;
+    }
+
+    public void setLanguage(String language)
+    {
+        this.language.set(language);
+    }
+
+    public String getCountry()
+    {
+        return country.get();
+    }
+
+    public StringProperty countryProperty()
+    {
+        return country;
+    }
+
+    public void setCountry(String country)
+    {
+        this.country.set(country);
+    }
+
+    public String getPersonalRating()
+    {
+        return personalRating.get();
+    }
+
+    public StringProperty personalRatingProperty()
+    {
+        return personalRating;
+    }
+
+    public void setPersonalRating(String personalRating)
+    {
+        this.personalRating.set(personalRating);
+    }
+
+    public String getPath()
+    {
+        return path.get();
+    }
+
+    public StringProperty pathProperty()
+    {
+        return path;
+    }
+
+    public void setPath(String path)
+    {
+        this.path.set(path);
+    }
+
+    public String getLastViewed()
+    {
+        return lastViewed.get();
+    }
+
+    public StringProperty lastViewedProperty()
+    {
+        return lastViewed;
+    }
+
+    public void setLastViewed(String lastViewed)
+    {
+        this.lastViewed.set(lastViewed);
+    }
+
+    public ImageView getPoster()
+    {
+        return poster.get();
+    }
+
+    public ObjectProperty<ImageView> posterProperty()
+    {
+        return poster;
+    }
+
+    public void setPoster(ImageView poster)
+    {
+        this.poster.set(poster);
+    }
+
+    public void setPoster(String posterURL)
+    {
+        this.poster.set(new ImageView(posterURL));
+    }
 }
