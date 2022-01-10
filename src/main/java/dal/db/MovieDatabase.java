@@ -44,33 +44,9 @@ public class MovieDatabase {
         try (Connection connection = dbaccess.getConnection())
         {
             this.execute("""
-                    INSERT INTO Movie (name, rating, filelink, imdblink, lastviewed)
+                    INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
                     VALUES ('%s', '%s', '%s', '%s','&s')
-                    """.formatted(movie.getTitle(), movie.getRatings(), movie.id, movie.getImdbID(), movie.missing));
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    private void getMovie(int id)
-    {
-        try (Connection connection = dbaccess.getConnection())
-        {
-
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    private void getMovie(String title)
-    {
-        try (Connection connection = dbaccess.getConnection())
-        {
-
+                    """.formatted(movie.getTitle(), movie.getRatings(), movie.filepath, movie.getImdbID(), movie.missing));
         }
         catch (SQLException e)
         {
@@ -98,6 +74,27 @@ public class MovieDatabase {
             e.printStackTrace();
         }
 
+    }
+
+    private void updateMovie(Movie movie)
+    {
+        try (Connection connection = dbaccess.getConnection())
+        {
+            if (movie != null)
+            {
+                this.execute("""
+                        UPDATE Movie SET title = '%s',
+                        rating = '%s',
+                        filelink = '%s',
+                        imdblink = '%s',
+                        lastviewed = '%s'
+                        """.formatted(movie.getTitle(), movie.getRatings(), movie.filepath, movie.getImdbID(), movie.lastviewed));
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void getAllMoves()
