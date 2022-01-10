@@ -37,7 +37,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
+//TODO: Fix Cursor, Fix MediaView resize, Fix closing, fix seekbar, fix buttons.
 /**
  * The Controller for the MediaPlayerView. Contains the UI functionality and
  * media playback logic.
@@ -153,10 +153,11 @@ public class MediaPlayerController implements Initializable {
         progBar.setOnMouseClicked(progBarMouseListener());
         progBar.setOnMouseDragged(progBarMouseListener());
 
-        mediaView.setOnMouseEntered(uIMouseInOutListener());
-        mediaView.setOnMouseExited(uIMouseInOutListener());
         userControls.setOnMouseEntered(uIMouseInOutListener());
         userControls.setOnMouseExited(uIMouseInOutListener());
+
+        mediaPlayer.currentTimeProperty().addListener(progressChangedListener());
+
 
         volSlider.setValue(0.5);
         volSlider.valueProperty().addListener(volumeSliderChangedListener());
@@ -436,6 +437,14 @@ public class MediaPlayerController implements Initializable {
             }
 
         };
+    }
+
+    private void setListeners(ActionEvent event){
+        sceneMouseMovedListener();
+        /*Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.widthProperty().addListener(sceneSizeChangedListener());
+
+         */
     }
 
     /**
