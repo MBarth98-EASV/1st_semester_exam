@@ -62,10 +62,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         tblViewMovieContextMenu();
         tblViewMovies.getSelectionModel().selectedItemProperty().addListener(observable -> updateSelectedItemBindings());
         tblViewMovies.getSelectionModel().selectFirst();
-
-        for (String str : tblViewMovies.getItems().get(0).getGenre()) {
-            System.out.println(str);
-        }
     }
 
     public void updateSelectedItemBindings()

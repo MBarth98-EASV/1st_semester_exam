@@ -8,6 +8,8 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -204,14 +206,12 @@ public class MovieModel
 
     public String[] getGenre()
     {
-        List<String> collectionList = Collections.emptyList();
-        String[] initArray = genre.get().split(",");
-        for (String str : initArray){
-            str.trim();
-            collectionList.add(str);
-        }
-        String[] returnArray = (String[]) collectionList.toArray();
-        return returnArray;
+            String[] initialArray = genre.get().split(",");
+            String str1 = initialArray[0].strip();
+            String str2 = initialArray[1].strip();
+            String str3 = initialArray[2].strip();
+            String[] returnArray = new String[] {str1, str2, str3};
+            return returnArray;
     }
 
     public StringProperty genreProperty()
