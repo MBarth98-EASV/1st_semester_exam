@@ -15,7 +15,7 @@ public class App extends Application
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("MovieManager.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 800);
         stage.setTitle("Popkernel Time");
-        stage.setMinHeight(788);
+        stage.setMinHeight(800);
         stage.setMinWidth(866);
         stage.setScene(scene);
         stage.show();
