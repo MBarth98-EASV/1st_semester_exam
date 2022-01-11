@@ -8,6 +8,9 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Collections;
+import java.util.List;
+
 public class MovieModel
 {
     public static MovieModel fromMovieInfo(final MovieInfo info)
@@ -199,9 +202,16 @@ public class MovieModel
         this.rated.set(rated);
     }
 
-    public String getGenre()
+    public String[] getGenre()
     {
-        return genre.get();
+        List<String> collectionList = Collections.emptyList();
+        String[] initArray = genre.get().split(",");
+        for (String str : initArray){
+            str.trim();
+            collectionList.add(str);
+        }
+        String[] returnArray = (String[]) collectionList.toArray();
+        return returnArray;
     }
 
     public StringProperty genreProperty()
