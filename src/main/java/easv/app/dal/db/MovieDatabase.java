@@ -119,6 +119,8 @@ public class MovieDatabase {
                     movies.add(movie);
                 }
             }
+
+            return movies;
         }
         catch (SQLException e)
         {
