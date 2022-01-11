@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.annotations.SerializedName;
+import javafx.scene.control.Alert;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -60,6 +61,8 @@ public class Deserialize<T> implements com.google.gson.JsonDeserializer<T>
         }
         catch (InstantiationException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e)
         {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error parsing the API response.");
+            alert.showAndWait();
             e.printStackTrace();
             return null;
         }

@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.image.Image;
@@ -120,7 +121,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setScene(new Scene(root, 1280, 720));
             stage.show();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie. Please make sure a movie is selected.");
+            alert.showAndWait();
             e.printStackTrace();
         }
     }
@@ -138,7 +141,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setScene(new Scene(root, 600, 400));
             stage.show();
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the movie creation panel.");
+            alert.showAndWait();
             e.printStackTrace();
         }
     }
@@ -163,7 +168,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setScene(new Scene(root, 353, 314));
             stage.show();
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the editing panel.");
+            alert.showAndWait();
             e.printStackTrace();
         }
     }
@@ -182,6 +189,8 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.show();
 
         } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Unable to load the editing panel.");
+            alert.showAndWait();
             e.printStackTrace();
         }
     }

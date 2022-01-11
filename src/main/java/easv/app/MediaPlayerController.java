@@ -1,39 +1,30 @@
 package easv.app;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import easv.app.be.MovieModel;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 //TODO: fix buttons, add gradient to userControlPane
 /**
@@ -109,11 +100,12 @@ public class MediaPlayerController implements Initializable {
         this.showUI = true;
         this.muted = false;
         try {
-            if (resources.getObject("selectedMovie") != null) {
-                movie = (MovieModel) resources.getObject("selectedMovie");
-                thisStage = (Stage) resources.getObject("playerStage");
-            }
+            resources.getObject("selectedMovie");
+            movie = (MovieModel) resources.getObject("selectedMovie");
+            thisStage = (Stage) resources.getObject("playerStage");
         } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
+            alert.showAndWait();
             e.printStackTrace();
         }
         initMedia();
