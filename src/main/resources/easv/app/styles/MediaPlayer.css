@@ -169,21 +169,21 @@
  * play/pause functionality implemented in controller.
  */
 #playBtn{
-    -fx-background-image: url('../images/play2.png');
+    -fx-background-image: url('../images/pause.png');
     -fx-background-size: 16, 16;
     -fx-background-repeat: no-repeat;
 	-fx-background-radius: 30;
-    -fx-background-position: 8;
+    -fx-background-position: 7.5;
     -fx-padding: 2 4 2 4;
 }
 
 
 #fScreenBtn{
     -fx-background-image: url('../images/fullscreen.png');
-    -fx-background-size: 15, 15;
+    -fx-background-size: 12, 12;
     -fx-background-repeat: no-repeat;
 	-fx-background-radius: 30;
-	-fx-background-position: 7.5;
+	-fx-background-position: 9;
     -fx-padding: 2 4 2 4;
 }
 
