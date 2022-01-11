@@ -1,8 +1,8 @@
 package easv.app;
 
-import easv.app.CustomComponent.Player;
+
 import easv.app.be.FXMLProperties;
-import easv.app.be.Movie;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -28,8 +28,9 @@ import java.util.ListResourceBundle;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class MovieManagerController extends FXMLProperties implements Initializable {
-
+public class MovieManagerController extends FXMLProperties //implements Initializable
+{}
+/*
     MovieModel selectedMovie;
     String imageURL = "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg";
     String path1 = "C:\\Users\\Sandbxk\\Desktop\\test.mp4";
@@ -91,7 +92,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             e.printStackTrace();
         }
         */
-
+/*
         Parent root = null;
         try {
             Stage stage = new Stage();
@@ -183,7 +184,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     /**
      * Merge setCellFactory calls into Main
-     */
+     */ /*
     private void initializeMovieTable(){
         this.tblClmPoster.setStyle("-fx-alignment: CENTER;");
 
@@ -218,4 +219,4 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
 
-}
+}*/

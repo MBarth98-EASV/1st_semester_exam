@@ -23,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
-<GridPane cache="true" cacheHint="QUALITY" minHeight="845.0" minWidth="900.0" prefHeight="972.0" prefWidth="900.0" style="-fx-background-color: #303030;" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MovieManagerController">
+<GridPane cache="true" cacheHint="QUALITY" minHeight="845.0" minWidth="900.0" prefHeight="972.0" prefWidth="900.0" style="-fx-background-color: #303030;" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.controllers.MovieManagerController">
   <columnConstraints>
     <ColumnConstraints />
       <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
