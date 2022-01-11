@@ -29,7 +29,7 @@ public class DataManager
         // set all items in movies list with combined data (api movie info + db movie info)
 
         var apiInfo1 = OpenMovieNetwork.getInstance().get(null, "john wick", false);
-        var apiInfo2 = OpenMovieNetwork.getInstance().get(null, "star wars", false);
+        var apiInfo2 = OpenMovieNetwork.getInstance().get(null, "juya", false);
         movies.setAll(MovieModel.fromMovieInfo(apiInfo1), MovieModel.fromMovieInfo(apiInfo2));
     }
 
@@ -46,7 +46,14 @@ public class DataManager
 
     public void add( /* what parameters ? */ )
     {
+        // get movie from api
+
         // add in db
+            // rating
+            // imdb id
+            // filepath
+            // category
+
         // add to movies list to update GUI
     }
 

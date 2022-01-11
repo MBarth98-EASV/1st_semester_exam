@@ -5,6 +5,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class MovieModel
@@ -365,7 +366,14 @@ public class MovieModel
 
     public void setPoster(String posterURL)
     {
-        this.poster.set(new ImageView(posterURL));
+        if (posterURL.equals("N/A"))
+        {
+            this.poster.set(new ImageView((Image)null));
+        }
+        else
+        {
+            this.poster.set(new ImageView(posterURL));
+        }
     }
 
 

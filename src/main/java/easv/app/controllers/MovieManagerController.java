@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -80,6 +81,11 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         txtAreaMovPlot.setText(selected.getPlot());
 
         selectedMovie = selected;
+        if (selected.getPoster().getImage() == null)
+        {
+            selected.setPoster(App.class.getResource("images/posterError.png").toExternalForm());
+        }
+
         imgViewMovPoster.setImage(selected.getPoster().getImage());
         movieRating.setRating(Double.parseDouble(Optional.ofNullable(selected.getPersonalRating()).orElse("0.0")));
     }
