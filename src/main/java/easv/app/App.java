@@ -15,7 +15,6 @@ public class App extends Application
     {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("MovieManager.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 830);
-        //scene.getStylesheets().add(String.valueOf(ContextMenu.class.getResource("styles/ContextMenu.css")));
         stage.setTitle("Popkernel Time");
         stage.setMinHeight(830);
         stage.setMinWidth(900);
