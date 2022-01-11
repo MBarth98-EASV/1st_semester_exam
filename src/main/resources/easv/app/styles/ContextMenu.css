@@ -1,0 +1,27 @@
+.context-menu {
+    -fx-background-color: #404040;
+    -fx-text-fill: #d5d4d4;
+}
+
+.context-menu:focused {
+    -fx-background-color:#404040;;
+    -fx-text-fill: #d5d4d4;
+    -fx-focus-color: #5786cb;
+}
+
+.menu-item:focused {
+    -fx-background-color: #5786cb;
+    -fx-text-fill: #d5d4d4;
+    -fx-focus-color:white;
+}
+
+.menu:focused {
+    -fx-background-color:#5786cb;
+    -fx-text-fill: #d5d4d4;
+    -fx-focus-color:white;
+}
+
+.menu-item:focused {
+    -fx-background-color: #5786cb;
+    -fx-text-fill: #d5d4d4;
+}

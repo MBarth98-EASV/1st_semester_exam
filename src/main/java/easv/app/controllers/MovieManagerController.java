@@ -305,7 +305,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     private void tblViewMovieContextMenu(){
         ContextMenu contextMenuMovie = new ContextMenu();
         tblViewMovies.setContextMenu(contextMenuMovie);
-        contextMenuMovie.setStyle("-fx-background-color: #404040; ");
+        //contextMenuMovie.setStyle("-fx-background-color: #404040; ");
 
         MenuItem play = new MenuItem("Play");
         play.setStyle("-fx-text-fill: #d5d4d4;");
@@ -329,7 +329,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     private void lstViewGenreContextMenu(){
         ContextMenu contextMenuGenre = new ContextMenu();
-        lstViewEditGenre.setContextMenu(contextMenuGenre);
+        lstViewGenre.setContextMenu(contextMenuGenre);
         contextMenuGenre.setStyle("-fx-background-color: #404040; ");
 
         MenuItem edit = new MenuItem("Edit Genres");
