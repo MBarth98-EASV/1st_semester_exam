@@ -125,6 +125,7 @@ public class MovieDatabase {
         catch (SQLException e)
         {
             e.printStackTrace();
+            return null;
         }
 
     }
