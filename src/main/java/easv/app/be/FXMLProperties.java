@@ -8,6 +8,9 @@ import org.controlsfx.control.Rating;
 
 public class FXMLProperties {
 
+    @FXML public TextField txtFieldSearch;
+    @FXML public ComboBox cmboBoxFilter;
+
     @FXML public Button btnPlayMovie;
 
     @FXML public Label lblMovTitle;
@@ -19,7 +22,6 @@ public class FXMLProperties {
     @FXML public Label lblMovWriters;
     @FXML public Label lblMovActors;
     @FXML public Label lblMovCountry;
-    @FXML public Label lblMovLanguage;
     @FXML public Label lblMovImbdRating;
     @FXML public ImageView imgViewMovPoster;
 
