@@ -69,7 +69,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         selectedMovie = new Movie();
         selectedMovie.setPoster(imageURL);
         selectedMovie.setTitle("John Wick");
-        selectedMovie.setPath(path2);
+        selectedMovie.setPath(path1);
         selectedMovie.setPersonalRating("5");
         selectedMovie.setLastViewed(LocalDate.now().toString());
         selectedMovie.setRatings("10/10");
@@ -191,6 +191,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         System.out.println(rating);
     }
 
+    /**
+     * Merge setCellFactory calls into Main
+     */
     private void initializeMovieTable(){
         this.tblClmPoster.setStyle("-fx-alignment: CENTER;");
 
