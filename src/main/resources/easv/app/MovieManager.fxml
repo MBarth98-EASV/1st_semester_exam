@@ -23,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
-<GridPane cache="true" cacheHint="QUALITY" minHeight="845.0" minWidth="900.0" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.controllers.MovieManagerController">
+<GridPane cache="true" cacheHint="QUALITY" minHeight="845.0" minWidth="900.0" prefHeight="972.0" prefWidth="900.0" style="-fx-background-color: #303030;" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.MovieManagerController">
   <columnConstraints>
     <ColumnConstraints />
       <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
@@ -79,10 +79,10 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="683.0" minWidth="10.0" prefWidth="391.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="29.0" valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="147.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="57.59999389648438" minHeight="10.0" prefHeight="41.2" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="63.2" minHeight="10.0" prefHeight="49.599993896484385" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="129.80001220703124" minHeight="10.0" prefHeight="123.19998168945311" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="95.20001831054691" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label fx:id="lblMovTitle" style="-fx-font-size: 22;" text="No Movie Selected" GridPane.valignment="BOTTOM">
@@ -124,12 +124,6 @@
                            <children>
                               <Label text="Country: " />
                               <Label fx:id="lblMovCountry" />
-                           </children>
-                        </HBox>
-                        <HBox>
-                           <children>
-                              <Label text="Language: " />
-                              <Label fx:id="lblMovLanguage" />
                            </children>
                         </HBox>
                      </children>
@@ -255,6 +249,6 @@
             </Button>
          </children>
       </GridPane>
-      <AnchorPane prefHeight="18.0" prefWidth="900.0" style="-fx-background-color: #303030;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="26.0" prefWidth="900.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
    </children>
 </GridPane>
