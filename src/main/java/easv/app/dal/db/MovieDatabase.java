@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import easv.app.be.Movie;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class MovieDatabase {
 
@@ -97,11 +99,26 @@ public class MovieDatabase {
         }
     }
 
-    private void getAllMoves()
+    private ObservableList<Movie> getAllMovies() {
+        return getAllMoves("SELECT * FROM Movie");
+    }
+
+    private ObservableList<Movie> getAllMoves(String sql)
     {
         try (Connection connection = dbaccess.getConnection())
         {
+            ObservableList<Movie> movies = FXCollections.observableArrayList();
 
+            ResultSet set = this.query(sql);
+
+            while (set.next())
+            {
+                Movie movie = createMovieFromDatabase(set);
+                if (movie != null)
+                {
+                    movies.add(movie);
+                }
+            }
         }
         catch (SQLException e)
         {
