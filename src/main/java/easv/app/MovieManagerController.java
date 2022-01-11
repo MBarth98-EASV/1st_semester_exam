@@ -5,14 +5,12 @@ import easv.app.be.FXMLProperties;
 import easv.app.be.Movie;
 import java.io.File;
 import java.io.IOException;
+
+import easv.app.be.MovieModel;
 import javafx.event.ActionEvent;
-import java.awt.*;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableCell;
@@ -21,26 +19,18 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ListResourceBundle;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static java.awt.Desktop.*;
-
 public class MovieManagerController extends FXMLProperties implements Initializable {
 
-    Movie selectedMovie;
+    MovieModel selectedMovie;
     String imageURL = "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg";
     String path1 = "C:\\Users\\Sandbxk\\Desktop\\test.mp4";
     String path2 = "E:\\- Media\\Movies\\Life of Brian (1979) 1080p\\Life.Of.Brian..1979.1080p.BluRay.X264.YIFY.mp4";
@@ -66,7 +56,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     public void initialize(URL location, ResourceBundle resources) {
         initializeMovieTable();
 
-        selectedMovie = new Movie();
+        selectedMovie = new MovieModel();
         selectedMovie.setPoster(imageURL);
         selectedMovie.setTitle("John Wick");
         selectedMovie.setPath(path1);
