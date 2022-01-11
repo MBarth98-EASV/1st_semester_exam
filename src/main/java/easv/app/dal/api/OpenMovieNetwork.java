@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 import com.google.gson.Gson;
 import easv.app.Utils.Json.*;
+import easv.app.be.SearchModel;
 import easv.app.be.json.MovieInfo;
 import easv.app.be.json.SearchedMovieInfo;
 import easv.app.be.json.SearchResult;
@@ -63,9 +64,9 @@ public final class OpenMovieNetwork
         EPISODE
     }
 
-    public SearchResult search(String title) throws IOException, NullPointerException
+    public SearchModel search(String title) throws IOException, NullPointerException
     {
-        return search(title, TYPE.ALL, 1);
+        return SearchModel.fromSearchResult(search(title, TYPE.ALL, 1));
     }
 
     public SearchResult search(String title, int page) throws IOException, NullPointerException

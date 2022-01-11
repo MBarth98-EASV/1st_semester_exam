@@ -342,4 +342,32 @@ public class MovieModel
     {
         this.poster.set(new ImageView(posterURL));
     }
+
+
+    @Override
+    public String toString()
+    {
+        return "MovieModel{" +
+                "ID=" + ID +
+                ", title=" + title +
+                ", year=" + year +
+                ", ageRating=" + ageRating +
+                ", releaseDate=" + releaseDate +
+                ", ratings=" + ratings +
+                ", runtime=" + runtime +
+                ", rated=" + rated +
+                ", genre=" + genre +
+                ", director=" + director +
+                ", writer=" + writer +
+                ", actors=" + actors +
+                ", plot=" + plot +
+                ", language=" + language +
+                ", country=" + country +
+                ", personalRating=" + personalRating +
+                ", path=" + path +
+                ", lastViewed=" + lastViewed +
+                ", type=" + type +
+                ", poster=" + poster +
+                '}';
+    }
 }

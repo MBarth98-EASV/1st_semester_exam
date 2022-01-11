@@ -1,7 +1,7 @@
 package easv.app.bll;
 
-import easv.app.Utils.Converter;
 import easv.app.be.MovieModel;
+import easv.app.be.SearchModel;
 import easv.app.dal.api.OpenMovieNetwork;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -36,6 +36,11 @@ public class DataManager
     public ListProperty<MovieModel> getMovies()
     {
         return movies;
+    }
+
+    public static SearchModel searchMovies(String title) throws IOException
+    {
+        return OpenMovieNetwork.getInstance().search(title);
     }
 
 

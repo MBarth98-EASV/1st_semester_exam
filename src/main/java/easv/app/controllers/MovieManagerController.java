@@ -1,5 +1,6 @@
 package easv.app.controllers;
 
+import easv.app.App;
 import easv.app.be.FXMLProperties;
 import easv.app.bll.DataManager;
 import javafx.event.ActionEvent;
@@ -113,7 +114,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     public void onNewMovie(ActionEvent event) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("NewMovie.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("NewMovie.fxml")));
             Stage stage = new Stage();
             stage.setTitle("New Movie");
             stage.setMaxHeight(400);
@@ -182,7 +183,15 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     {
         this.tblClmPoster.setStyle("-fx-alignment: CENTER;");
 
-        //this.tblClmPoster.setCellValueFactory(param -> param.getValue().posterProperty());
+        this.tblClmPoster.setCellValueFactory(param ->
+                                              {
+                                                  var poster = param.getValue().posterProperty();
+
+                                                  poster.get().setFitHeight(50);
+                                                  poster.get().setPreserveRatio(true);
+
+                                                  return poster;
+                                              });
 
         this.tblClmTitle.setCellValueFactory(param -> param.getValue().titleProperty());
         this.tblClmType.setCellValueFactory(param -> param.getValue().typeProperty());
