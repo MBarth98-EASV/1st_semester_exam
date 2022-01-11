@@ -59,13 +59,11 @@ public class CrudController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.txtFieldSearchNewMovie.setText("avengers");
-        onSearchNewMovieTitles(new ActionEvent());
+        //this.txtFieldSearchNewMovie.setText("avengers");
+        //onSearchNewMovieTitles(new ActionEvent());
         initNewMovie();
         initEditGenre();
-        if (btnEditMovieFinish != null){ //If the button exists, EditMovie.fxml is open and the appropriate values are initialized.
-
-        }
+        initEditMovie(resources);
     }
 
     //NewMovie
@@ -90,13 +88,10 @@ public class CrudController implements Initializable {
 
     public void onSearchNewMovieTitles(ActionEvent event)
     {
-        try
-        {
+        try {
             var search = DataManager.searchMovies(this.txtFieldSearchNewMovie.getText());
             lstViewNewMoviePick.setItems(FXCollections.observableArrayList(search.getMovies()));
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -152,21 +147,23 @@ public class CrudController implements Initializable {
 
 
     private void initEditMovie(ResourceBundle resources){
-        try {
-            resources.getObject("selectedMovie");
-            movie = (MovieModel) resources.getObject("selectedMovie");
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
-            alert.showAndWait();
-            e.printStackTrace();
+        if (btnEditMovieFinish != null) { //If the button exists, EditMovie.fxml is open and the appropriate values are initialized.
+            try {
+                resources.getObject("selectedMovie");
+                movie = (MovieModel) resources.getObject("selectedMovie");
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
+                alert.showAndWait();
+                e.printStackTrace();
+            }
+            txtFieldEditMovieTitle.setText(movie.getTitle());
+            //cmboBoxEditGenre1.setItems(dataManager.getAllGenres);
+            //cmboBoxEditGenre2.setItems(dataManager.getAllGenres);
+            //cmboBoxEditGenre3.setItems(dataManager.getAllGenres);
+            //cmboBoxEditGenre1.setSelectionModel(movie.getGenre()[0]);
+            //cmboBoxEditGenre2.setSelectionModel(movie.getGenre()[1]);
+            //cmboBoxEditGenre3.setSelectionModel(movie.getGenre()[2]);
         }
-        txtFieldEditMovieTitle.setText(movie.getTitle());
-        //cmboBoxEditGenre1.setItems(dataManager.getAllGenres);
-        //cmboBoxEditGenre2.setItems(dataManager.getAllGenres);
-        //cmboBoxEditGenre3.setItems(dataManager.getAllGenres);
-        //cmboBoxEditGenre1.setSelectionModel(movie.getGenre()[1]);
-        //cmboBoxEditGenre2.setSelectionModel(movie.getGenre()[2]);
-        //cmboBoxEditGenre3.setSelectionModel(movie.getGenre()[3]);
     }
 
     //EditMovie

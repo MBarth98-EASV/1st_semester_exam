@@ -80,6 +80,11 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         lblMovYear.textProperty().set(selected.getYear());
         txtAreaMovPlot.setText(selected.getPlot());
 
+
+        btnLblGenre1.setText(selected.getGenre()[0]);
+        btnLblGenre2.setText(selected.getGenre()[1]);
+        btnLblGenre3.setText(selected.getGenre()[2]);
+
         selectedMovie = selected;
         if (selected.getPoster().getImage() == null)
         {
@@ -103,7 +108,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
                             {"selectedMovie", selectedMovie}, {"playerStage", stage}};}};
 
 
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Player.fxml")), resources);
+            root = FXMLLoader.load(Objects.requireNonNull(App.class.getClass().getResource("Player.fxml")), resources);
             stage.setTitle("Player");
             stage.setMinHeight(400);
             stage.setMinWidth(600);
@@ -153,7 +158,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
                     return new Object[][]{
                             {"selectedMovie", selectedMovie}};}};
 
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("EditMovie.fxml")), resources);
+            root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("EditMovie.fxml")), resources);
             Stage stage = new Stage();
             stage.setTitle("Edit Movie");
             stage.setMaxHeight(314);
@@ -173,7 +178,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     public void onEditGenre(ActionEvent event) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("EditGenreBar.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("EditGenreBar.fxml")));
             Stage stage = new Stage();
             stage.setTitle("Edit Genre");
             stage.setMaxHeight(332);

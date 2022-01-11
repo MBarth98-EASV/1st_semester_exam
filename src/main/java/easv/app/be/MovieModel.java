@@ -206,12 +206,34 @@ public class MovieModel
 
     public String[] getGenre()
     {
-            String[] initialArray = genre.get().split(",");
-            String str1 = initialArray[0].strip();
-            String str2 = initialArray[1].strip();
-            String str3 = initialArray[2].strip();
-            String[] returnArray = new String[] {str1, str2, str3};
-            return returnArray;
+        String[] returnArray;
+        String[] initialArray = genre.get().split(",");
+        String str1;
+        String str2;
+        String str3;
+        if (initialArray.length > 3){
+            return returnArray = new String[] {initialArray[0].strip(), initialArray[1].strip(), initialArray[2].strip()};
+        }
+        switch (initialArray.length){
+            case 1:
+                str1 = initialArray[0].strip();
+                returnArray = new String[] {str1, "N/A", "N/A"};
+                return returnArray;
+            case 2:
+                str1 = initialArray[0].strip();
+                str2 = initialArray[1].strip();
+                returnArray = new String[] {str1, str2, "N/A"};
+                return returnArray;
+            case 3:
+                str1 = initialArray[0].strip();
+                str2 = initialArray[1].strip();
+                str3 = initialArray[2].strip();
+                returnArray = new String[] {str1, str2, str3};
+                return returnArray;
+            default:
+                returnArray = new String[] {"N/A", "N/A", "N/A"};
+                return returnArray;
+        }
     }
 
     public StringProperty genreProperty()
