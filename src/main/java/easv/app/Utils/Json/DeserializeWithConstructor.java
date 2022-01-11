@@ -54,7 +54,8 @@ public class DeserializeWithConstructor<T> implements com.google.gson.JsonDeseri
         }
         catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ex)
         {
-            new Alert(Alert.AlertType.ERROR, "Error parsing the API response.");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error parsing the API response.");
+            alert.showAndWait();
             System.out.println(ex.getMessage());
             ex.printStackTrace();
             return null;

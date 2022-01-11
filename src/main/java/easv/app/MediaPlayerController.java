@@ -104,7 +104,8 @@ public class MediaPlayerController implements Initializable {
             movie = (MovieModel) resources.getObject("selectedMovie");
             thisStage = (Stage) resources.getObject("playerStage");
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
+            alert.showAndWait();
             e.printStackTrace();
         }
         initMedia();

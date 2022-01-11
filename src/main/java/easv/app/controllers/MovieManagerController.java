@@ -121,8 +121,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setScene(new Scene(root, 1280, 720));
             stage.show();
 
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Could not load the selected movie. Please make sure a movie is selected.");
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie. Please make sure a movie is selected.");
+            alert.showAndWait();
             e.printStackTrace();
         }
     }
@@ -140,8 +141,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setScene(new Scene(root, 600, 400));
             stage.show();
 
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Could not load the movie creation panel.");
+        } catch (IOException | NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the movie creation panel.");
+            alert.showAndWait();
             e.printStackTrace();
         }
     }
@@ -166,8 +168,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setScene(new Scene(root, 353, 314));
             stage.show();
 
-        } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Could not load the editing panel.");
+        } catch (IOException | NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the editing panel.");
+            alert.showAndWait();
             e.printStackTrace();
         }
     }
@@ -186,7 +189,8 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.show();
 
         } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Unable to load the editing panel.");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Unable to load the editing panel.");
+            alert.showAndWait();
             e.printStackTrace();
         }
     }

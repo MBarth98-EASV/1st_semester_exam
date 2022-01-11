@@ -27,7 +27,8 @@ public class EASVDatabaseConnector {
         }
         catch (SQLException e)
         {
-            new Alert(Alert.AlertType.ERROR, "Could not connect to the database.");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not connect to the database.");
+            alert.showAndWait();
             return null;
         }
     }

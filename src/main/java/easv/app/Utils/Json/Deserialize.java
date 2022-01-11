@@ -55,7 +55,8 @@ public class Deserialize<T> implements com.google.gson.JsonDeserializer<T>
         }
         catch (InstantiationException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e)
         {
-            new Alert(Alert.AlertType.ERROR, "Error parsing the API response.");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error parsing the API response.");
+            alert.showAndWait();
             e.printStackTrace();
             return null;
         }
