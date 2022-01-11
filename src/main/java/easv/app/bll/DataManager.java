@@ -30,7 +30,7 @@ public class DataManager
 
         var apiInfo1 = OpenMovieNetwork.getInstance().get(null, "john wick", false);
         var apiInfo2 = OpenMovieNetwork.getInstance().get(null, "star wars", false);
-        movies.setAll(Converter.convert(apiInfo1), Converter.convert(apiInfo2));
+        //movies.add(MovieModel);
     }
 
     public ListProperty<MovieModel> getMovies()

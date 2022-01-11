@@ -5,7 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import easv.app.be.Movie;
+import easv.app.be.MovieModel;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -91,7 +91,7 @@ public class MediaPlayerController implements Initializable {
      */
     private boolean muted;
 
-    private Movie movie;
+    private MovieModel movie;
     /**
      * The default constructor.
      * Called before the <i>initialize()</i> method.
@@ -110,7 +110,7 @@ public class MediaPlayerController implements Initializable {
         this.muted = false;
         try {
             if (resources.getObject("selectedMovie") != null) {
-                movie = (Movie) resources.getObject("selectedMovie");
+                movie = (MovieModel) resources.getObject("selectedMovie");
                 thisStage = (Stage) resources.getObject("playerStage");
             }
         } catch (Exception e) {

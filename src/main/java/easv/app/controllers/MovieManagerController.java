@@ -2,21 +2,28 @@ package easv.app.controllers;
 
 import easv.app.App;
 import easv.app.be.FXMLProperties;
+import easv.app.be.MovieModel;
 import easv.app.bll.DataManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ListResourceBundle;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -24,6 +31,7 @@ import java.util.ResourceBundle;
 public class MovieManagerController extends FXMLProperties implements Initializable {
 
     DataManager data;
+    MovieModel selectedMovie;
 
     public MovieManagerController()
     {
@@ -72,6 +80,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         lblMovYear.textProperty().set(selected.getYear());
         txtAreaMovPlot.setText(selected.getPlot());
 
+        selectedMovie = selected;
         imgViewMovPoster.setImage(selected.getPoster().getImage());
         movieRating.setRating(Double.parseDouble(Optional.ofNullable(selected.getPersonalRating()).orElse("0.0")));
     }
@@ -89,26 +98,26 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     public void onPlayMovie(ActionEvent event)
     {
-        Media pick = new Media(tblViewMovies.getSelectionModel().getSelectedItem().getPath());
-        MediaPlayer player = new MediaPlayer(pick);
+        Parent root = null;
+        try {
+            Stage stage = new Stage();
+            ResourceBundle resources = new ListResourceBundle() {
+                @Override
+                protected Object[][] getContents() {
+                    return new Object[][]{
+                            {"selectedMovie", selectedMovie}, {"playerStage", stage}};}};
 
-        // Add a mediaView, to display the media. Its necessary !
-        // This mediaView is added to a Pane
-        MediaView mediaView = new MediaView(player);
 
-        // Add to scene
-        Group root = new Group(mediaView);
-        Scene scene = new Scene(root, 500, 200);
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Player.fxml")), resources);
+            stage.setTitle("Player");
+            stage.setMinHeight(400);
+            stage.setMinWidth(600);
+            stage.setScene(new Scene(root, 1280, 720));
+            stage.show();
 
-        // Show the stage
-        Stage stage = new Stage();
-        stage.setTitle("Media Player");
-        stage.setScene(scene);
-        stage.show();
-
-        // Play the media once the stage is shown
-        player.play();
-       // data.getCurrentMovie().get().setLastViewed(LocalDate.now().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onNewMovie(ActionEvent event) {
@@ -130,7 +139,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
     public void onDeleteMovie(ActionEvent event) {
-
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile =  fileChooser.showOpenDialog(new Stage());
+        selectedMovie.setPath(selectedFile.getAbsolutePath());
     }
 
 
@@ -183,15 +194,11 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     {
         this.tblClmPoster.setStyle("-fx-alignment: CENTER;");
 
-        this.tblClmPoster.setCellValueFactory(param ->
-                                              {
-                                                  var poster = param.getValue().posterProperty();
-
-                                                  poster.get().setFitHeight(50);
-                                                  poster.get().setPreserveRatio(true);
-
-                                                  return poster;
-                                              });
+        this.tblClmPoster.setCellValueFactory(param -> {
+            var poster = param.getValue().posterProperty();
+            poster.get().setFitHeight(50);
+            poster.get().setPreserveRatio(true);
+            return poster; });
 
         this.tblClmTitle.setCellValueFactory(param -> param.getValue().titleProperty());
         this.tblClmType.setCellValueFactory(param -> param.getValue().typeProperty());
@@ -200,5 +207,30 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         this.tblClmLastViewed.setCellValueFactory(param -> param.getValue().lastViewedProperty());
 
         this.tblViewMovies.itemsProperty().bindBidirectional(data.getMovies());
+
+        setCellFactory(tblClmTitle, Pos.CENTER_LEFT);
+        setCellFactory(tblClmType, Pos.CENTER_LEFT);
+        setCellFactory(tblClmImbdRating, Pos.CENTER_LEFT);
+        setCellFactory(tblClmPersonalRating, Pos.CENTER_LEFT);
+        setCellFactory(tblClmLastViewed, Pos.CENTER_LEFT);
+
     }
+
+    private void setCellFactory(TableColumn tblClm, Pos pos){
+        tblClm.setCellFactory(param -> {
+
+            TableCell<?, ?> tc = new TableCell<MovieModel, String>(){
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    if (item != null){
+                        setText(item);
+                    }
+                }
+            };
+            tc.setAlignment(pos);
+            tc.setStyle("-fx-font-size: 14");
+            return tc;
+        });
+    }
+
 }
