@@ -80,9 +80,9 @@
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="57.59999389648438" minHeight="10.0" prefHeight="41.2" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="63.2" minHeight="10.0" prefHeight="49.599993896484385" valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="129.80001220703124" minHeight="10.0" prefHeight="123.19998168945311" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="95.20001831054691" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="63.2" minHeight="10.0" prefHeight="34.39998779296875" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="140.8000061035156" minHeight="10.0" prefHeight="135.99998779296874" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="99.20001220703125" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label fx:id="lblMovTitle" style="-fx-font-size: 22;" text="No Movie Selected" GridPane.valignment="BOTTOM">
@@ -99,7 +99,10 @@
                         <Label fx:id="lblMovRuntime" text="000 min" />
                      </children>
                   </HBox>
-                  <TextArea fx:id="txtAreaMovPlot" editable="false" stylesheets="@styles/TextArea.css" text="Select a movie below." wrapText="true" GridPane.rowIndex="2" />
+                  <TextArea fx:id="txtAreaMovPlot" editable="false" stylesheets="@styles/TextArea.css" text="Select a movie below." wrapText="true" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets bottom="8.0" />
+                     </GridPane.margin></TextArea>
                   <VBox GridPane.rowIndex="3">
                      <children>
                         <HBox>
@@ -177,12 +180,18 @@
                   </ButtonBar>
                   <HBox fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="0.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                      <children>
-                        <Button fx:id="btnLblGenre1" disable="true" mnemonicParsing="false" style="-fx-background-color: #303030; -fx-opacity: 1; -fx-border-radius: 30;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre" />
+                        <Button fx:id="btnLblGenre1" disable="true" mnemonicParsing="false" style="-fx-background-color: #303030; -fx-opacity: 1; -fx-border-radius: 30;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin></Button>
                         <Button fx:id="btnLblGenre2" disable="true" mnemonicParsing="false" style="-fx-background-color: #303030; -fx-opacity: 1; -fx-border-radius: 30;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre" />
-                        <Button fx:id="btnLblGenre3" disable="true" mnemonicParsing="false" style="-fx-background-color: #303030; -fx-opacity: 1; -fx-border-radius: 30;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre" />
+                        <Button fx:id="btnLblGenre3" disable="true" mnemonicParsing="false" style="-fx-background-color: #303030; -fx-opacity: 1; -fx-border-radius: 30;" styleClass="Button2" stylesheets="@styles/button.css" text="Genre">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin></Button>
                      </children>
                      <GridPane.margin>
-                        <Insets top="25.0" />
+                        <Insets top="12.0" />
                      </GridPane.margin>
                   </HBox>
                   <Rating fx:id="movieRating" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" onMouseClicked="#onMovieRated" prefHeight="33.0" prefWidth="179.0" rating="0.0" stylesheets="@styles/rating.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
