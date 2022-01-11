@@ -25,6 +25,12 @@ public class Deserialize<T> implements com.google.gson.JsonDeserializer<T>
         targetClass = cls;
     }
 
+    /**
+     * exceptions thrown in this method cannot be forwarded, since the stack unwinding on interface definitions are special,
+     * and only the defined exceptions in the interface declaration is allocated on the stack.
+     *
+     * in this case we have no control over the interface since it is a part of an external library; editing it will most likely be unrecoverable.
+     * */
     @Override
     public T deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException
     {
