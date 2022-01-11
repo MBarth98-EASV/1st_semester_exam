@@ -147,7 +147,13 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     public void onEditMovie(ActionEvent event) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("EditMovie.fxml")));
+            ResourceBundle resources = new ListResourceBundle() {
+                @Override
+                protected Object[][] getContents() {
+                    return new Object[][]{
+                            {"selectedMovie", selectedMovie}};}};
+
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("EditMovie.fxml")), resources);
             Stage stage = new Stage();
             stage.setTitle("Edit Movie");
             stage.setMaxHeight(314);
