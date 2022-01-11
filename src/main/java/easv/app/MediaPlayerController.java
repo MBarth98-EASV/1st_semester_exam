@@ -445,7 +445,7 @@ public class MediaPlayerController implements Initializable {
                 if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
                     mediaPlayer.play();
                     String pauseImg = getClass().getResource("images/pause.png").toExternalForm();
-                    playBtn.setStyle("-fx-background-image: url('"+ pauseImg +"'); -fx-background-size: 16 16; -fx-background-position: 7");
+                    playBtn.setStyle("-fx-background-image: url('"+ pauseImg +"'); -fx-background-size: 16 16; -fx-background-position: 7.5");
 
                 }
                 else {
