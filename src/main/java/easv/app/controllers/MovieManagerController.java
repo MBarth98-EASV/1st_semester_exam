@@ -74,7 +74,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         lblMovDirector.textProperty().set(selected.getDirector());
         lblMovRating.textProperty().set(selected.getAgeRating());
         lblMovImbdRating.textProperty().set(selected.getRated());
-        lblMovLanguage.textProperty().set(selected.getLanguage());
         lblMovRuntime.textProperty().set(selected.getRuntime());
         lblMovWriters.textProperty().set(selected.getWriter());
         lblMovYear.textProperty().set(selected.getYear());
