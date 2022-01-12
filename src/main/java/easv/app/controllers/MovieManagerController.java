@@ -51,7 +51,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         {
             data.load();
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
