@@ -27,7 +27,7 @@
     -fx-background-color: derive(#000000, 20%);
     -fx-padding: 4pt;
     -fx-border-radius: 5pt;
-    -fx-border-color: derive(#000000, 10%);
+    -fx-border-color: #334256;
     -fx-border-width: 1pt;
 }
 

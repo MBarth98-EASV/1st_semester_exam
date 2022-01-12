@@ -99,7 +99,13 @@ public class CrudController implements Initializable {
     public void onPickFile(ActionEvent event) {
         FileChooser fc = new FileChooser();
         File selectedFile =  fc.showOpenDialog(new Stage());
+        if (!checkForMp4(selectedFile.getName())){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Unsupported file format. Please choose a different movie.");
+            alert.showAndWait();
+            return;
+        }
         txtFieldPickFile.setText(selectedFile.getAbsolutePath());
+
     }
 
     public void onNewMovieDone(ActionEvent event) {
@@ -108,6 +114,21 @@ public class CrudController implements Initializable {
             //dataManager.add(newMovie, txtFieldPickFile.getText());
         }
         ((Node)(event.getSource())).getScene().getWindow().hide();
+    }
+
+    /**
+     * Checks the characters of a filename after the "." indicating it's filetype.
+     * @param fileName String value of a Path object.
+     * @return true if the file has an .mp4 file extension, the only supported filetype by JavaFX MediaPlayer.
+     */
+    private Boolean checkForMp4(String fileName) {
+        String extension = "";
+
+        int i = fileName.lastIndexOf('.');
+        if (i > 0) {
+            extension = fileName.substring(i + 1);
+        }
+        return extension.equals("mp4");
     }
 
     //EditGenreBar

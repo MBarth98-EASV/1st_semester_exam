@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
@@ -119,12 +120,19 @@ public class MediaPlayerController implements Initializable {
         try {
             media = new Media(file.toURI().toURL().toString());
         } catch (MalformedURLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "The program could not load the selected movie's file.");
+            alert.showAndWait();
             e.printStackTrace();
+        } catch (MediaException e){
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Unsupported file format. Please choose a different movie.");
+            alert.showAndWait();
+
         }
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaPlayer.muteProperty().set(false);
-        userControls.setStyle("-fx-background-color: linear-gradient(to top, black, transparent);");
+        userControls.setStyle("-fx-background-color: linear-gradient(to top, #212833, transparent);");
     }
 
     private void initListeners(){
