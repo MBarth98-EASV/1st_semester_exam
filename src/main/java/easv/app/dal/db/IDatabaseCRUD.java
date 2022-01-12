@@ -1,8 +1,10 @@
 package easv.app.dal.db;
 
+import java.sql.SQLException;
+
 public interface IDatabaseCRUD<T>
 {
-    void create(T input);
+    void create(T input) throws SQLException;
     T read(T input);
     T[] readAll();
     void update(T input);

@@ -18,6 +18,7 @@ public class EASVDatabaseConnector {
         dbaccess.setUser("CSe21A_29");
         dbaccess.setPassword("itsikkerhed");
         dbaccess.setPortNumber(1433);
+        dbaccess.setTrustServerCertificate(true);
     }
 
     public Connection getConnection()

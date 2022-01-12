@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 import easv.app.be.MovieModel;
 
@@ -34,6 +39,8 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
         try
         {
             Statement statement = dbaccess.getConnection().createStatement();
+
+            System.out.println(sql);
             return statement.executeQuery(sql);
         }
         catch (SQLException e)
@@ -79,6 +86,31 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
         }
     }
 
+    private Dictionary<Integer, String> getCategories() throws SQLException {
+        Dictionary<Integer, String> dictionary = new Hashtable();
+        ResultSet results = this.query("SELECT * FROM Category");
+
+        while (results.next())
+        {
+               dictionary.put(results.getInt("id"), results.getString("genre"));
+        }
+        return dictionary;
+    }
+
+    private int addGenre(String genre) throws SQLException {
+        if (genre != null && !genre.isBlank()) {
+            ResultSet results = this.query("""
+                    IF NOT EXISTS (SELECT * FROM Category WHERE genre='%s')
+                    INSERT INTO Category VALUES ('%s')
+                                            
+                    SELECT * from Category WHERE genre='%s'
+                    """.formatted(genre.trim(), genre.trim(), genre.trim()));
+
+            return results.getInt("id");
+        }
+        return -1;
+    }
+
     private void getAllMoves()
     {
 
@@ -97,27 +129,43 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
     }
 
     @Override
-    public void create(MovieModel input)
-    {
-        this.execute("""
-                INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
+    public void create(MovieModel input) throws SQLException {
+        int movieid;
+
+        ResultSet movieresult = this.query("""
+                IF NOT EXISTS (SELECT * FROM Movie WHERE imdbid='%s')
+                INSERT INTO Movie (title, rating, filepath, imdbid, lastviewed)
                 VALUES ('%s', '%s', '%s', '%s','%s')
-                """.formatted(input.getTitle(), input.getPersonalRating(), input.getPath(), input.getID(), input.getLastViewed()));
+                
+                SELECT * FROM Movie WHERE imdbid='%s'
+                """.formatted(input.getID(), input.getTitle(), input.getPersonalRating(), input.getPath(), input.getID(), input.getLastViewed(), input.getID()));
+        movieresult.next();
+        movieid = movieresult.getInt("id");
 
         if (!input.getGenre().isBlank() && input.getGenre() != null)
         {
             String[] separatedGenres = input.getGenre().split(",");
+            ArrayList<Integer> ids = new ArrayList<>();
 
             for (String genre : separatedGenres)
             {
+
                 ResultSet results = this.query("""
                         IF NOT EXISTS (SELECT * FROM Category WHERE genre='%s')
                         INSERT INTO Category VALUES ('%s')
-                        """.formatted(genre, genre));
+                        
+                        SELECT * from Category WHERE genre='%s'
+                        """.formatted(genre.trim(), genre.trim(), genre.trim()));
+                results.next();
+                ids.add(results.getInt("id"));
             }
 
-
-
+            for (int genreid : ids)
+            {
+                this.execute("""
+                        INSERT INTO CatMovie VALUES ('%s', '%s')
+                        """.formatted(movieid, genreid));
+            }
         }
     }
 
@@ -166,23 +214,27 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
 
     public static void main(String[] args) {
         try {
-            testMethod("Adventure, War, Drama");
+            testMethod("Action");
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
     }
-    static void testMethod(String testdata) throws SQLException {
-        String[] separatedGenres = testdata.split(",");
-        MovieDatabase db = new MovieDatabase();
-        for (String genre : separatedGenres)
-        {
+    static void testMethod(String input) throws SQLException {
+        int movieid;
 
-            db.execute("""
-                        IF NOT EXISTS (SELECT * FROM Category WHERE genre='%s')
-                        INSERT INTO Category VALUES ('%s')
-                        """.formatted(genre, genre));
-        }
+        MovieDatabase db = new MovieDatabase();
+        ResultSet movieresult = db.query("""
+                IF NOT EXISTS (SELECT * FROM Movie WHERE imdbid='%s')
+                INSERT INTO Movie (title, rating, filepath, imdbid, lastviewed)
+                VALUES ('%s', '%s', '%s', '%s','%s')
+                
+                SELECT * FROM Movie WHERE imdbid='%s'
+                """.formatted("1", "input.getTitle()", 5, "input.getPath()", "1", "1970/1/1", "1"));
+        movieresult.next();
+        movieid = movieresult.getInt("id");
+
+        System.out.println(movieid);
     }
 }
