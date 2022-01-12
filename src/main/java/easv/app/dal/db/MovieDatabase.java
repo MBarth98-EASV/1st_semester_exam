@@ -34,6 +34,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         }
     }
 
+
     private ResultSet query(String sql)
     {
         try
@@ -49,28 +50,6 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         }
     }
 
-    private void addMovie(MovieModel movie)
-    {
-        this.execute("""
-                INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
-                VALUES ('%s', '%s', '%s', '%s','%s')
-                """.formatted(movie.getTitle(), movie.getPersonalRating(), movie.getPath(), movie.getID()));
-    }
-
-    private void deleteMovie(MovieModel movie)
-    {
-        if (movie != null)
-        {
-            this.execute("""
-                    DELETE FROM CatMovie WHERE movieid = %s
-                    """.formatted(movie.getID()));
-
-            this.execute("""
-                    DELETE FROM Movie WHERE id = %s
-                    """.formatted(movie.getID()));
-        }
-
-    }
 
     public ArrayList getAllMovies() throws SQLException {
         ArrayList<DBMovieData> movies = new ArrayList<>();
@@ -94,19 +73,6 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         return movies;
     }
 
-    private void updateMovie(MovieModel movie)
-    {
-        if (movie != null)
-        {
-            this.execute("""
-                    UPDATE Movie SET title = '%s',
-                    rating = '%s',
-                    filelink = '%s',
-                    imdblink = '%s',
-                    lastviewed = '%s'
-                    """.formatted(movie.getTitle(), movie.getPersonalRating(), movie.getPath(), movie.getID(), movie.getLastViewed()));
-        }
-    }
 
     private Dictionary<Integer, String> getCategories() throws SQLException {
         Dictionary<Integer, String> dictionary = new Hashtable();
@@ -143,7 +109,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
                 VALUES ('%s', '%s', '%s', '%s','%s')
                 
                 SELECT * FROM Movie WHERE imdbid='%s'
-                """.formatted(input.getImdbid(), input.getTitle(), input.getRating(), input.getFilepath(), input.getImdbid(), input.getLastviewed(), input.getImdbid()));
+                """.formatted(input.getImdbid(), input.getTitle(), input.getRating(), input.getFilepath(), input.getImdbid(), input.getLastViewed(), input.getImdbid()));
         movieresult.next();
         movieid = movieresult.getInt("id");
 
@@ -198,7 +164,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
                     lastviewed = '%s'
                     
                     WHERE imdblink = '%s',
-                    """.formatted(input.getTitle(), input.getRating(), input.getFilepath(), input.getLastviewed(), input.getImdbid()));
+                    """.formatted(input.getTitle(), input.getRating(), input.getFilepath(), input.getLastViewed(), input.getImdbid()));
         }
     }
 
@@ -225,34 +191,14 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
                     """.formatted(input));
 
             int movieid = results.getInt("id");
-            
+
+            this.execute("""
+                    DELETE FROM CatMovie WHERE movieid = '%s'
+                    """.formatted(movieid));
+
+            this.execute("""
+                    DELETE FROM Movie where id = '%s'
+                    """.formatted(movieid));
         }
-    }
-
-
-    public static void main(String[] args) {
-        try {
-            testMethod("Action");
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-    static void testMethod(String input) throws SQLException {
-        int movieid;
-
-        MovieDatabase db = new MovieDatabase();
-        ResultSet movieresult = db.query("""
-                IF NOT EXISTS (SELECT * FROM Movie WHERE imdbid='%s')
-                INSERT INTO Movie (title, rating, filepath, imdbid, lastviewed)
-                VALUES ('%s', '%s', '%s', '%s','%s')
-                
-                SELECT * FROM Movie WHERE imdbid='%s'
-                """.formatted("1", "input.getTitle()", 5, "input.getPath()", "1", "1970/1/1", "1"));
-        movieresult.next();
-        movieid = movieresult.getInt("id");
-
-        System.out.println(movieid);
     }
 }

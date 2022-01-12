@@ -60,11 +60,11 @@ public class DBMovieData {
         this.imdbid = imdbid;
     }
 
-    public String getLastviewed() {
+    public String getLastViewed() {
         return lastviewed;
     }
 
-    public void setLastviewed(String lastviewed) {
+    public void setLastViewed(String lastviewed) {
         this.lastviewed = lastviewed;
     }
 

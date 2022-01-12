@@ -61,7 +61,7 @@ public class DataManager
         database.update(new DBMovieData(-1, selectedItem.getTitle(), Integer.parseInt(selectedItem.getPersonalRating()), selectedItem.getPath(), selectedItem.getID(), "1944/06/06"));
     }
 
-    public void delete(MovieModel selectedItem)
+    public void delete(MovieModel selectedItem) throws SQLException
     {
         database.delete(selectedItem.getID());
     }
