@@ -115,11 +115,13 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie. Please make sure a movie is selected.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             e.printStackTrace();
         }}
         else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION,"Please select a movie in the list below");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.show();
         }
     }
@@ -139,6 +141,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         } catch (IOException | NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the movie creation panel.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             e.printStackTrace();
         }
@@ -172,6 +175,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         } catch (IOException | NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the editing panel.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             e.printStackTrace();
         }
@@ -192,6 +196,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Unable to load the editing panel.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             e.printStackTrace();
         }

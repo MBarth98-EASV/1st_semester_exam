@@ -3,6 +3,7 @@ package easv.app.Utils.Json;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import easv.app.App;
 import javafx.scene.control.Alert;
 
 import java.lang.reflect.*;
@@ -55,6 +56,7 @@ public class DeserializeWithConstructor<T> implements com.google.gson.JsonDeseri
         catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ex)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error parsing the API response.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             System.out.println(ex.getMessage());
             ex.printStackTrace();

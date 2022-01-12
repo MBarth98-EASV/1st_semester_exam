@@ -107,6 +107,7 @@ public class MediaPlayerController implements Initializable {
             thisStage = (Stage) resources.getObject("playerStage");
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             e.printStackTrace();
         }
@@ -121,11 +122,13 @@ public class MediaPlayerController implements Initializable {
             media = new Media(file.toURI().toURL().toString());
         } catch (MalformedURLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "The program could not load the selected movie's file.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             e.printStackTrace();
         } catch (MediaException e){
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR, "Unsupported file format. Please choose a different movie.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
 
         }

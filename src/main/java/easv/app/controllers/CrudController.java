@@ -102,6 +102,7 @@ public class CrudController implements Initializable {
         File selectedFile =  fc.showOpenDialog(new Stage());
         if (!checkForMp4(selectedFile.getName())){
             Alert alert = new Alert(Alert.AlertType.WARNING, "Unsupported file format. Please choose a different movie.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             return;
         }
@@ -175,6 +176,7 @@ public class CrudController implements Initializable {
                 movie = (MovieModel) resources.getObject("selectedMovie");
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
+                alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
                 alert.showAndWait();
                 e.printStackTrace();
             }

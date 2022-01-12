@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import easv.app.App;
 import easv.app.be.MovieModel;
+import javafx.scene.control.Alert;
 
 public class MovieDatabase implements IDatabaseCRUD<MovieModel>
 {
@@ -25,6 +27,9 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
         }
         catch (SQLException e)
         {
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Error executing statement. Please try again");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.showAndWait();
             e.printStackTrace();
         }
     }
@@ -38,6 +43,9 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
         }
         catch (SQLException e)
         {
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Error executing statement. Please try again");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.showAndWait();
             return null;
         }
     }
