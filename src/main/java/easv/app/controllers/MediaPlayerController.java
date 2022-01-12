@@ -190,7 +190,7 @@ public class MediaPlayerController implements Initializable {
             {
                 mediaPlayer.muteProperty().set(!muted);
                 muted = !muted;
-                String muteImg = getClass().getResource("images/volmute.png").toExternalForm();
+                String muteImg = App.class.getResource("images/volmute.png").toExternalForm();
                 volBtn.setStyle("-fx-background-image: url('"+ muteImg +"');");
             }
             //Otherwise, demute.
@@ -198,7 +198,7 @@ public class MediaPlayerController implements Initializable {
             {
                 mediaPlayer.muteProperty().set(!muted);
                 muted = !muted;
-                String volImg = getClass().getResource("images/volup.png").toExternalForm();
+                String volImg = App.class.getResource("images/volup.png").toExternalForm();
                 volBtn.setStyle("-fx-background-image: url('"+ volImg +"');");
                 //Set the appropriate volume button icon on return, based on current volume.
             }
@@ -283,12 +283,12 @@ public class MediaPlayerController implements Initializable {
 
                 if(newValue.doubleValue() == 0)
                 {
-                    String muteImg = getClass().getResource("images/volmute.png").toExternalForm();
+                    String muteImg = App.class.getResource("images/volmute.png").toExternalForm();
                     volBtn.setStyle("-fx-background-image: url('"+ muteImg +"');");
                 }
                 else
                 {
-                    String volImg = getClass().getResource("images/volup.png").toExternalForm();
+                    String volImg = App.class.getResource("images/volup.png").toExternalForm();
                     volBtn.setStyle("-fx-background-image: url('"+ volImg +"');");
                 }
             }
@@ -437,13 +437,13 @@ public class MediaPlayerController implements Initializable {
             public void handle(MouseEvent event) {
                 if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
                     mediaPlayer.play();
-                    String pauseImg = getClass().getResource("images/pause.png").toExternalForm();
+                    String pauseImg = App.class.getResource("images/pause.png").toExternalForm();
                     playBtn.setStyle("-fx-background-image: url('"+ pauseImg +"'); -fx-background-size: 16 16; -fx-background-position: 7.5");
 
                 }
                 else {
                     mediaPlayer.pause();
-                    String playImg = getClass().getResource("images/play2.png").toExternalForm();
+                    String playImg = App.class.getResource("images/play2.png").toExternalForm();
                     playBtn.setStyle("-fx-background-image: url('"+ playImg +"'); -fx-background-size: 16 16; -fx-background-position: 8;");
             }   }
         };
