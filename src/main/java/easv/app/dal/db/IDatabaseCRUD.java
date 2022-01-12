@@ -8,5 +8,5 @@ public interface IDatabaseCRUD<T>
     T read(T input);
     T[] readAll();
     void update(T input);
-    void delete(T input);
+    void delete(T input) throws SQLException;
 }

@@ -169,17 +169,24 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
     }
 
     @Override
-    public void delete(DBMovieData input)
+    public void delete(DBMovieData input) throws SQLException
     {
         if (input != null)
         {
+            ResultSet results = this.query("""
+                    SELECT FROM Movie WHERE imdbid = '%s'
+                    """.formatted(input.getImdbid()));
+
+            results.next();
+            int movieid = results.getInt("id");
+
             this.execute("""
                     DELETE FROM CatMovie WHERE movieid = %s
-                    """.formatted(input.getImdbid()));
+                    """.formatted(movieid));
 
             this.execute("""
                     DELETE FROM Movie WHERE imdbid = %s
-                    """.formatted(input.getImdbid()));
+                    """.formatted(movieid));
         }
     }
 
@@ -190,6 +197,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
                     SELECT FROM Movie WHERE imdbid = '%s'
                     """.formatted(input));
 
+            results.next();
             int movieid = results.getInt("id");
 
             this.execute("""
