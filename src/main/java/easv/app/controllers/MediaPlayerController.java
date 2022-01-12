@@ -8,6 +8,7 @@ import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -135,7 +136,7 @@ public class MediaPlayerController implements Initializable {
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaPlayer.muteProperty().set(false);
-        userControls.setStyle("-fx-background-color: linear-gradient(to top, #212833, transparent);");
+        userControls.setStyle("-fx-background-color: linear-gradient(to top, black, transparent);");
     }
 
     private void initListeners(){
@@ -163,17 +164,7 @@ public class MediaPlayerController implements Initializable {
      */
     @FXML
     public void playRequestHandler(ActionEvent event) {
-        if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
-            mediaPlayer.play();
-            String pauseImg = App.class.getResource("images/pause.png").toExternalForm();
-            playBtn.setStyle("-fx-background-image: url('"+ pauseImg +"'); -fx-background-size: 16 16; -fx-background-position: 7.5");
-
-        }
-        else {
-            mediaPlayer.pause();
-            String playImg = App.class.getResource("images/play2.png").toExternalForm();
-            playBtn.setStyle("-fx-background-image: url('"+ playImg +"'); -fx-background-size: 16 16; -fx-background-position: 8;");
-        }
+        playPauseToggle(event);
     }
 
     /**
@@ -225,7 +216,7 @@ public class MediaPlayerController implements Initializable {
      */
     private void toggleUI(boolean show)
     {
-            if (show)
+        if (show)
             {
                 showUI = SHOW_UI;
                 FadeTransition fadeTransition = new FadeTransition(
@@ -239,13 +230,13 @@ public class MediaPlayerController implements Initializable {
                 timeLine = new Timeline(new KeyFrame(
                         Duration.millis(HIDE_UI_TIMEOUT), event ->
                 {
+                    showUI = HIDE_UI;
                     FadeTransition fadeTransition = new FadeTransition(
                             Duration.millis(500), userControls);
                     fadeTransition.setFromValue(1.0);
                     fadeTransition.setToValue(0.0);
                     fadeTransition.play();
                     thisStage.getScene().setCursor(Cursor.NONE);
-                    showUI = HIDE_UI;
                 }));
                 timeLine.play();
             }
@@ -429,6 +420,26 @@ public class MediaPlayerController implements Initializable {
         };
     }
 
+    private void playPauseToggle(Event event){
+        if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+            if (showUI == true){
+                toggleUI(HIDE_UI);
+            }
+            mediaPlayer.play();
+            String pauseImg = App.class.getResource("images/pause.png").toExternalForm();
+            playBtn.setStyle("-fx-background-image: url('"+ pauseImg +"'); -fx-background-size: 16 16; -fx-background-position: 7.5");
+
+        }
+        else {
+            if (showUI == false){
+                toggleUI(SHOW_UI);
+            }
+            mediaPlayer.pause();
+            String playImg = App.class.getResource("images/play2.png").toExternalForm();
+            playBtn.setStyle("-fx-background-image: url('"+ playImg +"'); -fx-background-size: 16 16; -fx-background-position: 8;");
+        }
+    }
+
     private EventHandler<WindowEvent> stopOnClose(){
         return new EventHandler<WindowEvent>() {
             @Override
@@ -446,17 +457,7 @@ public class MediaPlayerController implements Initializable {
         return new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
-                    mediaPlayer.play();
-                    String pauseImg = App.class.getResource("images/pause.png").toExternalForm();
-                    playBtn.setStyle("-fx-background-image: url('"+ pauseImg +"'); -fx-background-size: 16 16; -fx-background-position: 7.5");
-
-                }
-                else {
-                    mediaPlayer.pause();
-                    String playImg = App.class.getResource("images/play2.png").toExternalForm();
-                    playBtn.setStyle("-fx-background-image: url('"+ playImg +"'); -fx-background-size: 16 16; -fx-background-position: 8;");
-            }   }
+                playPauseToggle(event);  }
         };
     }
 
