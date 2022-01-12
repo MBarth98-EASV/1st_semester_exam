@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.SearchableComboBox;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,9 +39,9 @@ public class CrudController implements Initializable {
 
     //EditMovie
     @FXML public TextField txtFieldEditMovieTitle;
-    @FXML public ComboBox cmboBoxEditGenre1;
-    @FXML public ComboBox cmboBoxEditGenre2;
-    @FXML public ComboBox cmboBoxEditGenre3;
+    @FXML public SearchableComboBox cmboBoxEditGenre1;
+    @FXML public SearchableComboBox cmboBoxEditGenre2;
+    @FXML public SearchableComboBox cmboBoxEditGenre3;
     @FXML public Button btnEditMovieFinish;
 
     //EditGenre
