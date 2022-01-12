@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 
 public class MovieManagerController extends FXMLProperties implements Initializable {
@@ -112,6 +113,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setMinWidth(600);
             stage.setScene(new Scene(root, 1280, 720));
             stage.show();
+
+            selectedMovie.setLastViewed(LocalDate.now().toString());
+            //dataManager.update(selectedMovie);
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie. Please make sure a movie is selected.");
