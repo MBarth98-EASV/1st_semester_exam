@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 
-<AnchorPane fx:id="rootPane" prefHeight="425.0" prefWidth="640.0" stylesheets="@styles/MediaPlayer.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.controllers.MediaPlayerController">
+<AnchorPane fx:id="rootPane" prefHeight="425.0" prefWidth="640.0" stylesheets="@styles/MediaPlayer.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.controllers.MediaPlayerController">
     <children>
         <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="640.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -61,7 +61,7 @@
                                         <Insets right="5.0" />
                                     </GridPane.margin>
                                 </Button>
-                                  <Button fx:id="playBtn" mnemonicParsing="false" onAction="#playRequestHandler" prefHeight="30.0" prefWidth="30.0" style="-fx-border-radius: 30;" />
+                                  <Button fx:id="playBtn" mnemonicParsing="false" onAction="#playRequestHandler" prefHeight="30.0" prefWidth="30.0" style="-fx-border-radius: 30;" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                                   <Label fx:id="timeLabel" maxWidth="60.0" minWidth="60.0" style="-fx-text-fill: white;" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
                             </children>
                         </GridPane>

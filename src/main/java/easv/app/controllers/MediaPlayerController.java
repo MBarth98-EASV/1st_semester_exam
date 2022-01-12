@@ -1,5 +1,6 @@
 package easv.app.controllers;
 
+import easv.app.App;
 import easv.app.be.MovieModel;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -153,13 +154,13 @@ public class MediaPlayerController implements Initializable {
     public void playRequestHandler(ActionEvent event) {
         if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
             mediaPlayer.play();
-            String pauseImg = getClass().getResource("images/pause.png").toExternalForm();
+            String pauseImg = App.class.getResource("images/pause.png").toExternalForm();
             playBtn.setStyle("-fx-background-image: url('"+ pauseImg +"'); -fx-background-size: 16 16; -fx-background-position: 7.5");
 
         }
         else {
             mediaPlayer.pause();
-            String playImg = getClass().getResource("images/play2.png").toExternalForm();
+            String playImg = App.class.getResource("images/play2.png").toExternalForm();
             playBtn.setStyle("-fx-background-image: url('"+ playImg +"'); -fx-background-size: 16 16; -fx-background-position: 8;");
         }
     }

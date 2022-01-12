@@ -80,14 +80,12 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         lblMovYear.textProperty().set(selected.getYear());
         txtAreaMovPlot.setText(selected.getPlot());
 
-
         btnLblGenre1.setText(selected.getGenre()[0]);
         btnLblGenre2.setText(selected.getGenre()[1]);
         btnLblGenre3.setText(selected.getGenre()[2]);
 
         selectedMovie = selected;
-        if (selected.getPoster().getImage() == null)
-        {
+        if (selected.getPoster().getImage() == null) {
             selected.setPoster(App.class.getResource("images/posterError.png").toExternalForm());
         }
 
@@ -98,17 +96,17 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     public void onPlayMovie(ActionEvent event)
     {
-        Parent root = null;
-        try {
+        if (selectedMovie != null){
+            //Parent root = null;
+            try {
             Stage stage = new Stage();
-            ResourceBundle resources = new ListResourceBundle() {
+
+                ResourceBundle resources = new ListResourceBundle() {
                 @Override
                 protected Object[][] getContents() {
                     return new Object[][]{
                             {"selectedMovie", selectedMovie}, {"playerStage", stage}};}};
-
-
-            root = FXMLLoader.load(Objects.requireNonNull(App.class.getClass().getResource("Player.fxml")), resources);
+            Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("Player.fxml")), resources);
             stage.setTitle("Player");
             stage.setMinHeight(400);
             stage.setMinWidth(600);
@@ -119,6 +117,10 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie. Please make sure a movie is selected.");
             alert.showAndWait();
             e.printStackTrace();
+        }}
+        else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,"Please select a movie in the list below");
+            alert.show();
         }
     }
 
