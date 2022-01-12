@@ -1,4 +1,4 @@
-package easv.app;
+package easv.app.controllers;
 
 import easv.app.be.MovieModel;
 import javafx.animation.FadeTransition;

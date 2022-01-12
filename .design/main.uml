@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/mads-/Documents/EASV/1st_semester_exam/src/main</OriginalElement>
+  <nodes>
+    <node x="-118.84197324414708" y="116.0">easv.app.be.SearchedMovieModel</node>
+    <node x="509.76625338429676" y="509.23411371237455">easv.app.Utils.Json.Deserialize</node>
+    <node x="170.59573578595314" y="1048.251672240803">easv.app.Utils.Json.DeserializeWithConstructor</node>
+    <node x="1257.4720238095235" y="192.08152173913044">easv.app.be.MovieModel</node>
+    <node x="1226.4720238095235" y="-35.05852842809372">easv.app.dal.db.EASVDatabaseConnector</node>
+    <node x="906.1191385969101" y="305.6764214046823">easv.app.be.json.MovieInfo</node>
+    <node x="981.6200171205603" y="525.9464882943145">easv.app.controllers.MediaPlayerController</node>
+    <node x="475.59573578595314" y="1048.251672240803">easv.app.Utils.Json.AnonymousGenericClass</node>
+    <node x="372.8333333333332" y="171.5">easv.app.be.json.SearchResult</node>
+    <node x="507.76625338429676" y="423.58152173913044">easv.app.Utils.Json.JsonParserFactory</node>
+    <node x="233.0936821149861" y="0.0">easv.app.be.json.SearchedMovieInfo</node>
+    <node x="613.8429779821627" y="305.6764214046823">easv.app.dal.api.OpenMovieNetwork</node>
+    <node x="583.2540157668417" y="184.0">easv.app.dal.api.OpenMovieDatabaseAPI</node>
+    <node x="925.9860119047617" y="836.2232441471572">easv.app.controllers.MovieManagerController</node>
+    <node x="170.59573578595314" y="676.9640468227426">easv.app.controllers.CrudController</node>
+    <node x="425.3193979933112" y="897.5">easv.app.be.FXMLProperties</node>
+    <node x="981.6200171205603" y="79.82232441471581">easv.app.dal.db.IDatabaseCRUD</node>
+    <node x="1257.4720238095235" y="79.82232441471581">easv.app.dal.db.MovieDatabase</node>
+    <node x="88.0" y="343.0">easv.app.be.SearchModel</node>
+    <node x="987.5957357859531" y="1048.251672240803">easv.app.bll.IDataAccess</node>
+    <node x="993.9860119047617" y="746.2165551839466">easv.app.App</node>
+    <node x="576.5" y="665.4640468227426">easv.app.bll.DataManager</node>
+    <node x="733.5957357859531" y="1048.251672240803">easv.app.Utils.CustomComponent.AutoCompleteTextField</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="easv.app.bll.DataManager" target="easv.app.be.MovieModel" relationship="DEPENDENCY">
+      <point x="118.0" y="-16.38252508361211" />
+      <point x="-81.0" y="237.00000000000006" />
+    </edge>
+    <edge source="easv.app.dal.api.OpenMovieDatabaseAPI" target="easv.app.be.json.SearchResult" relationship="DEPENDENCY">
+      <point x="-107.0" y="0.0" />
+      <point x="68.0" y="0.0" />
+    </edge>
+    <edge source="easv.app.controllers.MediaPlayerController" target="easv.app.be.MovieModel" relationship="DEPENDENCY">
+      <point x="100.0" y="0.0" />
+      <point x="-81.0" y="102.36496655518403" />
+    </edge>
+    <edge source="easv.app.Utils.Json.JsonParserFactory" target="easv.app.Utils.Json.Deserialize" relationship="CREATE">
+      <point x="0.0" y="28.0" />
+      <point x="0.0" y="-28.0" />
+    </edge>
+    <edge source="easv.app.bll.DataManager" target="easv.app.be.MovieModel" relationship="TO_MANY">
+      <point x="118.0" y="-1.3825250836121086" />
+      <point x="-81.0" y="252.00000000000006" />
+    </edge>
+    <edge source="easv.app.be.MovieModel" target="easv.app.be.json.MovieInfo" relationship="DEPENDENCY">
+      <point x="-81.0" y="-117.90510033444815" />
+      <point x="59.499999999999886" y="0.0" />
+    </edge>
+    <edge source="easv.app.dal.db.MovieDatabase" target="easv.app.be.MovieModel" relationship="CREATE">
+      <point x="3.0" y="28.0" />
+      <point x="0.0" y="-259.5" />
+    </edge>
+    <edge source="easv.app.dal.api.OpenMovieNetwork" target="easv.app.be.json.SearchedMovieInfo" relationship="DEPENDENCY">
+      <point x="99.41103778467902" y="-28.0" />
+      <point x="814.7540157668417" y="28.0" />
+      <point x="90.0" y="0.0" />
+    </edge>
+    <edge source="easv.app.bll.DataManager" target="easv.app.be.SearchModel" relationship="DEPENDENCY">
+      <point x="0.0" y="-39.5" />
+      <point x="694.5" y="629.4464882943145" />
+      <point x="222.5" y="629.4464882943145" />
+      <point x="15.0" y="61.5" />
+    </edge>
+    <edge source="easv.app.dal.api.OpenMovieNetwork" target="easv.app.dal.api.OpenMovieDatabaseAPI" relationship="DEPENDENCY">
+      <point x="0.0" y="-28.0" />
+      <point x="25.088962215320976" y="15.5" />
+    </edge>
+    <edge source="easv.app.controllers.CrudController" target="easv.app.be.FXMLProperties" relationship="GENERALIZATION">
+      <point x="0.0" y="28.0" />
+      <point x="245.09573578595314" y="925.5" />
+      <point x="-77.5" y="0.0" />
+    </edge>
+    <edge source="easv.app.controllers.MovieManagerController" target="easv.app.be.MovieModel" relationship="TO_ONE">
+      <point x="109.0" y="-15.0" />
+      <point x="1308.4720238095235" y="849.2232441471572" />
+      <point x="-30.0" y="259.50000000000006" />
+    </edge>
+    <edge source="easv.app.dal.api.OpenMovieNetwork" target="easv.app.be.SearchModel" relationship="DEPENDENCY">
+      <point x="-101.5" y="16.823578595317713" />
+      <point x="119.5" y="-54.0" />
+    </edge>
+    <edge source="easv.app.be.FXMLProperties" target="easv.app.be.MovieModel" relationship="DEPENDENCY">
+      <point x="77.5" y="0.0" />
+      <point x="1353.4720238095235" y="925.5" />
+      <point x="15.0" y="259.50000000000006" />
+    </edge>
+    <edge source="easv.app.controllers.MovieManagerController" target="easv.app.App" relationship="DEPENDENCY">
+      <point x="0.0" y="-28.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="easv.app.dal.api.OpenMovieNetwork" target="easv.app.dal.api.OpenMovieDatabaseAPI" relationship="TO_ONE">
+      <point x="-25.088962215320976" y="-28.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="easv.app.be.SearchModel" target="easv.app.be.SearchedMovieModel" relationship="DEPENDENCY">
+      <point x="0.0" y="-61.5" />
+      <point x="207.5" y="214.5" />
+      <point x="98.5" y="15.0" />
+    </edge>
+    <edge source="easv.app.controllers.MovieManagerController" target="easv.app.bll.DataManager" relationship="TO_ONE">
+      <point x="-109.0" y="15.0" />
+      <point x="681.0957357859531" y="879.2232441471572" />
+      <point x="-13.404264214046862" y="39.5" />
+    </edge>
+    <edge source="easv.app.bll.DataManager" target="easv.app.dal.api.OpenMovieNetwork" relationship="DEPENDENCY">
+      <point x="20.842977982162665" y="-39.5" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="easv.app.controllers.MovieManagerController" target="easv.app.be.MovieModel" relationship="DEPENDENCY">
+      <point x="109.0" y="0.0" />
+      <point x="1323.4720238095235" y="864.2232441471572" />
+      <point x="-15.0" y="259.50000000000006" />
+    </edge>
+    <edge source="easv.app.dal.api.OpenMovieNetwork" target="easv.app.Utils.Json.JsonParserFactory" relationship="DEPENDENCY">
+      <point x="-94.0" y="28.0" />
+      <point x="29.576724597865905" y="-28.0" />
+    </edge>
+    <edge source="easv.app.controllers.CrudController" target="easv.app.bll.DataManager" relationship="DEPENDENCY">
+      <point x="74.5" y="0.0" />
+      <point x="-118.0" y="0.0" />
+    </edge>
+    <edge source="easv.app.be.SearchedMovieModel" target="easv.app.be.json.SearchedMovieInfo" relationship="DEPENDENCY">
+      <point x="98.5" y="0.0" />
+      <point x="319.5" y="199.5" />
+      <point x="-3.593682114986109" y="28.0" />
+    </edge>
+    <edge source="easv.app.bll.DataManager" target="easv.app.be.json.MovieInfo" relationship="DEPENDENCY">
+      <point x="118.0" y="-31.38252508361211" />
+      <point x="964.1200171205603" y="673.5815217391305" />
+      <point x="-1.499121476349842" y="28.0" />
+    </edge>
+    <edge source="easv.app.dal.db.MovieDatabase" target="easv.app.dal.db.IDatabaseCRUD" relationship="REALIZATION">
+      <point x="-78.0" y="-12.5" />
+      <point x="93.0" y="0.0" />
+    </edge>
+    <edge source="easv.app.be.SearchModel" target="easv.app.be.json.SearchResult" relationship="DEPENDENCY">
+      <point x="112.0" y="-61.5" />
+      <point x="319.5" y="214.5" />
+      <point x="-68.0" y="15.0" />
+    </edge>
+    <edge source="easv.app.be.SearchModel" target="easv.app.be.json.SearchedMovieInfo" relationship="DEPENDENCY">
+      <point x="97.0" y="-61.5" />
+      <point x="-18.59368211498611" y="28.0" />
+    </edge>
+    <edge source="easv.app.dal.db.MovieDatabase" target="easv.app.dal.db.EASVDatabaseConnector" relationship="CREATE">
+      <point x="15.0" y="-28.0" />
+      <point x="15.0" y="39.5" />
+    </edge>
+    <edge source="easv.app.dal.api.OpenMovieNetwork" target="easv.app.be.json.MovieInfo" relationship="DEPENDENCY">
+      <point x="101.5" y="0.0" />
+      <point x="-59.5" y="0.0" />
+    </edge>
+    <edge source="easv.app.controllers.CrudController" target="easv.app.be.SearchModel" relationship="DEPENDENCY">
+      <point x="-37.59573578595314" y="-28.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="easv.app.controllers.MovieManagerController" target="easv.app.bll.DataManager" relationship="CREATE">
+      <point x="-109.0" y="0.0" />
+      <point x="741.0957357859531" y="864.2232441471572" />
+      <point x="46.59573578595314" y="39.5" />
+    </edge>
+    <edge source="easv.app.controllers.MediaPlayerController" target="easv.app.be.MovieModel" relationship="TO_ONE">
+      <point x="100.0" y="15.0" />
+      <point x="-81.0" y="117.36496655518403" />
+    </edge>
+    <edge source="easv.app.controllers.MovieManagerController" target="easv.app.be.FXMLProperties" relationship="GENERALIZATION">
+      <point x="0.0" y="28.0" />
+      <point x="1034.9860119047617" y="910.5" />
+      <point x="77.5" y="-15.0" />
+    </edge>
+    <edge source="easv.app.dal.api.OpenMovieNetwork" target="easv.app.be.json.SearchResult" relationship="DEPENDENCY">
+      <point x="-101.5" y="-8.176421404682287" />
+      <point x="455.8333333333332" y="325.5" />
+      <point x="15.0" y="28.0" />
+    </edge>
+    <edge source="easv.app.dal.db.MovieDatabase" target="easv.app.dal.db.EASVDatabaseConnector" relationship="TO_ONE">
+      <point x="0.0" y="-28.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="easv.app.controllers.CrudController" target="easv.app.be.SearchedMovieModel" relationship="DEPENDENCY">
+      <point x="-74.5" y="0.0" />
+      <point x="-20.341973244147084" y="704.9640468227426" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="easv.app.be.json.SearchResult" target="easv.app.be.json.SearchedMovieInfo" relationship="DEPENDENCY">
+      <point x="-50.23965121834709" y="-28.0" />
+      <point x="67.5" y="28.0" />
+    </edge>
+    <edge source="easv.app.dal.api.OpenMovieDatabaseAPI" target="easv.app.be.json.MovieInfo" relationship="DEPENDENCY">
+      <point x="107.0" y="0.08152173913043725" />
+      <point x="964.1200171205603" y="199.58152173913044" />
+      <point x="-1.499121476349842" y="-28.0" />
+    </edge>
+    <edge source="easv.app.be.json.SearchResult" target="easv.app.be.json.SearchedMovieInfo" relationship="TO_ONE">
+      <point x="-35.23965121834709" y="-28.0" />
+      <point x="82.5" y="28.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.5217011995637949" showDependencies="true" x="663.0" y="534.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>Production</SCOPE>
+  <VISIBILITY>packageLocal</VISIBILITY>
+</Diagram>
+
