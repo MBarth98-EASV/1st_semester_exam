@@ -46,8 +46,8 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
     {
         this.execute("""
                 INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
-                VALUES ('%s', '%s', '%s', '%s','&s')
-                """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getID()));
+                VALUES ('%s', '%s', '%s', '%s','%s')
+                """.formatted(movie.getTitle(), movie.getPersonalRating(), movie.getPath(), movie.getID()));
     }
 
     private void deleteMovie(MovieModel movie)
@@ -75,7 +75,7 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
                     filelink = '%s',
                     imdblink = '%s',
                     lastviewed = '%s'
-                    """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getID(), movie.getLastViewed()));
+                    """.formatted(movie.getTitle(), movie.getPersonalRating(), movie.getPath(), movie.getID(), movie.getLastViewed()));
         }
     }
 
@@ -101,8 +101,24 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
     {
         this.execute("""
                 INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
-                VALUES ('%s', '%s', '%s', '%s','&s')
-                """.formatted(input.getTitle(), input.getRatings(), input.getPath(), input.getID()));
+                VALUES ('%s', '%s', '%s', '%s','%s')
+                """.formatted(input.getTitle(), input.getPersonalRating(), input.getPath(), input.getID(), input.getLastViewed()));
+
+        if (!input.getGenre().isBlank() && input.getGenre() != null)
+        {
+            String[] separatedGenres = input.getGenre().split(",");
+
+            for (String genre : separatedGenres)
+            {
+                ResultSet results = this.query("""
+                        IF NOT EXISTS (SELECT * FROM Category WHERE genre='%s')
+                        INSERT INTO Category VALUES ('%s')
+                        """.formatted(genre, genre));
+            }
+
+
+
+        }
     }
 
     @Override
@@ -144,6 +160,29 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
             this.execute("""
                     DELETE FROM Movie WHERE id = %s
                     """.formatted(input.getID()));
+        }
+    }
+
+
+    public static void main(String[] args) {
+        try {
+            testMethod("Adventure, War, Drama");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    static void testMethod(String testdata) throws SQLException {
+        String[] separatedGenres = testdata.split(",");
+        MovieDatabase db = new MovieDatabase();
+        for (String genre : separatedGenres)
+        {
+
+            db.execute("""
+                        IF NOT EXISTS (SELECT * FROM Category WHERE genre='%s')
+                        INSERT INTO Category VALUES ('%s')
+                        """.formatted(genre, genre));
         }
     }
 }

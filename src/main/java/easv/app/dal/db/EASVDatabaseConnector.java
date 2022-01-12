@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class EASVDatabaseConnector {
 
-    private final SQLServerDataSource dbaccess;
+    private SQLServerDataSource dbaccess;
 
     public EASVDatabaseConnector()
     {
@@ -27,8 +27,8 @@ public class EASVDatabaseConnector {
         }
         catch (SQLException e)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not connect to the database.");
-            alert.showAndWait();
+            //Alert alert = new Alert(Alert.AlertType.ERROR, "Could not connect to the database.");
+            //alert.showAndWait();
             return null;
         }
     }
