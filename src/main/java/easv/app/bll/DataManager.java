@@ -73,7 +73,7 @@ public class DataManager
      * Can possibly be replaced with SQL statement.
      * @return List of MovieModels whose LastViewed date is older than two years.
      */
-    public List<MovieModel> getOldLastViewedMovies(){
+    public List<MovieModel> sortOldLastViewedMovies(){
         ArrayList<MovieModel> returnList = new ArrayList<>();
         for (MovieModel m : movies.get()){
             if (!m.getLastViewed().equals(null) && !m.getLastViewed().isEmpty()){
@@ -85,6 +85,8 @@ public class DataManager
         }
         return returnList;
     }
+
+
 
     public void add(String filepath, String ImdbID) throws SQLException, IOException
     {

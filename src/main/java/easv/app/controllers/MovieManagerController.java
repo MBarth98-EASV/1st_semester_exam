@@ -6,15 +6,20 @@ import easv.app.be.FXMLProperties;
 import easv.app.be.MovieModel;
 import easv.app.bll.DataManager;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -281,20 +286,20 @@ public class MovieManagerController extends FXMLProperties implements Initializa
      * @param inputList
      */
     private <T> void initializeGenericSearchEntries(List<T> inputList){
-        //txtFieldSearch.getEntries().clear();
+        txtFieldSearch.getEntries().clear();
 
         for (int i = 0; i < inputList.size(); i++)
         {
-           // txtFieldSearch.getEntries().add((inputList.get(i).toString()));
+           txtFieldSearch.getEntries().add((inputList.get(i).toString()));
         }
     }
 
     private void initializeStringSearchEntries(List<String> inputList){
-       // txtFieldSearch.getEntries().clear();
+        txtFieldSearch.getEntries().clear();
 
         for (int i = 0; i < inputList.size(); i++)
         {
-            //txtFieldSearch.getEntries().add((inputList.get(i)));
+            txtFieldSearch.getEntries().add((inputList.get(i)));
         }
     }
     public void onComboBox(ActionEvent event) {
@@ -302,6 +307,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         switch (ComboBoxEnum.values()[selectedItem])
         {
+            case SEARCH_ALL -> {
+                initializeGenericSearchEntries();
+            }
             case TITLE -> {
                 //initializeStringSearchEntries();
                 txtFieldSearch.setPromptText("Enter a title to filter");
@@ -332,7 +340,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
     private void initializeComboBox(){
-        cmboBoxFilter.setItems(FXCollections.observableArrayList("Search", "Title | Filter", "Genre | Filter", "Rating | Filter", "IMBD Rating | Filter"));
+        cmboBoxFilter.setItems(FXCollections.observableArrayList("Search", "Search All", "Title | Filter", "Genre | Filter", "Rating | Filter", "IMBD Rating | Filter"));
         cmboBoxFilter.getSelectionModel().select(0);
     }
 
@@ -370,19 +378,49 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         edit.setStyle("-fx-text-fill: #d5d4d4;");
         edit.setOnAction(event -> onEditGenre(event));
         contextMenuGenre.getItems().add(edit);
-
     }
 
-    private void openImbdPage(){
+
+    private void openImbdPage() {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
             try {
-                URI selectedImbdPage = new URI("https://www.imdb.com/title/"+ selectedMovie.getID() +"/");
+                URI selectedImbdPage = new URI("https://www.imdb.com/title/" + selectedMovie.getID() + "/");
                 Desktop.getDesktop().browse(selectedImbdPage);
             } catch (IOException | URISyntaxException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie's IMBD page");
                 alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
                 alert.showAndWait();
                 e.printStackTrace();
+            }
+        }
+    }
+    /**
+     * Checks whether any MovieModel object has either not been viewed for two years or more, or has been rated 2/5 or lower.
+     * Should any applicable movies exist, it displays an alert with ListViews and Labels packaged in VBoxes and an Hbox,
+     * that contains said applicable movies.
+     */
+    private void alertUser(){
+        ObservableList<MovieModel> badMovies = FXCollections.observableArrayList(DataManager.getInstance().sortBadMovies());
+        ObservableList<MovieModel> oldMovies = FXCollections.observableArrayList(DataManager.getInstance().sortOldLastViewedMovies());
+        if (!badMovies.isEmpty() || !oldMovies.isEmpty()){
+            ObservableList<Node> oldListAndLabel = FXCollections.observableArrayList();
+            ObservableList<Node> badListAndLabel = FXCollections.observableArrayList();
+            HBox hbox = new HBox();
+            if (!oldMovies.isEmpty()) {
+                VBox vBox = new VBox();
+                ListView<MovieModel> lstViewOld = new ListView<>(oldMovies);
+                lstViewOld.setMaxHeight(200);
+                oldListAndLabel.addAll(new Label("Movies not opened for two years"), lstViewOld);
+                vBox.getChildren().addAll(oldListAndLabel);
+                hbox.getChildren().add(vBox);
+            }
+            if (!badMovies.isEmpty()){
+                VBox vBox = new VBox();
+                ListView<MovieModel> lstViewBad = new ListView<>(badMovies);
+                lstViewBad.setMaxHeight(200);
+                badListAndLabel.addAll(new Label("Movies rated poorly by you"), lstViewBad);
+                vBox.getChildren().addAll(badListAndLabel);
+                hbox.getChildren().add(vBox);
             }
         }
     }
