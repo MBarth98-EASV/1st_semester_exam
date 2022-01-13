@@ -71,4 +71,9 @@ public class DataManager
     {
         database.delete(selectedItem.getID());
     }
+
+    public List<String> getGenres(MovieModel selectedItem)
+    {
+        return database.getMovieGenres(selectedItem.getID());
+    }
 }

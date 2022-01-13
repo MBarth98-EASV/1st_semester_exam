@@ -9,10 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.Instant;
 import java.util.*;
-
-import easv.app.be.MovieModel;
 import javafx.scene.control.Alert;
 
 public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
@@ -33,7 +30,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         }
         catch (SQLException e)
         {
-            alert("Can not connect to Database.");
+            alert("Something went wrong.");
         }
     }
 
@@ -48,7 +45,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         }
         catch (SQLException e)
         {
-            alert("Can not connect to Database.");
+            alert("Something went wrong.");
             return null;
         }
     }
@@ -83,7 +80,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         return movies;
         } catch (SQLException e)
         {
-            e.printStackTrace();
+            alert("Something went wrong.");
             return null;
         }
     }
@@ -100,7 +97,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
             return dictionary;
         } catch (SQLException e)
         {
-            e.printStackTrace();
+            alert("Something went wrong.");
             return null;
         }
     }
@@ -120,7 +117,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
             return -1;
         } catch (SQLException e)
         {
-            e.printStackTrace();
+            alert("Something went wrong.");
             return -1;
         }
     }
@@ -164,13 +161,12 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
             }
         } catch (SQLException e)
         {
-            e.printStackTrace();
+            alert("Something went wrong.");
         }
     }
 
     @Override
-    public DBMovieData read(DBMovieData input)
-    {
+    public DBMovieData read(DBMovieData input) {
         return null;
     }
 
@@ -193,7 +189,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
             }
         } catch (Exception e)
         {
-            e.printStackTrace();
+            alert("Something went wrong.");
         }
     }
 
@@ -219,13 +215,13 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
             }
         } catch (SQLException e)
         {
-            e.printStackTrace();
+            alert("Something went wrong.");
         }
     }
 
     public void delete(String input) {
         try {
-            if (input != null) {
+            if (input != null && !input.isBlank()) {
                 ResultSet results = this.query("""
                         SELECT FROM Movie WHERE imdbid = '%s'
                         """.formatted(input));
@@ -243,7 +239,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
             }
         } catch (SQLException e)
         {
-            e.printStackTrace();
+            alert("Something went wrong.");
         }
     }
 
@@ -251,26 +247,27 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
     {
         try
         {
-            List<String> genres = new ArrayList<>();
+            if (imdbid != null && !imdbid.isBlank()) {
+                List<String> genres = new ArrayList<>();
 
-            ResultSet results = this.query("""
-                    SELECT Category.genre
-                    FROM Category
-                    INNER JOIN CatMovie ON Category.id = CatMovie.categoryid
-                    INNER JOIN Movie ON Movie.id = CatMovie.movieid
-                    WHERE Movie.imdbid = '%s'   
-                    """.formatted(imdbid));
+                ResultSet results = this.query("""
+                        SELECT Category.genre
+                        FROM Category
+                        INNER JOIN CatMovie ON Category.id = CatMovie.categoryid
+                        INNER JOIN Movie ON Movie.id = CatMovie.movieid
+                        WHERE Movie.imdbid = '%s'   
+                        """.formatted(imdbid));
 
-            while (results.next())
-            {
-                genres.add(results.getString("genre"));
+                while (results.next()) {
+                    genres.add(results.getString("genre"));
+                }
+
+                return genres;
             }
-
-            return genres;
-
+            return null;
         } catch (Exception e)
         {
-            e.printStackTrace();
+            alert("Something went wrong.");
             return null;
         }
     }
