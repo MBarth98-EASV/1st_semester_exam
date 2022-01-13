@@ -10,10 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.*;
 
 import easv.app.be.MovieModel;
 import javafx.scene.control.Alert;
@@ -250,18 +247,27 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         }
     }
 
-    public String[] getMovieGenres(DBMovieData id)
+    public List<String> getMovieGenres(String imdbid)
     {
         try
         {
-            this.query("""
-                    SELECT Category.id, Category.genre, CatMovie.categoryid, CatMovie.movieid, Movie.id
+            List<String> genres = new ArrayList<>();
+
+            ResultSet results = this.query("""
+                    SELECT Category.genre
                     FROM Category
                     INNER JOIN CatMovie ON Category.id = CatMovie.categoryid
-                    INNER JOIN Movie ON Movie.id = CatMovie.movieid   
-                    """.formatted(id.getId()));
+                    INNER JOIN Movie ON Movie.id = CatMovie.movieid
+                    WHERE Movie.imdbid = '%s'   
+                    """.formatted(imdbid));
 
-            return null;
+            while (results.next())
+            {
+                genres.add(results.getString("genre"));
+            }
+
+            return genres;
+
         } catch (Exception e)
         {
             e.printStackTrace();

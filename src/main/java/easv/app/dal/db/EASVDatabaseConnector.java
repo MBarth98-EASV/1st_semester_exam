@@ -1,7 +1,10 @@
+/**
+ * @Author Philip E. Zadeh
+ */
+
 package easv.app.dal.db;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.SQLException;
