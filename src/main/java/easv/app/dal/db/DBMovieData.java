@@ -9,6 +9,7 @@ public class DBMovieData {
     private String lastviewed;
     private String genre;
 
+    public DBMovieData() {}
     public DBMovieData(int id, String title, int rating, String filepath, String imdbid, String lastviewed)
     {
         this.id = id;

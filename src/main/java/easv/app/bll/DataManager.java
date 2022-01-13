@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,12 +21,25 @@ import java.util.ArrayList;
 
 public class DataManager
 {
-    MovieDatabase database = new MovieDatabase();
-    private ListProperty<MovieModel> movies = new SimpleListProperty<>();
+    MovieDatabase database = null;
+    private final ListProperty<MovieModel> movies = new SimpleListProperty<>();
 
-    public DataManager()
+    private static DataManager instance = null;
+
+    public static DataManager getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new DataManager();
+        }
+
+        return instance;
+    }
+
+    private DataManager()
     {
         movies.set(FXCollections.observableArrayList());
+        database = new MovieDatabase();
     }
 
     // get all movies from db
@@ -70,15 +84,23 @@ public class DataManager
         return returnList;
     }
 
-
-
-    public void add(String filepath) throws SQLException {
+    public void add(String filepath, String ImdbID) throws SQLException, IOException
+    {
         // get movie from api
-        MovieInfo apiMovie = new MovieInfo();
+        MovieInfo apiMovie = OpenMovieNetwork.getInstance().get(ImdbID, null, false);
 
-        database.create(new DBMovieData(-1, apiMovie.title, 0, filepath, apiMovie.ID, "1944/06/06"));
+        DBMovieData dbMovie = new DBMovieData();
 
-        // add to movies list to update GUI
+        dbMovie.setGenre(apiMovie.genre);
+        dbMovie.setFilepath(filepath);
+        dbMovie.setTitle(apiMovie.title);
+        dbMovie.setRating(0);
+        dbMovie.setLastViewed(Date.valueOf(LocalDate.now()).toString());
+        dbMovie.setImdbid(apiMovie.ID);
+
+        dbMovie = database.create(dbMovie);
+
+        this.movies.add(Converters.convert(dbMovie, apiMovie));
     }
 
     public void update(MovieModel selectedItem)

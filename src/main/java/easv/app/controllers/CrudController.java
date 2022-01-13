@@ -19,6 +19,7 @@ import org.controlsfx.control.SearchableComboBox;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class CrudController implements Initializable {
@@ -47,11 +48,10 @@ public class CrudController implements Initializable {
     @FXML public Button btnDeleteGenre;
     @FXML public Button btnEditGenreFinish;
 
-    DataManager dataManager;
     MovieModel movie;
 
     public CrudController() {
-        dataManager = new DataManager();
+
     }
 
     @Override
@@ -106,11 +106,22 @@ public class CrudController implements Initializable {
 
     }
 
-    public void onNewMovieDone(ActionEvent event) {
+    public void onNewMovieDone(ActionEvent event)
+    {
         SearchedMovieModel newMovie = lstViewNewMoviePick.getSelectionModel().getSelectedItem();
-        if (newMovie != null){
-            //dataManager.add(newMovie, txtFieldPickFile.getText());
+
+        if (newMovie != null)
+        {
+            try
+            {
+                DataManager.getInstance().add(txtFieldPickFile.getText(), newMovie.getImdbID());
+            }
+            catch (SQLException | IOException e)
+            {
+                e.printStackTrace();
+            }
         }
+
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 

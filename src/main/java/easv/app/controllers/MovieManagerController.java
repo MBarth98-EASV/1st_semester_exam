@@ -28,15 +28,13 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.*;
 
-public class MovieManagerController extends FXMLProperties implements Initializable {
+public class MovieManagerController extends FXMLProperties implements Initializable
+{
 
-    DataManager data;
     MovieModel selectedMovie;
 
     public MovieManagerController()
     {
-        data = new DataManager();
-
         tblViewMovies.getColumns().add(tblClmPoster);
         tblViewMovies.getColumns().add(tblClmTitle);
         tblViewMovies.getColumns().add(tblClmType);
@@ -50,7 +48,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     {
         try
         {
-            data.load();
+            DataManager.getInstance().load();
         }
         catch (Exception e)
         {
@@ -212,7 +210,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         var selected =  this.tblViewMovies.getSelectionModel().getSelectedItem();
 
         selected.setPersonalRating(rating + "");
-        data.update(selected);
+        DataManager.getInstance().update(selected);
     }
 
     private void initializeMovieTable()
@@ -231,7 +229,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         this.tblClmPersonalRating.setCellValueFactory(param -> param.getValue().personalRatingProperty());
         this.tblClmLastViewed.setCellValueFactory(param -> param.getValue().lastViewedProperty());
 
-        this.tblViewMovies.itemsProperty().bindBidirectional(data.getMovies());
+        this.tblViewMovies.itemsProperty().bindBidirectional(DataManager.getInstance().getMovies());
 
         setCellFactory(tblClmTitle, Pos.CENTER_LEFT);
         setCellFactory(tblClmType, Pos.CENTER_LEFT);

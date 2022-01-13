@@ -356,7 +356,7 @@ public class MovieModel
 
     public void setPoster(String posterURL)
     {
-        if (posterURL.equals("N/A"))
+        if (posterURL == null || posterURL.equals("N/A"))
         {
             this.poster.set(new ImageView((Image)null));
         }

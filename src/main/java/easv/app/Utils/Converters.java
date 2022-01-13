@@ -46,9 +46,18 @@ public class Converters
         movie.setTitle(apiInfo.title);
         movie.setYear(apiInfo.year);
 
+        if (dbData.getGenre() == null || dbData.getGenre().isBlank())
+        {
+            movie.setGenre(apiInfo.genre);
+        }
+        else
+        {
+            movie.setGenre(dbData.getGenre());
+        }
+
         movie.setLastViewed(dbData.getLastViewed());
         movie.setID(dbData.getImdbid());
-        movie.setGenre(dbData.getGenre());
+
         movie.setPath(dbData.getFilepath());
         movie.setPersonalRating(dbData.getRating() + "");
 

@@ -5,7 +5,9 @@ import easv.app.App;
 import javafx.scene.control.Alert;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class EASVDatabaseConnector {
 
@@ -30,6 +32,39 @@ public class EASVDatabaseConnector {
         catch (SQLException e)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not connect to the database.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.showAndWait();
+            return null;
+        }
+    }
+
+    public void execute(String sql)
+    {
+        try
+        {
+            Statement statement = getConnection().createStatement();
+            statement.execute(sql);
+        }
+        catch (SQLException e)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Error executing statement. Please try again");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.showAndWait();
+            e.printStackTrace();
+        }
+    }
+
+    public ResultSet query(String sql)
+    {
+        try
+        {
+            Statement statement = getConnection().createStatement();
+
+            return statement.executeQuery(sql);
+        }
+        catch (SQLException e)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Error executing statement. Please try again");
             alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             return null;
