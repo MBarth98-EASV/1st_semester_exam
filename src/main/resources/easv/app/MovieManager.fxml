@@ -142,18 +142,24 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ImageView fitHeight="21.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                  <ImageView fx:id="imgViewIMDB" fitHeight="21.0" fitWidth="48.0" onMouseClicked="#onImbdClicked" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                      <image>
                         <Image url="@images/imdb.png" />
                      </image>
                      <GridPane.margin>
                         <Insets right="2.0" top="5.0" />
                      </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
-                  <Label fx:id="lblMovImbdRating" text="0.0" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                  <Label fx:id="lblMovImbdRating" onMouseClicked="#onImbdScoreClicked" text="0.0" GridPane.columnIndex="1" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="2.0" top="5.0" />
                      </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Label>
                </children>
             </GridPane>

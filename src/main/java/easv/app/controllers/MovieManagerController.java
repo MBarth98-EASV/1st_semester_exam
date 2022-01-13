@@ -13,14 +13,19 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.*;
 
 public class MovieManagerController extends FXMLProperties implements Initializable {
@@ -356,6 +361,25 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     }
 
+    private void openImbdPage(){
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            try {
+                URI selectedImbdPage = new URI("https://www.imdb.com/title/"+ selectedMovie.getID() +"/");
+                Desktop.getDesktop().browse(selectedImbdPage);
+            } catch (IOException | URISyntaxException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie's IMBD page");
+                alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+                alert.showAndWait();
+                e.printStackTrace();
+            }
+        }
+    }
 
+    public void onImbdScoreClicked(MouseEvent mouseEvent) {
+        openImbdPage();
+    }
 
+    public void onImbdClicked(MouseEvent mouseEvent) {
+        openImbdPage();
+    }
 }
