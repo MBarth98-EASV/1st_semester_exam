@@ -1,3 +1,8 @@
+/***
+ * @Author Philip E. Zadeh
+ * Help
+ */
+
 package easv.app.dal.db;
 
 import java.sql.Connection;
@@ -242,6 +247,25 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         } catch (SQLException e)
         {
             e.printStackTrace();
+        }
+    }
+
+    public String[] getMovieGenres(DBMovieData id)
+    {
+        try
+        {
+            this.query("""
+                    SELECT Category.id, Category.genre, CatMovie.categoryid, CatMovie.movieid, Movie.id
+                    FROM Category
+                    INNER JOIN CatMovie ON Category.id = CatMovie.categoryid
+                    INNER JOIN Movie ON Movie.id = CatMovie.movieid   
+                    """.formatted(id.getId()));
+
+            return null;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
         }
     }
 }

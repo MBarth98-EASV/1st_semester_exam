@@ -1,3 +1,7 @@
+/**
+ * @Author Philip E. Zadeh
+ */
+
 package easv.app.dal.db;
 
 public class DBMovieData {
@@ -71,7 +75,6 @@ public class DBMovieData {
     public String getGenre() {
         return genre;
     }
-
     public void setGenre(String genre) {
         this.genre = genre;
     }
