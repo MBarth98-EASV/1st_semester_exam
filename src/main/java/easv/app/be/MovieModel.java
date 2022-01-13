@@ -408,8 +408,12 @@ public class MovieModel
         }
     }
 
-
     @Override
+    public String toString(){
+        return title.get() + " (" + year.get() + ")";
+    }
+
+   /* @Override
     public String toString()
     {
         return "MovieModel{" +
@@ -435,4 +439,6 @@ public class MovieModel
                 ", poster=" + poster +
                 '}';
     }
+
+    */
 }

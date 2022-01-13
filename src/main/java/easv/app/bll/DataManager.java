@@ -52,10 +52,10 @@ public class DataManager
      * Can possibly be replaced with SQL statement.
      * @return List of MovieModels whose LastViewed date is older than two years.
      */
-    public List<MovieModel> getOldLastViewedMovies(){
+    public List<MovieModel> sortOldLastViewedMovies(){
         ArrayList<MovieModel> returnList = new ArrayList<>();
         for (MovieModel m : movies.get()){
-            if (!m.getLastViewed().equals(null) && !m.getLastViewed().isEmpty()){
+            if (m.getLastViewed() != null && !m.getLastViewed().isEmpty()){
                 LocalDate lastViewedDate = LocalDate.parse(m.getLastViewed());
                 if (LocalDate.now().minusYears(2).isAfter(lastViewedDate.minusDays(1))) {
                     returnList.add(m);
@@ -65,6 +65,18 @@ public class DataManager
         return returnList;
     }
 
+    public List<MovieModel> sortBadMovies() {
+        ArrayList<MovieModel> returnList = new ArrayList<>();
+        for (MovieModel m : movies.get()){
+            if (m.getPersonalRating() != null && !m.getPersonalRating().isEmpty()){
+                Integer rating = Integer.parseInt(m.getPersonalRating());
+                if (rating.intValue() <= 2) {
+                    returnList.add(m);
+                }
+            }
+        }
+        return returnList;
+    }
 
 
     public void add( /* what parameters ? */ )

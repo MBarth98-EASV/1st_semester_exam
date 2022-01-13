@@ -6,16 +6,20 @@ import easv.app.be.FXMLProperties;
 import easv.app.be.MovieModel;
 import easv.app.bll.DataManager;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -63,6 +67,8 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         tblViewMovieContextMenu();
         tblViewMovies.getSelectionModel().selectedItemProperty().addListener(observable -> updateSelectedItemBindings());
         tblViewMovies.getSelectionModel().selectFirst();
+        alertUser();
+
     }
 
     public void updateSelectedItemBindings()
@@ -358,6 +364,41 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         edit.setStyle("-fx-text-fill: #d5d4d4;");
         edit.setOnAction(event -> onEditGenre(event));
         contextMenuGenre.getItems().add(edit);
+
+    }
+
+    private void alertUser(){
+        ObservableList<MovieModel> badMovies = FXCollections.observableArrayList(data.sortBadMovies());
+        ObservableList<MovieModel> oldMovies = FXCollections.observableArrayList(data.sortOldLastViewedMovies());
+        if (!badMovies.isEmpty() || !oldMovies.isEmpty()){
+            ObservableList<Node> oldListAndLabel = FXCollections.observableArrayList();
+            ObservableList<Node> badListAndLabel = FXCollections.observableArrayList();
+            HBox hbox = new HBox();
+            if (!oldMovies.isEmpty()) {
+                VBox vBox = new VBox();
+                ListView<MovieModel> lstViewOld = new ListView<>(oldMovies);
+                lstViewOld.setMaxHeight(200);
+                oldListAndLabel.addAll(new Label("Movies not opened for two years"), lstViewOld);
+                vBox.getChildren().addAll(oldListAndLabel);
+                hbox.getChildren().add(vBox);
+            }
+            if (!badMovies.isEmpty()){
+                VBox vBox = new VBox();
+                ListView<MovieModel> lstViewBad = new ListView<>(badMovies);
+                lstViewBad.setMaxHeight(200);
+                badListAndLabel.addAll(new Label("Movies rated poorly by you"), lstViewBad);
+                vBox.getChildren().addAll(badListAndLabel);
+                hbox.getChildren().add(vBox);
+            }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.getDialogPane().setContent(hbox);
+            alert.setHeaderText("Consider deleting the following movies");
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.setAlwaysOnTop(true);
+            alert.show();
+        }
 
     }
 
