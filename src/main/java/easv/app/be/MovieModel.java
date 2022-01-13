@@ -43,9 +43,8 @@ public class MovieModel
     private final StringProperty year = new SimpleStringProperty();
     private final StringProperty ageRating = new SimpleStringProperty();
     private final StringProperty releaseDate = new SimpleStringProperty();
-    private final StringProperty ratings = new SimpleStringProperty();
     private final StringProperty runtime = new SimpleStringProperty();
-    private final StringProperty rated = new SimpleStringProperty();
+    private final StringProperty imdbRating = new SimpleStringProperty();
     private final StringProperty genre = new SimpleStringProperty();
     private final StringProperty director = new SimpleStringProperty();
     private final StringProperty writer = new SimpleStringProperty();
@@ -154,20 +153,6 @@ public class MovieModel
         this.type.set(type);
     }
 
-    public String getRatings()
-    {
-        return ratings.get();
-    }
-
-    public StringProperty ratingsProperty()
-    {
-        return ratings;
-    }
-
-    public void setRatings(String ratings)
-    {
-        this.ratings.set(ratings);
-    }
 
     public String getRuntime()
     {
@@ -184,19 +169,19 @@ public class MovieModel
         this.runtime.set(runtime);
     }
 
-    public String getRated()
+    public String getImdbRating()
     {
-        return rated.get();
+        return imdbRating.get();
     }
 
-    public StringProperty ratedProperty()
+    public StringProperty imdbRatingProperty()
     {
-        return rated;
+        return imdbRating;
     }
 
     public void setImdbRating(String rated)
     {
-        this.rated.set(rated);
+        this.imdbRating.set(rated);
     }
 
     public String getGenre()
@@ -386,9 +371,8 @@ public class MovieModel
                 ", year=" + year +
                 ", ageRating=" + ageRating +
                 ", releaseDate=" + releaseDate +
-                ", ratings=" + ratings +
                 ", runtime=" + runtime +
-                ", rated=" + rated +
+                ", rated=" + imdbRating +
                 ", genre=" + genre +
                 ", director=" + director +
                 ", writer=" + writer +

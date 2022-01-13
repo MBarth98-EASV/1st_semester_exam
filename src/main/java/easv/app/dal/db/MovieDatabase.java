@@ -50,9 +50,21 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
                 """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getID()));
     }
 
+<<<<<<< Updated upstream
     private void deleteMovie(MovieModel movie)
     {
         if (movie != null)
+=======
+    public ArrayList<DBMovieData> getAllMovies() throws SQLException
+    {
+        ArrayList<DBMovieData> movies = new ArrayList<>();
+
+        ResultSet results = this.query("""
+                SELECT * FROM Movie
+                """);
+
+        while (results.next())
+>>>>>>> Stashed changes
         {
             this.execute("""
                     DELETE FROM CatMovie WHERE movieid = %s

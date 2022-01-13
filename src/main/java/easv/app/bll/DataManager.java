@@ -1,5 +1,6 @@
 package easv.app.bll;
 
+import easv.app.Utils.Converters;
 import easv.app.be.MovieModel;
 import easv.app.be.SearchModel;
 import easv.app.dal.api.OpenMovieNetwork;
@@ -8,6 +9,12 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
 import java.io.IOException;
+<<<<<<< Updated upstream
+=======
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+>>>>>>> Stashed changes
 
 public class DataManager
 {
@@ -20,17 +27,19 @@ public class DataManager
     }
 
     // may be initial load or reset later
+<<<<<<< Updated upstream
     public void load() throws IOException
     {
         // get all movies from db
+=======
+    public void load() throws IOException, SQLException {
+        var DBMovies = database.getAllMovies();
+>>>>>>> Stashed changes
 
         // get any and all movie info from api with id from db
+        var ApiMovies = OpenMovieNetwork.getInstance().get(DBMovies.stream().map(DBMovieData::getImdbid).collect(Collectors.toList()));
 
-        // set all items in movies list with combined data (api movie info + db movie info)
-
-        var apiInfo1 = OpenMovieNetwork.getInstance().get(null, "john wick", false);
-        var apiInfo2 = OpenMovieNetwork.getInstance().get(null, "juya", false);
-        movies.setAll(MovieModel.fromMovieInfo(apiInfo1), MovieModel.fromMovieInfo(apiInfo2));
+        movies.setAll(Converters.convert(DBMovies, ApiMovies));
     }
 
     public ListProperty<MovieModel> getMovies()

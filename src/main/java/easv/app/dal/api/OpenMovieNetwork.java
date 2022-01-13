@@ -1,6 +1,8 @@
 package easv.app.dal.api;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import com.google.gson.Gson;
 import easv.app.Utils.Json.*;
@@ -129,5 +131,17 @@ public final class OpenMovieNetwork
         }
 
         return WEB_API.movie(OMDB_API_KEY, id, title, longPlot ? "short" : "full").execute().body();
+    }
+
+    public List<MovieInfo> get(List<String> ids) throws IOException
+    {
+        List<MovieInfo> movieInfoList = new ArrayList<>();
+
+        for (String id : ids)
+        {
+            movieInfoList.add(get(id, null, false));
+        }
+
+        return movieInfoList;
     }
 }

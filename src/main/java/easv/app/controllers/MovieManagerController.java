@@ -8,17 +8,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+<<<<<<< Updated upstream
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.image.Image;
+=======
+import javafx.scene.control.*;
+>>>>>>> Stashed changes
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -75,7 +75,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         lblMovCountry.textProperty().set(selected.getCountry());
         lblMovDirector.textProperty().set(selected.getDirector());
         lblMovRating.textProperty().set(selected.getAgeRating());
-        lblMovImbdRating.textProperty().set(selected.getRated());
+        lblMovImbdRating.textProperty().set(selected.getImdbRating());
         lblMovRuntime.textProperty().set(selected.getRuntime());
         lblMovWriters.textProperty().set(selected.getWriter());
         lblMovYear.textProperty().set(selected.getYear());
@@ -216,7 +216,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         this.tblClmTitle.setCellValueFactory(param -> param.getValue().titleProperty());
         this.tblClmType.setCellValueFactory(param -> param.getValue().typeProperty());
-        this.tblClmImbdRating.setCellValueFactory(param -> param.getValue().ratedProperty());
+        this.tblClmImbdRating.setCellValueFactory(param -> param.getValue().imdbRatingProperty());
         this.tblClmPersonalRating.setCellValueFactory(param -> param.getValue().personalRatingProperty());
         this.tblClmLastViewed.setCellValueFactory(param -> param.getValue().lastViewedProperty());
 
