@@ -175,6 +175,8 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setScene(new Scene(root, 353, 314));
             stage.show();
 
+            
+
         } catch (IOException | NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the editing panel.");
             alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());

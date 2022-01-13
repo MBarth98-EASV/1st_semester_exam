@@ -10,6 +10,7 @@ import easv.app.dal.db.MovieDatabase;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -36,7 +37,7 @@ public class DataManager
         return instance;
     }
 
-    private DataManager()
+    public DataManager()
     {
         movies.set(FXCollections.observableArrayList());
         database = new MovieDatabase();
@@ -108,8 +109,11 @@ public class DataManager
         database.update(new DBMovieData(-1, selectedItem.getTitle(), Integer.parseInt(selectedItem.getPersonalRating()), selectedItem.getPath(), selectedItem.getID(), "1944/06/06"));
     }
 
-    public void delete(MovieModel selectedItem) throws SQLException
-    {
+    public void delete(MovieModel selectedItem) throws SQLException {
         database.delete(selectedItem.getID());
+    }
+
+    public List getAllGenres() throws SQLException {
+        return database.getCategories();
     }
 }

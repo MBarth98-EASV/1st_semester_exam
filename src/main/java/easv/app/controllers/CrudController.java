@@ -5,6 +5,7 @@ import easv.app.be.MovieModel;
 import easv.app.be.SearchedMovieModel;
 import easv.app.bll.DataManager;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,6 +50,7 @@ public class CrudController implements Initializable {
     @FXML public Button btnEditGenreFinish;
 
     MovieModel movie;
+    DataManager dataManager = new DataManager();
 
     public CrudController() {
 
@@ -143,7 +145,8 @@ public class CrudController implements Initializable {
     //EditGenreBar
     private void initEditGenre(){
         if (btnEditGenreFinish != null){ //If the button exists, EditGenreBar.fxml is open and the appropriate values are initialized.
-            //lstViewEditGenre.setItems(dataManager.getAllGenres);
+
+            lstViewEditGenre.setItems(dataManager.getAllGenres);
             lstViewEditGenre.getSelectionModel().selectedItemProperty().addListener(observable -> updateGenreBindings());
         }
     }
@@ -176,24 +179,26 @@ public class CrudController implements Initializable {
     }
 
 
-    private void initEditMovie(ResourceBundle resources){
+    private void initEditMovie(ResourceBundle resources) {
         if (btnEditMovieFinish != null) { //If the button exists, EditMovie.fxml is open and the appropriate values are initialized.
             try {
                 resources.getObject("selectedMovie");
                 movie = (MovieModel) resources.getObject("selectedMovie");
+
+                ObservableList<String> genres = FXCollections.observableArrayList(dataManager.getAllGenres());
+                cmboBoxEditGenre1.setItems(genres);
+                cmboBoxEditGenre2.setItems(genres);
+                cmboBoxEditGenre3.setItems(genres);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
                 alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
                 alert.showAndWait();
                 e.printStackTrace();
             }
+
+
             txtFieldEditMovieTitle.setText(movie.getTitle());
-            //cmboBoxEditGenre1.setItems(dataManager.getAllGenres);
-            //cmboBoxEditGenre2.setItems(dataManager.getAllGenres);
-            //cmboBoxEditGenre3.setItems(dataManager.getAllGenres);
-            //cmboBoxEditGenre1.setSelectionModel(movie.getGenre()[0]);
-            //cmboBoxEditGenre2.setSelectionModel(movie.getGenre()[1]);
-            //cmboBoxEditGenre3.setSelectionModel(movie.getGenre()[2]);
+
         }
     }
 
