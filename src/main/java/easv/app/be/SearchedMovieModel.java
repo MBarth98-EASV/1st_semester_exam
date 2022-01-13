@@ -6,7 +6,7 @@ import javafx.beans.property.StringProperty;
 
 public class SearchedMovieModel
 {
-    public static final SearchedMovieModel fromSearchInfo(final SearchedMovieInfo info)
+    public static SearchedMovieModel fromSearchInfo(final SearchedMovieInfo info)
     {
         SearchedMovieModel model = new SearchedMovieModel();
 
