@@ -1,14 +1,11 @@
 package easv.app.be;
 
-import com.google.gson.annotations.SerializedName;
 import easv.app.be.json.SearchResult;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class SearchModel
 {

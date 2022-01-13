@@ -1,7 +1,6 @@
 package easv.app.model;
 
 import easv.app.App;
-import easv.app.Utils.CustomComponent.AutoCompleteTextField;
 import easv.app.be.MovieModel;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;

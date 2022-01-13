@@ -1,18 +1,15 @@
 package easv.app.dal.db;
 
+import easv.app.App;
+import javafx.scene.control.Alert;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Dictionary;
 import java.util.Hashtable;
-
-import easv.app.App;
-import easv.app.be.MovieModel;
-import javafx.scene.control.Alert;
 
 public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
 {

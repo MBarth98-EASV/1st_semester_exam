@@ -13,7 +13,6 @@ import javafx.collections.FXCollections;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.time.LocalDate;

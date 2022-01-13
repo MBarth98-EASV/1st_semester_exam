@@ -1,14 +1,10 @@
 package easv.app.controllers;
 
 import easv.app.App;
-import easv.app.be.FXMLProperties;
 import easv.app.be.MovieModel;
 import easv.app.be.SearchedMovieModel;
 import easv.app.bll.DataManager;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

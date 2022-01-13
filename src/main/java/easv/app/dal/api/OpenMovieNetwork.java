@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import com.google.gson.Gson;
 import easv.app.Utils.Json.*;
-import easv.app.be.MovieModel;
 import easv.app.be.SearchModel;
 import easv.app.be.json.MovieInfo;
 import easv.app.be.json.SearchedMovieInfo;

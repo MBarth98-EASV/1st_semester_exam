@@ -1,6 +1,5 @@
 package easv.app.be;
 
-import easv.app.be.json.MovieInfo;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -8,10 +7,6 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class MovieModel
 {
@@ -167,6 +162,8 @@ public class MovieModel
 
     public String[] getGenre()
     {
+        // todo: refactor
+
         String[] returnArray;
         String[] initialArray = genre.get().split(",");
         String str1;
