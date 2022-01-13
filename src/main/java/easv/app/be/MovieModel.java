@@ -15,30 +15,6 @@ import java.util.List;
 
 public class MovieModel
 {
-    public static MovieModel fromMovieInfo(final MovieInfo info)
-    {
-        MovieModel model = new MovieModel();
-
-        model.setID(info.ID);
-        model.setTitle(info.title);
-        model.setYear(info.year);
-        model.setPoster(info.imageURL);
-        model.setAgeRating(info.ageRating);
-
-        model.setReleaseDate(info.releaseDate);
-        model.setType(info.type);
-        model.setActors(info.actors);
-        model.setCountry(info.country);
-        model.setGenre(info.genre);
-        model.setImdbRating(info.imdbRating);
-        model.setDirector(info.director);
-        model.setPlot(info.movieSummary);
-        model.setWriter(info.writers);
-        model.setRuntime(info.runtime);
-
-        return model;
-    }
-
     /*
     *   BELOW: bindable properties
     */

@@ -32,11 +32,11 @@ public class SearchModel
      *   BELOW: bindable properties
      */
 
-    private final SimpleListProperty<SearchedMovieModel> movies = new SimpleListProperty<>();
+    private final ListProperty<SearchedMovieModel> movies = new SimpleListProperty<>();
 
-    private final SimpleIntegerProperty itemCount = new SimpleIntegerProperty();
+    private final IntegerProperty itemCount = new SimpleIntegerProperty();
 
-    private final SimpleStringProperty response = new SimpleStringProperty();
+    private final StringProperty response = new SimpleStringProperty();
 
     /*
      *   BELOW: standard getters and setters
@@ -47,7 +47,7 @@ public class SearchModel
         return movies;
     }
 
-    public SimpleListProperty<SearchedMovieModel> moviesProperty()
+    public ListProperty<SearchedMovieModel> moviesProperty()
     {
         return movies;
     }
@@ -62,7 +62,7 @@ public class SearchModel
         return itemCount.get();
     }
 
-    public SimpleIntegerProperty itemCountProperty()
+    public IntegerProperty itemCountProperty()
     {
         return itemCount;
     }
@@ -77,7 +77,7 @@ public class SearchModel
         return response.get();
     }
 
-    public SimpleStringProperty responseProperty()
+    public StringProperty responseProperty()
     {
         return response;
     }
