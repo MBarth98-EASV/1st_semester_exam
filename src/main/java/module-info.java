@@ -10,12 +10,11 @@ module easv.app {
     requires java.naming;
     requires javafx.fxml;
     requires javafx.controls;
-    requires org.controlsfx.controls;
     requires gson;
     requires retrofit2;
     requires retrofit2.converter.gson;
     requires java.desktop;
-
+    requires org.controlsfx.controls;
 
     exports easv.app;
     exports easv.app.be;

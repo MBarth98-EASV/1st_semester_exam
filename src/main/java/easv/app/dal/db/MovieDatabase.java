@@ -50,7 +50,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
     }
 
 
-    public ArrayList getAllMovies() throws SQLException 
+    public ArrayList<DBMovieData> getAllMovies() throws SQLException
     {
         ArrayList<DBMovieData> movies = new ArrayList<>();
 

@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.sql.SQLException;
 
@@ -31,12 +32,12 @@ public class DataManager
     // get all movies from db
     public void load() throws IOException, SQLException 
     {
-        var DBMovies = database.getAllMovies();
+        List<DBMovieData> DBMovies = database.getAllMovies();
 
         database.getAllMovies();
 
         // get any and all movie info from api with id from db
-        var ApiMovies = OpenMovieNetwork.getInstance().get(DBMovies.stream().map(DBMovieData::getImdbid).collect(Collectors.toList()));
+        List<MovieInfo> ApiMovies = OpenMovieNetwork.getInstance().get(DBMovies.stream().map(DBMovieData::getImdbid).collect(Collectors.toList()));
 
         movies.setAll(Converters.convert(DBMovies, ApiMovies));
     }
