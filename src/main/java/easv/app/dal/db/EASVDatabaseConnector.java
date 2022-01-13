@@ -8,10 +8,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 
 public class EASVDatabaseConnector {
 
-    private SQLServerDataSource dbaccess;
+    private SQLServerDataSource dbaccess = null;
 
     public EASVDatabaseConnector()
     {
@@ -32,7 +33,7 @@ public class EASVDatabaseConnector {
         catch (SQLException e)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not connect to the database.");
-            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
             alert.showAndWait();
             return null;
         }
@@ -48,7 +49,7 @@ public class EASVDatabaseConnector {
         catch (SQLException e)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR,"Error executing statement. Please try again");
-            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
             alert.showAndWait();
             e.printStackTrace();
         }
@@ -65,7 +66,7 @@ public class EASVDatabaseConnector {
         catch (SQLException e)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR,"Error executing statement. Please try again");
-            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
             alert.showAndWait();
             return null;
         }

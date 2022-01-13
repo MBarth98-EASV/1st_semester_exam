@@ -19,8 +19,6 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         dbaccess = new EASVDatabaseConnector();
     }
     public ArrayList<DBMovieData> getAllMovies() throws SQLException
-
-
     {
         ArrayList<DBMovieData> movies = new ArrayList<>();
 
@@ -162,7 +160,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         if (imdbID != null)
         {
             ResultSet results = dbaccess.query("""
-                    SELECT FROM Movie WHERE imdbid = '%s'
+                    SELECT * FROM Movie WHERE imdbid = '%s'
                     """.formatted(imdbID));
 
             while (results.next())

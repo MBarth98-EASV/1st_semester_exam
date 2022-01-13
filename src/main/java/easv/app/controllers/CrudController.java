@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CrudController implements Initializable {
@@ -37,9 +38,9 @@ public class CrudController implements Initializable {
 
     //EditMovie
     @FXML public TextField txtFieldEditMovieTitle;
-    @FXML public SearchableComboBox cmboBoxEditGenre1;
-    @FXML public SearchableComboBox cmboBoxEditGenre2;
-    @FXML public SearchableComboBox cmboBoxEditGenre3;
+    @FXML public SearchableComboBox<String> cmboBoxEditGenre1;
+    @FXML public SearchableComboBox<String> cmboBoxEditGenre2;
+    @FXML public SearchableComboBox<String> cmboBoxEditGenre3;
     @FXML public Button btnEditMovieFinish;
 
     //EditGenre
@@ -78,7 +79,7 @@ public class CrudController implements Initializable {
         if (selected != null) {
             lblNewMovieTitle.textProperty().set(selected.getTitle());
             if (selected.getImageURL() == null || selected.getImageURL().equals("N/A")) {
-                imgViewPosterNewMovie.setImage(new Image(App.class.getResource("images/posterError.png").toExternalForm()));
+                imgViewPosterNewMovie.setImage(new Image(Objects.requireNonNull(App.class.getResource("images/posterError.png")).toExternalForm()));
             } else {
                 imgViewPosterNewMovie.setImage(new Image(selected.getImageURL()));
             }
@@ -100,7 +101,7 @@ public class CrudController implements Initializable {
         File selectedFile =  fc.showOpenDialog(new Stage());
         if (!checkForMp4(selectedFile.getName())){
             Alert alert = new Alert(Alert.AlertType.WARNING, "Unsupported file format. Please choose a different movie.");
-            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
             alert.showAndWait();
             return;
         }
@@ -178,10 +179,12 @@ public class CrudController implements Initializable {
         //dataManager.addGenre();
     }
 
-    public void onSaveEditGenre(ActionEvent event) {
+    public void onSaveEditGenre(ActionEvent event)
+    {
         var selected = lstViewEditGenre.getSelectionModel().getSelectedItem();
-        if (!selected.equals(txtFieldEditGenreName.getText())){
-            //dataManager.updateGenre(selected, txtFieldEditGenreName.getText());
+        if (!selected.equals(txtFieldEditGenreName.getText()))
+        {
+            dataManager.updateGenre(selected, txtFieldEditGenreName.getText());
         }
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
@@ -199,7 +202,7 @@ public class CrudController implements Initializable {
                 cmboBoxEditGenre3.setItems(genres);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
-                alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+                alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
                 alert.showAndWait();
                 e.printStackTrace();
             }

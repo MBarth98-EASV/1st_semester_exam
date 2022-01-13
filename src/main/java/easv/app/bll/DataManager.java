@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -111,9 +112,16 @@ public class DataManager
 
     public void delete(MovieModel selectedItem) throws SQLException {
         database.delete(selectedItem.getID());
+
+        this.movies.removeIf(movieModel -> Objects.equals(movieModel.getID(), selectedItem.getID()));
     }
 
-    public List getAllGenres() throws SQLException {
+    public List<String> getAllGenres() throws SQLException {
         return database.getCategories();
+    }
+
+    public void updateGenre(String selected, String text)
+    {
+
     }
 }
