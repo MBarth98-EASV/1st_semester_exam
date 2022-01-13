@@ -158,12 +158,9 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         if (input != null)
         {
             this.execute("""
-                    UPDATE Movie SET title = '%s',
-                    rating = '%s',
-                    filelink = '%s',
-                    lastviewed = '%s'
-                    
-                    WHERE imdblink = '%s',
+                    UPDATE Movie
+                    SET title = '%s', rating = '%s', filepath = '%s', lastviewed = '%s'
+                    WHERE imdbid = '%s'
                     """.formatted(input.getTitle(), input.getRating(), input.getFilepath(), input.getLastViewed(), input.getImdbid()));
         }
     }
