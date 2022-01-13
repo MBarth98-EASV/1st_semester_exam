@@ -1,23 +1,23 @@
 package easv.app.controllers;
 
 import easv.app.App;
+import easv.app.Utils.CustomComponent.ComboBoxEnum;
 import easv.app.be.FXMLProperties;
 import easv.app.be.MovieModel;
 import easv.app.bll.DataManager;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-<<<<<<< Updated upstream
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.image.Image;
-=======
 import javafx.scene.control.*;
->>>>>>> Stashed changes
+import javafx.scene.image.Image;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -25,10 +25,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ListResourceBundle;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MovieManagerController extends FXMLProperties implements Initializable {
 
@@ -54,13 +51,15 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         {
             data.load();
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
 
         initializeMovieTable();
-
+        initializeComboBox();
+        lstViewGenreContextMenu();
+        tblViewMovieContextMenu();
         tblViewMovies.getSelectionModel().selectedItemProperty().addListener(observable -> updateSelectedItemBindings());
         tblViewMovies.getSelectionModel().selectFirst();
     }
@@ -91,16 +90,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         movieRating.setRating(Double.parseDouble(Optional.ofNullable(selected.getPersonalRating()).orElse("0.0")));
     }
 
-    public void onSearch(ActionEvent event) {
-
-    }
-
-    public void onComboBox(ActionEvent event) {
-    }
-
-    public void onClearSearchFilter(ActionEvent event) {
-
-    }
 
     public void onPlayMovie(ActionEvent event)
     {
@@ -246,5 +235,110 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             return tc;
         });
     }
+
+    public void onSearch(ActionEvent event) {
+
+    }
+
+    /**
+     * Sets the searchbar's search entires for autocompletion to the input list of Strings.
+     * Used for filter autocompletion - it's filled with a list of every unique value of the chosen parameter
+     * in the database.
+     * @param inputList
+     */
+    private <T> void initializeGenericSearchEntries(List<T> inputList){
+        //txtFieldSearch.getEntries().clear();
+
+        for (int i = 0; i < inputList.size(); i++)
+        {
+           // txtFieldSearch.getEntries().add((inputList.get(i).toString()));
+        }
+    }
+
+    private void initializeStringSearchEntries(List<String> inputList){
+       // txtFieldSearch.getEntries().clear();
+
+        for (int i = 0; i < inputList.size(); i++)
+        {
+            //txtFieldSearch.getEntries().add((inputList.get(i)));
+        }
+    }
+    public void onComboBox(ActionEvent event) {
+        int selectedItem = cmboBoxFilter.getSelectionModel().getSelectedIndex();
+
+        switch (ComboBoxEnum.values()[selectedItem])
+        {
+            case TITLE -> {
+                //initializeStringSearchEntries();
+                txtFieldSearch.setPromptText("Enter a title to filter");
+            }
+            case GENRE -> {
+                //initializeStringSearchEntries();
+                txtFieldSearch.setPromptText("Enter a genre to filter");
+            }
+            case RATING -> {
+                //initializeStringSearchEntries();
+                txtFieldSearch.setPromptText("Enter a numerical rating to filter");
+            }
+            case IMBDRATING -> {
+                //initializeStringSearchEntries();
+                txtFieldSearch.setPromptText("Enter a numerical, dot seperated score to filter");
+            }
+            default -> {
+                //initializeStringSearchEntries();
+                txtFieldSearch.setPromptText("Press enter to search");
+            }
+        }
+    }
+
+    public void onClearSearchFilter(ActionEvent event) {
+        cmboBoxFilter.getSelectionModel().select(0);
+        //Utility.bind(this.tblViewSongs, DataManager.selectedPlaylist().get().getSongs());
+        txtFieldSearch.clear();
+    }
+
+    private void initializeComboBox(){
+        cmboBoxFilter.setItems(FXCollections.observableArrayList("Search", "Title | Filter", "Genre | Filter", "Rating | Filter", "IMBD Rating | Filter"));
+        cmboBoxFilter.getSelectionModel().select(0);
+    }
+
+    private void tblViewMovieContextMenu(){
+        ContextMenu contextMenuMovie = new ContextMenu();
+        tblViewMovies.setContextMenu(contextMenuMovie);
+        //contextMenuMovie.setStyle("-fx-background-color: #404040; ");
+
+        MenuItem play = new MenuItem("Play");
+        play.setStyle("-fx-text-fill: #d5d4d4;");
+        MenuItem newMovie = new MenuItem("New");
+        newMovie.setStyle("-fx-text-fill: #d5d4d4;");
+        MenuItem editMovie = new MenuItem("Edit");
+        editMovie.setStyle("-fx-text-fill: #d5d4d4;");
+        MenuItem deleteMovie = new MenuItem("Delete");
+        deleteMovie.setStyle("-fx-text-fill: #d5d4d4;");
+
+        play.setOnAction(event -> onPlayMovie(event));
+        newMovie.setOnAction(event -> onNewMovie(event));
+        editMovie.setOnAction(event -> onEditMovie(event));
+        deleteMovie.setOnAction(event -> onDeleteMovie(event));
+
+        contextMenuMovie.getItems().add(play);
+        contextMenuMovie.getItems().add(newMovie);
+        contextMenuMovie.getItems().add(editMovie);
+        contextMenuMovie.getItems().add(deleteMovie);
+    }
+
+    private void lstViewGenreContextMenu(){
+        ContextMenu contextMenuGenre = new ContextMenu();
+        lstViewGenre.setContextMenu(contextMenuGenre);
+        contextMenuGenre.setStyle("-fx-background-color: #404040; ");
+
+        MenuItem edit = new MenuItem("Edit Genres");
+        edit.setStyle("-fx-text-fill: #d5d4d4;");
+        edit.setOnAction(event -> onEditGenre(event));
+        contextMenuGenre.getItems().add(edit);
+
+    }
+
+
 
 }

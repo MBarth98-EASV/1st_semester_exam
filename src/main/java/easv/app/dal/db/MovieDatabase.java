@@ -4,10 +4,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 import easv.app.be.MovieModel;
 
-public class MovieDatabase implements IDatabaseCRUD<MovieModel>
+public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
 {
     private final EASVDatabaseConnector dbaccess;
 
@@ -29,11 +34,13 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
         }
     }
 
+
     private ResultSet query(String sql)
     {
         try
         {
             Statement statement = dbaccess.getConnection().createStatement();
+
             return statement.executeQuery(sql);
         }
         catch (SQLException e)
@@ -42,20 +49,8 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
         }
     }
 
-    private void addMovie(MovieModel movie)
-    {
-        this.execute("""
-                INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
-                VALUES ('%s', '%s', '%s', '%s','&s')
-                """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getID()));
-    }
 
-<<<<<<< Updated upstream
-    private void deleteMovie(MovieModel movie)
-    {
-        if (movie != null)
-=======
-    public ArrayList<DBMovieData> getAllMovies() throws SQLException
+    public ArrayList getAllMovies() throws SQLException 
     {
         ArrayList<DBMovieData> movies = new ArrayList<>();
 
@@ -64,73 +59,101 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
                 """);
 
         while (results.next())
->>>>>>> Stashed changes
         {
-            this.execute("""
-                    DELETE FROM CatMovie WHERE movieid = %s
-                    """.formatted(movie.getID()));
-
-            this.execute("""
-                    DELETE FROM Movie WHERE id = %s
-                    """.formatted(movie.getID()));
+            movies.add(new DBMovieData(
+                    results.getInt("id"),
+                    results.getString("title"),
+                    results.getInt("rating"),
+                    results.getString("filepath"),
+                    results.getString("imdbid"),
+                    results.getString("lastviewed")
+            ));
         }
 
+        return movies;
     }
 
-    private void updateMovie(MovieModel movie)
-    {
-        if (movie != null)
+
+    private Dictionary<Integer, String> getCategories() throws SQLException {
+        Dictionary<Integer, String> dictionary = new Hashtable();
+        ResultSet results = this.query("SELECT * FROM Category");
+
+        while (results.next())
         {
-            this.execute("""
-                    UPDATE Movie SET title = '%s',
-                    rating = '%s',
-                    filelink = '%s',
-                    imdblink = '%s',
-                    lastviewed = '%s'
-                    """.formatted(movie.getTitle(), movie.getRatings(), movie.getPath(), movie.getID(), movie.getLastViewed()));
+               dictionary.put(results.getInt("id"), results.getString("genre"));
+        }
+        return dictionary;
+    }
+
+    private int addGenre(String genre) throws SQLException {
+        if (genre != null && !genre.isBlank()) {
+            ResultSet results = this.query("""
+                    IF NOT EXISTS (SELECT * FROM Category WHERE genre='%s')
+                    INSERT INTO Category VALUES ('%s')
+                                            
+                    SELECT * from Category WHERE genre='%s'
+                    """.formatted(genre.trim(), genre.trim(), genre.trim()));
+
+            return results.getInt("id");
+        }
+        return -1;
+    }
+
+    @Override
+    public void create(DBMovieData input) throws SQLException {
+        int movieid;
+
+        ResultSet movieresult = this.query("""
+                IF NOT EXISTS (SELECT * FROM Movie WHERE imdbid='%s')
+                INSERT INTO Movie (title, rating, filepath, imdbid, lastviewed)
+                VALUES ('%s', '%s', '%s', '%s','%s')
+                
+                SELECT * FROM Movie WHERE imdbid='%s'
+                """.formatted(input.getImdbid(), input.getTitle(), input.getRating(), input.getFilepath(), input.getImdbid(), input.getLastViewed(), input.getImdbid()));
+        movieresult.next();
+        movieid = movieresult.getInt("id");
+
+        if (!input.getGenre().isBlank() && input.getGenre() != null)
+        {
+            String[] separatedGenres = input.getGenre().split(",");
+            ArrayList<Integer> ids = new ArrayList<>();
+
+            for (String genre : separatedGenres)
+            {
+
+                ResultSet results = this.query("""
+                        IF NOT EXISTS (SELECT * FROM Category WHERE genre='%s')
+                        INSERT INTO Category VALUES ('%s')
+                        
+                        SELECT * from Category WHERE genre='%s'
+                        """.formatted(genre.trim(), genre.trim(), genre.trim()));
+                results.next();
+                ids.add(results.getInt("id"));
+            }
+
+            for (int genreid : ids)
+            {
+                this.execute("""
+                        INSERT INTO CatMovie VALUES ('%s', '%s')
+                        """.formatted(movieid, genreid));
+            }
         }
     }
 
-    private void getAllMoves()
-    {
-
-    }
-
-    private MovieModel createMovieFromDatabase(ResultSet result) throws SQLException
-    {
-        String movieId, rating, lastviewed;
-        String movieFilepath, movieIMDBlink, movieTitle;
-        movieTitle = result.getString("title");
-        movieId = result.getString("id");
-        movieFilepath = result.getString("filepath");
-        movieIMDBlink = result.getString("imdblink");
-        return null;
-       // return new MovieModel(movieId, movieTitle, movieFilepath, movieIMDBlink);
-    }
-
     @Override
-    public void create(MovieModel input)
-    {
-        this.execute("""
-                INSERT INTO Movie (title, rating, filelink, imdblink, lastviewed)
-                VALUES ('%s', '%s', '%s', '%s','&s')
-                """.formatted(input.getTitle(), input.getRatings(), input.getPath(), input.getID()));
-    }
-
-    @Override
-    public MovieModel read(MovieModel input)
+    public DBMovieData read(DBMovieData input)
     {
         return null;
     }
 
     @Override
-    public MovieModel[] readAll()
+    public DBMovieData[] readAll()
     {
-        return new MovieModel[0];
+        return new DBMovieData[0];
     }
 
     @Override
-    public void update(MovieModel input)
+    public void update(DBMovieData input)
     {
         if (input != null)
         {
@@ -138,24 +161,52 @@ public class MovieDatabase implements IDatabaseCRUD<MovieModel>
                     UPDATE Movie SET title = '%s',
                     rating = '%s',
                     filelink = '%s',
-                    imdblink = '%s',
                     lastviewed = '%s'
-                    """.formatted(input.getTitle(), input.getRatings(), input.getPath(), input.getID(), input.getLastViewed()));
+                    
+                    WHERE imdblink = '%s',
+                    """.formatted(input.getTitle(), input.getRating(), input.getFilepath(), input.getLastViewed(), input.getImdbid()));
         }
     }
 
     @Override
-    public void delete(MovieModel input)
+    public void delete(DBMovieData input) throws SQLException
     {
         if (input != null)
         {
-            this.execute("""
-                    DELETE FROM CatMovie WHERE movieid = %s
-                    """.formatted(input.getID()));
+            ResultSet results = this.query("""
+                    SELECT FROM Movie WHERE imdbid = '%s'
+                    """.formatted(input.getImdbid()));
+
+            results.next();
+            int movieid = results.getInt("id");
 
             this.execute("""
-                    DELETE FROM Movie WHERE id = %s
-                    """.formatted(input.getID()));
+                    DELETE FROM CatMovie WHERE movieid = %s
+                    """.formatted(movieid));
+
+            this.execute("""
+                    DELETE FROM Movie WHERE imdbid = %s
+                    """.formatted(movieid));
+        }
+    }
+
+    public void delete(String input) throws SQLException {
+        if (input != null)
+        {
+            ResultSet results = this.query("""
+                    SELECT FROM Movie WHERE imdbid = '%s'
+                    """.formatted(input));
+
+            results.next();
+            int movieid = results.getInt("id");
+
+            this.execute("""
+                    DELETE FROM CatMovie WHERE movieid = '%s'
+                    """.formatted(movieid));
+
+            this.execute("""
+                    DELETE FROM Movie where id = '%s'
+                    """.formatted(movieid));
         }
     }
 }
