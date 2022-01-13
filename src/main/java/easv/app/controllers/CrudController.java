@@ -144,10 +144,17 @@ public class CrudController implements Initializable {
 
     //EditGenreBar
     private void initEditGenre(){
-        if (btnEditGenreFinish != null){ //If the button exists, EditGenreBar.fxml is open and the appropriate values are initialized.
+        if (btnEditGenreFinish != null){
+            try {
+                ObservableList<String> genres = FXCollections.observableArrayList(dataManager.getAllGenres());//If the button exists, EditGenreBar.fxml is open and the appropriate values are initialized.
+                lstViewEditGenre.setItems(genres);
+                lstViewEditGenre.getSelectionModel().selectedItemProperty().addListener(observable -> updateGenreBindings());
+            } catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
 
-            lstViewEditGenre.setItems(dataManager.getAllGenres);
-            lstViewEditGenre.getSelectionModel().selectedItemProperty().addListener(observable -> updateGenreBindings());
+
         }
     }
 
