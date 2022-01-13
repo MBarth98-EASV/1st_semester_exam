@@ -186,4 +186,13 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
                     DELETE FROM Movie where id = '%s'
                     """.formatted(id));
     }
+
+    private void updateGenre(String oldname, String newname)
+    {
+        dbaccess.execute("""
+                    UPDATE Category
+                    SET genre ='%s'
+                    WHERE genre = '%s'
+                """.formatted(newname, oldname));
+    }
 }
