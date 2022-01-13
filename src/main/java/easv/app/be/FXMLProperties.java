@@ -43,29 +43,7 @@ public class FXMLProperties {
     @FXML public TableColumn<MovieModel, String> tblClmLastViewed = new TableColumn<>();
 
 
-    //NewMovie
-    @FXML public TextField txtFieldSearchNewMovie;
-    @FXML public Button btnSearchNewMovie;
-    @FXML public ListView lstViewNewMoviePick;
-    @FXML public Button btnPickFile;
-    @FXML public TextField txtFieldPickFile;
-    @FXML public Label lblNewMovieTitle;
-    @FXML public ImageView imgViewPosterNewMovie;
-    @FXML public Button btnNewMovieFinish;
 
-    //EditMovie
-    @FXML public TextField txtFieldEditMovieTitle;
-    @FXML public ComboBox cmboBoxEditGenre1;
-    @FXML public ComboBox cmboBoxEditGenre2;
-    @FXML public ComboBox cmboBoxEditGenre3;
-    @FXML public Button btnEditMovieFinish;
-
-    //EditGenre
-    @FXML public ListView lstViewEditGenre;
-    @FXML public TextField txtFieldEditGenreName;
-    @FXML public Button btnNewGenre;
-    @FXML public Button btnDeleteGenre;
-    @FXML public Button btnEditGenreFinish;
 
 
 }

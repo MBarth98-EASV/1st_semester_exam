@@ -16,8 +16,8 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.sql.SQLException;
-
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class DataManager
 {
@@ -51,6 +51,26 @@ public class DataManager
     {
         return OpenMovieNetwork.getInstance().search(title);
     }
+
+    /**
+     * Checks whether or any instantiated movie hasn't be viewed for two years.
+     * When the method is called, one should make sure the list is not empty before doing anything with it.
+     * Can possibly be replaced with SQL statement.
+     * @return List of MovieModels whose LastViewed date is older than two years.
+     */
+    public List<MovieModel> getOldLastViewedMovies(){
+        ArrayList<MovieModel> returnList = new ArrayList<>();
+        for (MovieModel m : movies.get()){
+            if (!m.getLastViewed().equals(null) && !m.getLastViewed().isEmpty()){
+                LocalDate lastViewedDate = LocalDate.parse(m.getLastViewed());
+                if (LocalDate.now().minusYears(2).isAfter(lastViewedDate.minusDays(1))) {
+                    returnList.add(m);
+                }
+            }
+        }
+        return returnList;
+    }
+
 
 
     public void add(String filepath) throws SQLException {

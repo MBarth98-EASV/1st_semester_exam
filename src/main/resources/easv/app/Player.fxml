@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 
-<AnchorPane fx:id="rootPane" prefHeight="425.0" prefWidth="640.0" stylesheets="@styles/MediaPlayer.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.controllers.MediaPlayerController">
+<AnchorPane fx:id="rootPane" prefHeight="425.0" prefWidth="640.0" stylesheets="@styles/MediaPlayer.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.controllers.MediaPlayerController">
     <children>
         <HBox alignment="CENTER" layoutX="14.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="640.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -23,9 +23,9 @@
         <AnchorPane fx:id="userControls" layoutY="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
                 <AnchorPane fx:id="spectrumBox" layoutX="40.0" layoutY="15.0" prefHeight="30.0" prefWidth="128.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" />
-                <VBox alignment="CENTER" onMouseDragReleased="#fullScreenRequestHandler" prefHeight="45.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <VBox alignment="CENTER" onMouseDragReleased="#fullScreenRequestHandler" prefHeight="53.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <ProgressBar fx:id="progBar" maxHeight="10.0" maxWidth="1.7976931348623157E308" minHeight="5.0" progress="0">
+                        <ProgressBar fx:id="progBar" maxHeight="10.0" maxWidth="1.7976931348623157E308" minHeight="10.0" progress="0">
                             <VBox.margin>
                                 <Insets bottom="5.0" />
                             </VBox.margin>
@@ -61,7 +61,7 @@
                                         <Insets right="5.0" />
                                     </GridPane.margin>
                                 </Button>
-                                  <Button fx:id="playBtn" mnemonicParsing="false" onAction="#playRequestHandler" prefHeight="30.0" prefWidth="30.0" style="-fx-border-radius: 30;" />
+                                  <Button fx:id="playBtn" mnemonicParsing="false" onAction="#playRequestHandler" prefHeight="30.0" prefWidth="30.0" style="-fx-border-radius: 30;" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                                   <Label fx:id="timeLabel" maxWidth="60.0" minWidth="60.0" style="-fx-text-fill: white;" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
                             </children>
                         </GridPane>

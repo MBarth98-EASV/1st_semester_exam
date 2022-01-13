@@ -1,5 +1,6 @@
 package easv.app.controllers;
 
+import easv.app.App;
 import easv.app.be.MovieModel;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -7,6 +8,7 @@ import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
@@ -105,6 +108,7 @@ public class MediaPlayerController implements Initializable {
             thisStage = (Stage) resources.getObject("playerStage");
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             e.printStackTrace();
         }
@@ -118,7 +122,16 @@ public class MediaPlayerController implements Initializable {
         try {
             media = new Media(file.toURI().toURL().toString());
         } catch (MalformedURLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "The program could not load the selected movie's file.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.showAndWait();
             e.printStackTrace();
+        } catch (MediaException e){
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Unsupported file format. Please choose a different movie.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.showAndWait();
+
         }
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
@@ -151,17 +164,7 @@ public class MediaPlayerController implements Initializable {
      */
     @FXML
     public void playRequestHandler(ActionEvent event) {
-        if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
-            mediaPlayer.play();
-            String pauseImg = getClass().getResource("images/pause.png").toExternalForm();
-            playBtn.setStyle("-fx-background-image: url('"+ pauseImg +"'); -fx-background-size: 16 16; -fx-background-position: 7.5");
-
-        }
-        else {
-            mediaPlayer.pause();
-            String playImg = getClass().getResource("images/play2.png").toExternalForm();
-            playBtn.setStyle("-fx-background-image: url('"+ playImg +"'); -fx-background-size: 16 16; -fx-background-position: 8;");
-        }
+        playPauseToggle(event);
     }
 
     /**
@@ -189,7 +192,7 @@ public class MediaPlayerController implements Initializable {
             {
                 mediaPlayer.muteProperty().set(!muted);
                 muted = !muted;
-                String muteImg = getClass().getResource("images/volmute.png").toExternalForm();
+                String muteImg = App.class.getResource("images/volmute.png").toExternalForm();
                 volBtn.setStyle("-fx-background-image: url('"+ muteImg +"');");
             }
             //Otherwise, demute.
@@ -197,7 +200,7 @@ public class MediaPlayerController implements Initializable {
             {
                 mediaPlayer.muteProperty().set(!muted);
                 muted = !muted;
-                String volImg = getClass().getResource("images/volup.png").toExternalForm();
+                String volImg = App.class.getResource("images/volup.png").toExternalForm();
                 volBtn.setStyle("-fx-background-image: url('"+ volImg +"');");
                 //Set the appropriate volume button icon on return, based on current volume.
             }
@@ -213,7 +216,7 @@ public class MediaPlayerController implements Initializable {
      */
     private void toggleUI(boolean show)
     {
-            if (show)
+        if (show)
             {
                 showUI = SHOW_UI;
                 FadeTransition fadeTransition = new FadeTransition(
@@ -227,13 +230,13 @@ public class MediaPlayerController implements Initializable {
                 timeLine = new Timeline(new KeyFrame(
                         Duration.millis(HIDE_UI_TIMEOUT), event ->
                 {
+                    showUI = HIDE_UI;
                     FadeTransition fadeTransition = new FadeTransition(
                             Duration.millis(500), userControls);
                     fadeTransition.setFromValue(1.0);
                     fadeTransition.setToValue(0.0);
                     fadeTransition.play();
                     thisStage.getScene().setCursor(Cursor.NONE);
-                    showUI = HIDE_UI;
                 }));
                 timeLine.play();
             }
@@ -282,12 +285,12 @@ public class MediaPlayerController implements Initializable {
 
                 if(newValue.doubleValue() == 0)
                 {
-                    String muteImg = getClass().getResource("images/volmute.png").toExternalForm();
+                    String muteImg = App.class.getResource("images/volmute.png").toExternalForm();
                     volBtn.setStyle("-fx-background-image: url('"+ muteImg +"');");
                 }
                 else
                 {
-                    String volImg = getClass().getResource("images/volup.png").toExternalForm();
+                    String volImg = App.class.getResource("images/volup.png").toExternalForm();
                     volBtn.setStyle("-fx-background-image: url('"+ volImg +"');");
                 }
             }
@@ -417,6 +420,26 @@ public class MediaPlayerController implements Initializable {
         };
     }
 
+    private void playPauseToggle(Event event){
+        if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+            if (showUI == true){
+                toggleUI(HIDE_UI);
+            }
+            mediaPlayer.play();
+            String pauseImg = App.class.getResource("images/pause.png").toExternalForm();
+            playBtn.setStyle("-fx-background-image: url('"+ pauseImg +"'); -fx-background-size: 16 16; -fx-background-position: 7.5");
+
+        }
+        else {
+            if (showUI == false){
+                toggleUI(SHOW_UI);
+            }
+            mediaPlayer.pause();
+            String playImg = App.class.getResource("images/play2.png").toExternalForm();
+            playBtn.setStyle("-fx-background-image: url('"+ playImg +"'); -fx-background-size: 16 16; -fx-background-position: 8;");
+        }
+    }
+
     private EventHandler<WindowEvent> stopOnClose(){
         return new EventHandler<WindowEvent>() {
             @Override
@@ -434,17 +457,7 @@ public class MediaPlayerController implements Initializable {
         return new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (!mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
-                    mediaPlayer.play();
-                    String pauseImg = getClass().getResource("images/pause.png").toExternalForm();
-                    playBtn.setStyle("-fx-background-image: url('"+ pauseImg +"'); -fx-background-size: 16 16; -fx-background-position: 7.5");
-
-                }
-                else {
-                    mediaPlayer.pause();
-                    String playImg = getClass().getResource("images/play2.png").toExternalForm();
-                    playBtn.setStyle("-fx-background-image: url('"+ playImg +"'); -fx-background-size: 16 16; -fx-background-position: 8;");
-            }   }
+                playPauseToggle(event);  }
         };
     }
 

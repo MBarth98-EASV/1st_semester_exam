@@ -109,7 +109,7 @@ public class SearchedMovieModel
         return imageURL;
     }
 
-    @Override
+    /*@Override
     public String toString()
     {
         return "SearchedMovieModel{" +
@@ -119,5 +119,11 @@ public class SearchedMovieModel
                 ", type=" + type +
                 ", imageURL=" + imageURL +
                 '}';
+    }
+
+     */
+    @Override
+    public String toString(){
+        return title.get() + " (" + year.get() + ")";
     }
 }

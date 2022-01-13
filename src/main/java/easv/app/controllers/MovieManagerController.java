@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 
 public class MovieManagerController extends FXMLProperties implements Initializable {
@@ -80,9 +81,12 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         lblMovYear.textProperty().set(selected.getYear());
         txtAreaMovPlot.setText(selected.getPlot());
 
+        btnLblGenre1.setText(selected.getGenre()[0]);
+        btnLblGenre2.setText(selected.getGenre()[1]);
+        btnLblGenre3.setText(selected.getGenre()[2]);
+
         selectedMovie = selected;
-        if (selected.getPoster().getImage() == null)
-        {
+        if (selected.getPoster().getImage() == null) {
             selected.setPoster(App.class.getResource("images/posterError.png").toExternalForm());
         }
 
@@ -93,27 +97,36 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     public void onPlayMovie(ActionEvent event)
     {
-        Parent root = null;
-        try {
+        if (selectedMovie != null){
+            //Parent root = null;
+            try {
             Stage stage = new Stage();
-            ResourceBundle resources = new ListResourceBundle() {
+
+                ResourceBundle resources = new ListResourceBundle() {
                 @Override
                 protected Object[][] getContents() {
                     return new Object[][]{
                             {"selectedMovie", selectedMovie}, {"playerStage", stage}};}};
-
-
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Player.fxml")), resources);
+            Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("Player.fxml")), resources);
             stage.setTitle("Player");
             stage.setMinHeight(400);
             stage.setMinWidth(600);
             stage.setScene(new Scene(root, 1280, 720));
             stage.show();
 
+            selectedMovie.setLastViewed(LocalDate.now().toString());
+            //dataManager.update(selectedMovie);
+
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie. Please make sure a movie is selected.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             e.printStackTrace();
+        }}
+        else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,"Please select a movie in the list below");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.show();
         }
     }
 
@@ -132,6 +145,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         } catch (IOException | NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the movie creation panel.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             e.printStackTrace();
         }
@@ -147,7 +161,13 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     public void onEditMovie(ActionEvent event) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("EditMovie.fxml")));
+            ResourceBundle resources = new ListResourceBundle() {
+                @Override
+                protected Object[][] getContents() {
+                    return new Object[][]{
+                            {"selectedMovie", selectedMovie}};}};
+
+            root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("EditMovie.fxml")), resources);
             Stage stage = new Stage();
             stage.setTitle("Edit Movie");
             stage.setMaxHeight(314);
@@ -159,6 +179,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         } catch (IOException | NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the editing panel.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             e.printStackTrace();
         }
@@ -167,7 +188,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     public void onEditGenre(ActionEvent event) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("EditGenreBar.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("EditGenreBar.fxml")));
             Stage stage = new Stage();
             stage.setTitle("Edit Genre");
             stage.setMaxHeight(332);
@@ -179,6 +200,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Unable to load the editing panel.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             alert.showAndWait();
             e.printStackTrace();
         }

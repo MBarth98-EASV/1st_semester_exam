@@ -1,5 +1,6 @@
 package easv.app.model;
 
+import easv.app.App;
 import easv.app.Utils.CustomComponent.AutoCompleteTextField;
 import easv.app.be.MovieModel;
 import javafx.scene.control.Alert;
@@ -42,7 +43,8 @@ public class UserSearchModel {
         {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
-            errorAlert.setContentText("Your search did not match any songs or playlists.");
+            errorAlert.setContentText("Your search did not match any movies.");
+            errorAlert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             errorAlert.showAndWait();
         }
         else

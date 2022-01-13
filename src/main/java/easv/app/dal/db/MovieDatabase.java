@@ -10,7 +10,9 @@ import java.util.Date;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
+import easv.app.App;
 import easv.app.be.MovieModel;
+import javafx.scene.control.Alert;
 
 public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
 {
@@ -30,6 +32,9 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         }
         catch (SQLException e)
         {
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Error executing statement. Please try again");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.showAndWait();
             e.printStackTrace();
         }
     }
@@ -45,6 +50,9 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         }
         catch (SQLException e)
         {
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Error executing statement. Please try again");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.showAndWait();
             return null;
         }
     }

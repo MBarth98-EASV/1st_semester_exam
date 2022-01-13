@@ -1,6 +1,7 @@
 package easv.app.dal.db;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import easv.app.App;
 import javafx.scene.control.Alert;
 
 import java.sql.Connection;
@@ -28,8 +29,9 @@ public class EASVDatabaseConnector {
         }
         catch (SQLException e)
         {
-            //Alert alert = new Alert(Alert.AlertType.ERROR, "Could not connect to the database.");
-            //alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not connect to the database.");
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.showAndWait();
             return null;
         }
     }
