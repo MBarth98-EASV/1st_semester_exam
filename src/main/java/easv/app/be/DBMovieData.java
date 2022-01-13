@@ -1,4 +1,4 @@
-package easv.app.dal.db;
+package easv.app.be;
 
 public class DBMovieData {
     private int id;
@@ -9,7 +9,15 @@ public class DBMovieData {
     private String lastviewed;
     private String genre;
 
-    public DBMovieData() {}
+    /**
+     * Class for instantiating a movie from the database for later conversion to MovieModel.
+     * @param id
+     * @param title
+     * @param rating
+     * @param filepath
+     * @param imdbid
+     * @param lastviewed
+     */
     public DBMovieData(int id, String title, int rating, String filepath, String imdbid, String lastviewed)
     {
         this.id = id;
@@ -20,6 +28,7 @@ public class DBMovieData {
         this.lastviewed = lastviewed;
     }
 
+    public DBMovieData() {}
 
     public int getId() {
         return id;

@@ -31,10 +31,10 @@ import java.util.ResourceBundle;
 
 //TODO: fix buttons, add gradient to userControlPane
 /**
- * The Controller for the MediaPlayerView. Contains the UI functionality and
+ * The Controller for the Player.fxml. Contains the UI functionality and
  * media playback logic.
  *
- * @author Alex Hage, Rasmus Sandbæk
+ * @author Alex Hage, Rasmus Scherning Sandbæk
  *
  */
 public class MediaPlayerController implements Initializable {
