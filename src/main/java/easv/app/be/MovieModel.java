@@ -164,6 +164,8 @@ public class MovieModel
     {
         // todo: refactor
 
+        
+
         String[] returnArray;
         String[] initialArray = genre.get().split(",");
         String str1;

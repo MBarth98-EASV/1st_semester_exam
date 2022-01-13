@@ -79,9 +79,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         lblMovYear.textProperty().set(selected.getYear());
         txtAreaMovPlot.setText(selected.getPlot());
 
-        //btnLblGenre1.setText(selected.getGenre()[0]);
-        //btnLblGenre2.setText(selected.getGenre()[1]);
-        //btnLblGenre3.setText(selected.getGenre()[2]);
+        btnLblGenre1.setText(selected.getGenre()[0]);
+        btnLblGenre2.setText(selected.getGenre()[1]);
+        btnLblGenre3.setText(selected.getGenre()[2]);
 
         selectedMovie = selected;
         if (selected.getPoster().getImage() == null) {
