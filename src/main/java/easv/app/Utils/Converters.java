@@ -2,7 +2,7 @@ package easv.app.Utils;
 
 import easv.app.be.MovieModel;
 import easv.app.be.json.MovieInfo;
-import easv.app.dal.db.DBMovieData;
+import easv.app.be.DBMovieData;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,7 +5,7 @@ import easv.app.be.MovieModel;
 import easv.app.be.SearchModel;
 import easv.app.be.json.MovieInfo;
 import easv.app.dal.api.OpenMovieNetwork;
-import easv.app.dal.db.DBMovieData;
+import easv.app.be.DBMovieData;
 import easv.app.dal.db.MovieDatabase;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -69,7 +69,6 @@ public class DataManager
         }
         return returnList;
     }
-
 
 
     public void add(String filepath) throws SQLException {

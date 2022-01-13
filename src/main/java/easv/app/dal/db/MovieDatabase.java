@@ -1,6 +1,7 @@
 package easv.app.dal.db;
 
 import easv.app.App;
+import easv.app.be.DBMovieData;
 import javafx.scene.control.Alert;
 
 import java.sql.Connection;
