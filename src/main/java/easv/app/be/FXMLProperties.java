@@ -32,7 +32,7 @@ public class FXMLProperties {
     @FXML public Rating movieRating;
 
 
-    @FXML public ListView lstViewGenre;
+    @FXML public ListView<String> lstViewGenre;
     @FXML public Button btnGenreOptions;
 
     @FXML public TableView<MovieModel> tblViewMovies = new TableView<>();
