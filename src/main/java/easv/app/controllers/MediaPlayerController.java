@@ -29,7 +29,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-//TODO: fix buttons, add gradient to userControlPane
 /**
  * The Controller for the Player.fxml. Contains the UI functionality and
  * media playback logic.
@@ -115,6 +114,7 @@ public class MediaPlayerController implements Initializable {
         initMedia();
         initListeners();
         mediaPlayer.play();
+
     }
 
     private void initMedia(){
