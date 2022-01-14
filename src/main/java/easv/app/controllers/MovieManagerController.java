@@ -96,6 +96,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         lblMovWriters.textProperty().set(selected.getWriter());
         lblMovYear.textProperty().set(selected.getYear());
         txtAreaMovPlot.setText(selected.getPlot());
+        tblClmLastViewed.setText(selected.getLastViewed());
 
         btnLblGenre1.setText(selected.getGenre()[0]);
         btnLblGenre2.setText(selected.getGenre()[1]);
