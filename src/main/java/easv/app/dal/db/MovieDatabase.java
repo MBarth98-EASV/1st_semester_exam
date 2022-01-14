@@ -6,8 +6,6 @@ import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.List;
 
 public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
@@ -39,6 +37,12 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         }
 
         return movies;
+    }
+
+    private void alert (String alertmessage)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR, alertmessage);
+        alert.showAndWait();
     }
 
     public ArrayList<DBMovieData> getMoviesByGenre(String genre){
@@ -160,21 +164,24 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         }
     }
 
-    public void delete(String imdbID) throws SQLException
+    public void delete(String imdbID)
     {
-        if (imdbID != null)
-        {
-            ResultSet results = dbaccess.query("""
-                    SELECT * FROM Movie WHERE imdbid = '%s'
-                    """.formatted(imdbID));
+        try {
+            if (imdbID != null) {
+                ResultSet results = dbaccess.query("""
+                        SELECT * FROM Movie WHERE imdbid = '%s'
+                        """.formatted(imdbID));
 
-            while (results.next())
-            {
-                int movieid = results.getInt("id");
+                while (results.next()) {
+                    int movieid = results.getInt("id");
 
-                this.deleteCatMovie(movieid);
-                this.deleteMovie(movieid);
+                    this.deleteCatMovie(movieid);
+                    this.deleteMovie(movieid);
+                }
             }
+        } catch (SQLException e)
+        {
+            alert("Something went wrong.");
         }
     }
 
@@ -201,12 +208,27 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
                 """.formatted(newname, oldname));
     }
 
-    private void updateMovieGenres()
+    private void updateMovieGenres(int movieid, String oldgenre, String newgenre)
     {
-        dbaccess.execute("""
-                UPDATE CatMovie
-                SET categoryid = '%s'
-                WHERE categoryid = '%s' AND movieid ='%s'
-                """.formatted());
+        try {
+            ResultSet getnewgenreid = dbaccess.query("""
+                    SELECT FROM Category WHERE genre '%s'
+                    """.formatted(newgenre));
+
+            getnewgenreid.next();
+
+            int newgenreid = getnewgenreid.getInt("id");
+
+            dbaccess.execute("""
+                    UPDATE CatMovie
+                    SET categoryid = '%s'
+                    FROM Category
+                    INNER JOIN CatMovie ON Category.id = CatMovie.categoryid
+                    WHERE CatMovie.movieid = '%s' AND genre = '%s'
+                    """.formatted(newgenreid, movieid, oldgenre));
+        } catch (SQLException e)
+        {
+            alert("Something went wrong.");
+        }
     }
 }
