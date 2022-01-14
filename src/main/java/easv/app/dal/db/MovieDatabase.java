@@ -41,11 +41,6 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         return movies;
     }
 
-    public ArrayList<DBMovieData> getMoviesByGenre(String genre){
-        //Some SQL statement...
-        return new ArrayList<>();
-    }
-
     public List<String> getCategories() throws SQLException {
         List<String> list = new ArrayList<>();
         ResultSet results = dbaccess.query("SELECT * FROM Category");

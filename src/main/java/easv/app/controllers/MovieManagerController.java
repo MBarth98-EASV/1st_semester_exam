@@ -78,6 +78,11 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         alertUser();
     }
 
+
+    /**
+     * Sets the entire movie details panel to change to whichever movie is selected in the TableView.
+     * Used with a listener.
+     */
     public void updateSelectedItemBindings()
     {
         var selected = this.tblViewMovies.getSelectionModel().getSelectedItem();
@@ -133,7 +138,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.show();
 
             selectedMovie.setLastViewed(LocalDate.now().toString());
-            //dataManager.update(selectedMovie);
+            //TODO: dataManager.update(selectedMovie);
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie. Please make sure a movie is selected.");
@@ -242,7 +247,11 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         DataManager.getInstance().update(selected);
     }
 
-
+    /**
+     * Initializes the TableView. Sets the appropriate MovieModel fields to be displayed in their
+     * distinguished columns, whilst also using setCellFactory(Clmn, Pos.CENTER_LEFT) and setStyle() (for poster coloumn)
+     * to ensure the values are displayed centrally in their row.
+     */
     private void initializeMovieTable()
     {
         this.tblClmPoster.setStyle("-fx-alignment: CENTER;");
@@ -286,6 +295,12 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         });
     }
 
+    /**
+     * Upon the "ENTER" key being pressed, the TableView either selects and scrolls the queried Movie,
+     * or applies the selected filter depending on the chosen value in the ComboBox.
+     * Resets any filter when search or search all is selected.
+     * @param event
+     */
     public void onSearch(ActionEvent event) {
         txtFieldSearch.setOnKeyPressed(new EventHandler<KeyEvent>()
         {
@@ -335,6 +350,11 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         });
     }
 
+    /**
+     * Checks if the input is a valid double or int, depending on the use case.
+     * @param input The user input in txtFieldSearch.
+     * @return false if the input is valid, true if invalid.
+     */
     private boolean checkInvalidInput(String input){
         int selectedItem = cmboBoxFilter.getSelectionModel().getSelectedIndex();
         switch (ComboBoxEnum.values()[selectedItem]) {
@@ -360,6 +380,10 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         }
     }
 
+    /**
+     * Selects and scrolls to the input movie in the tableview.
+     * @param movie
+     */
     private void selectInTable(MovieModel movie){
         tblViewMovies.getSelectionModel().select(movie);
         tblViewMovies.scrollTo(movie);
@@ -374,12 +398,21 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         }
     }
 
+    /**
+     * Resets the table to its original state.
+     * Used for disabling active filters.
+     */
     private void resetTable(){
         tblViewMovies.setItems(DataManager.getInstance().getBackupMovies());
         tblViewMovies.refresh();
         tblViewMovies.getSelectionModel().selectFirst();
     }
 
+    /**
+     * Sets the prompt text of txtFieldSearch and it's search entries depending on the
+     * the combobox value chosen by the user. Resets the table to disable any active filter.
+     * @param event
+     */
     public void onComboBox(ActionEvent event) {
         int selectedItem = cmboBoxFilter.getSelectionModel().getSelectedIndex();
 
@@ -440,6 +473,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         cmboBoxFilter.getSelectionModel().select(0);
     }
 
+    /**
+     * ContextMenu for the tableview. Runs methods otherwise accessible through the GUI for quality of life.
+     */
     private void tblViewMovieContextMenu(){
         ContextMenu contextMenuMovie = new ContextMenu();
         tblViewMovies.setContextMenu(contextMenuMovie);
@@ -465,6 +501,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         contextMenuMovie.getItems().add(deleteMovie);
     }
 
+    /**
+     * ContextMenu for the listview of genres. Shortcut to editing the genrebar.
+     */
     private void lstViewGenreContextMenu(){
         ContextMenu contextMenuGenre = new ContextMenu();
         lstViewGenre.setContextMenu(contextMenuGenre);
@@ -476,7 +515,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         contextMenuGenre.getItems().add(edit);
     }
 
-
+    /**
+     * Upon either the IMBD logo or rating being clicked, opens the selected movie's IMBD page in the systems default browser.
+     */
     private void openImbdPage() {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
             try {

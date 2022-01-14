@@ -29,6 +29,8 @@ public class DataManager
     MovieDatabase database = null;
     private final ListProperty<MovieModel> movies = new SimpleListProperty<>();
 
+    //Backup of the all the movies retrieved upon load(). Used to reset the tableView after it's data
+    //has been manipulated, as the bidirectional binding causes the movies list to be altered along with the tableView.
     private ObservableList<MovieModel> backupMovies = FXCollections.observableArrayList();
 
 
@@ -51,7 +53,6 @@ public class DataManager
     }
 
     // get all movies from db
-
     public void load() throws IOException, SQLException
     {
         List<DBMovieData> DBMovies = database.getAllMovies();
@@ -63,6 +64,7 @@ public class DataManager
         movies.setAll(Converters.convert(DBMovies, ApiMovies));
         backupMovies.addAll(movies.get());
     }
+
     public ListProperty<MovieModel> getMovies()
     {
         return movies;
@@ -72,16 +74,6 @@ public class DataManager
         return backupMovies;
     }
 
-    //TODO: Make DB method
-    public ListProperty<MovieModel> getMoviesOfGenre(String genre) throws IOException {
-        ListProperty<MovieModel> returnlist = new SimpleListProperty<MovieModel>();
-        List<DBMovieData> DBMovies = database.getMoviesByGenre(genre);
-
-        // get any and all movie info from api with id from db
-        List<MovieInfo> ApiMovies = OpenMovieNetwork.getInstance().get(DBMovies.stream().map(DBMovieData::getImdbid).collect(Collectors.toList()));
-        returnlist.setAll(Converters.convert(DBMovies, ApiMovies));
-        return returnlist;
-    }
 
     public static SearchModel searchMovies(String title) throws IOException
     {
@@ -114,7 +106,12 @@ public class DataManager
         }
         return returnList;
     }
-
+    /**
+     * Checks whether or any instantiated movie been rated a score of 2 or below by the user.
+     * When the method is called, one should make sure the list is not empty before doing anything with it.
+     * Can possibly be replaced with SQL statement.
+     * @return List of MovieModels whose personalRating is 2 or below.
+     */
     public List<MovieModel> sortBadMovies() {
         ArrayList<MovieModel> returnList = new ArrayList<>();
         for (MovieModel m : movies.get()){
