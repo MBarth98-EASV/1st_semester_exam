@@ -140,7 +140,7 @@ public class DataManager
 
     public void update(MovieModel selectedItem)
     {
-        database.update(new DBMovieData(-1, selectedItem.getTitle(), Integer.parseInt(selectedItem.getPersonalRating()), selectedItem.getPath(), selectedItem.getID(), "1944/06/06"));
+        database.update(new DBMovieData(-1, selectedItem.getTitle(), Integer.parseInt(selectedItem.getPersonalRating()), selectedItem.getPath(), selectedItem.getID(), selectedItem.getLastViewed()));
     }
 
     public void delete(MovieModel selectedItem) throws SQLException {
@@ -150,8 +150,13 @@ public class DataManager
     }
 
 
-    public List<String> getAllGenres() throws SQLException {
-        return database.getCategories();
+    public List<String> getAllGenres() throws SQLException
+    {
+        var list = database.getCategories();
+        if (!list.contains("N/A"))
+            list.add("N/A");
+
+        return list;
     }
 
     public void updateGenre(String selected, String text)

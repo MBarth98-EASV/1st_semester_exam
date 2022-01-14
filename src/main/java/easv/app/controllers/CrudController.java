@@ -192,14 +192,21 @@ public class CrudController implements Initializable {
 
     private void initEditMovie(ResourceBundle resources) {
         if (btnEditMovieFinish != null) {
-            try {
-                resources.getObject("selectedMovie");
+            try
+            {
                 movie = (MovieModel) resources.getObject("selectedMovie");
 
                 ObservableList<String> genres = FXCollections.observableArrayList(dataManager.getAllGenres());
                 cmboBoxEditGenre1.setItems(genres);
                 cmboBoxEditGenre2.setItems(genres);
                 cmboBoxEditGenre3.setItems(genres);
+
+                String[] usedGenres = movie.getGenre();
+
+                cmboBoxEditGenre1.getSelectionModel().select(usedGenres[0]);
+                cmboBoxEditGenre2.getSelectionModel().select(usedGenres[1]);
+                cmboBoxEditGenre3.getSelectionModel().select(usedGenres[2]);
+
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
                 alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
@@ -214,17 +221,19 @@ public class CrudController implements Initializable {
     }
 
     //EditMovie
-    public void onEditMovieSave(ActionEvent event) {
-       /* if (!cmboBoxEditGenre1.getSelectionModel().getSelectedItem().equals(movie.getGenre()[1]) ||
-                !cmboBoxEditGenre2.getSelectionModel().getSelectedItem().equals(movie.getGenre()[2]) ||
-                !cmboBoxEditGenre3.getSelectionModel().getSelectedItem().equals(movie.getGenre()[3]) )
-        {
-            if (!txtFieldEditMovieTitle.getText().equals(movie.getTitle())){
-                movie.setTitle(txtFieldEditMovieTitle.getText());
-            }
-            dataManager.update(movie);
-        }
-        */
+    public void onEditMovieSave(ActionEvent event)
+    {
+        String genreCSV = "%s, %s, %s".formatted
+                (
+                cmboBoxEditGenre1.getSelectionModel().getSelectedItem(),
+                cmboBoxEditGenre2.getSelectionModel().getSelectedItem(),
+                cmboBoxEditGenre3.getSelectionModel().getSelectedItem()
+        );
+
+        movie.setGenre(genreCSV);
+        movie.setTitle(txtFieldEditMovieTitle.getText());
+
+        dataManager.update(movie);
 
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
