@@ -5,9 +5,7 @@ import easv.app.utils.customComponent.ComboBoxEnum;
 import easv.app.be.FXMLProperties;
 import easv.app.be.MovieModel;
 import easv.app.bll.DataManager;
-import easv.app.model.UserSearchModel;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ListProperty;
+import easv.app.bll.UserSearchManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,7 +16,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.*;
@@ -45,11 +42,11 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 {
 
     MovieModel selectedMovie;
-    UserSearchModel searchModel;
+    UserSearchManager searchModel;
 
     public MovieManagerController()
     {
-        searchModel = new UserSearchModel();
+        searchModel = new UserSearchManager();
 
         tblViewMovies.getColumns().add(tblClmPoster);
         tblViewMovies.getColumns().add(tblClmTitle);

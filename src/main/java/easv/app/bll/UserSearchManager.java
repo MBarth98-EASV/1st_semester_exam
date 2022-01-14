@@ -1,4 +1,4 @@
-package easv.app.model;
+package easv.app.bll;
 
 import easv.app.App;
 import easv.app.utils.customComponent.ComboBoxEnum;
@@ -8,19 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class UserSearchModel {
-
-    ObservableList<MovieModel> movieListToFilter;
-
-    public UserSearchModel(){
-        movieListToFilter = DataManager.getInstance().getMovies().get();
-    }
+public class UserSearchManager {
 
     private MovieModel getObjectFromText(List<MovieModel> inputList, String search)
     {
@@ -43,8 +36,8 @@ public class UserSearchModel {
     }
 
     /**
-     * Gets matching songmodel and selects it in the table upon search.
-     * @param textField The searchbar.
+     * Gets matching MovieModel and returns it.
+     * @param textField The searchbar input.
      */
     public MovieModel search(String textField)
     {
