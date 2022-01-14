@@ -1,6 +1,7 @@
 package easv.app.bll;
 
 import easv.app.Utils.Converters;
+import easv.app.Utils.CustomComponent.ComboBoxEnum;
 import easv.app.be.MovieModel;
 import easv.app.be.SearchModel;
 import easv.app.be.json.MovieInfo;
@@ -20,6 +21,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+
 
 public class DataManager
 {
@@ -62,9 +65,28 @@ public class DataManager
         return movies;
     }
 
+    //TODO: Make DB method
+    public ListProperty<MovieModel> getMoviesOfGenre(String genre) throws IOException {
+        ListProperty<MovieModel> returnlist = new SimpleListProperty<MovieModel>();
+        List<DBMovieData> DBMovies = database.getMoviesByGenre(genre);
+
+        // get any and all movie info from api with id from db
+        List<MovieInfo> ApiMovies = OpenMovieNetwork.getInstance().get(DBMovies.stream().map(DBMovieData::getImdbid).collect(Collectors.toList()));
+        returnlist.setAll(Converters.convert(DBMovies, ApiMovies));
+        return returnlist;
+    }
+
     public static SearchModel searchMovies(String title) throws IOException
     {
         return OpenMovieNetwork.getInstance().search(title);
+    }
+
+    //Search all movies - for use in search entries.
+    public List<String> getAllMovieTitles() throws SQLException {
+        List<DBMovieData> DBMovies = database.getAllMovies();
+        // get any and all movie info from api with id from db
+        List<String> returnList = DBMovies.stream().map(DBMovieData::getTitle).collect(Collectors.toList());
+        return returnList;
     }
 
     /**
@@ -86,7 +108,18 @@ public class DataManager
         return returnList;
     }
 
-
+    public List<MovieModel> sortBadMovies() {
+        ArrayList<MovieModel> returnList = new ArrayList<>();
+        for (MovieModel m : movies.get()){
+            if (m.getPersonalRating() != null && !m.getPersonalRating().isEmpty()){
+                Integer rating = Integer.parseInt(m.getPersonalRating());
+                if (rating.intValue() <= 2) {
+                    returnList.add(m);
+                }
+            }
+        }
+        return returnList;
+    }
 
     public void add(String filepath, String ImdbID) throws SQLException, IOException
     {
@@ -117,6 +150,7 @@ public class DataManager
 
         this.movies.removeIf(movieModel -> Objects.equals(movieModel.getID(), selectedItem.getID()));
     }
+
 
     public List<String> getAllGenres() throws SQLException {
         return database.getCategories();

@@ -1,10 +1,15 @@
 package easv.app.model;
 
 import easv.app.App;
+import easv.app.Utils.CustomComponent.ComboBoxEnum;
 import easv.app.be.MovieModel;
+import easv.app.bll.DataManager;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +43,12 @@ public class UserSearchModel {
     {
         MovieModel movie = getObjectFromText(table.getItems().stream().toList(), textField);
 
-        if (movie == null)
+        if (movie != null)
+        {
+            table.getSelectionModel().select(movie);
+            table.scrollTo(movie);
+        }
+        else
         {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
@@ -46,14 +56,49 @@ public class UserSearchModel {
             errorAlert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
             errorAlert.showAndWait();
         }
-        else
-        {
-            table.getSelectionModel().select(movie);
-            table.scrollTo(movie);
-        }
+    }
+
+    //Filter current movies show in tableview - for use in search
+    public List<String> getCurrentFilterEntries(ObservableList<MovieModel> inputList, ComboBoxEnum param){
+        ArrayList<String> error = new ArrayList<>();
+        error.add("Error");
+        return switch (param) {
+            case TITLE -> inputList.stream().map(MovieModel::getTitle).collect(Collectors.toList());
+            case RATING -> inputList.stream().map(MovieModel::getPersonalRating).collect(Collectors.toList());
+            case IMBDRATING -> inputList.stream().map(MovieModel::getImdbRating).collect(Collectors.toList());
+            default -> error;
+        };
+    }
+
+    //For use in search entries
+    public List<String> getAllMovieTitles() throws SQLException {
+        return DataManager.getInstance().getAllMovieTitles();
     }
 
 
 
+    public void searchCurrent(TableView<MovieModel> tblView, String filter){
+
+    }
+
+    public void searchAll(TableView<MovieModel> tblView, String filter){
+
+    }
+
+    public void filterTitle(TableView<MovieModel> tblView, String filter){
+
+    }
+
+    public void filterRating(TableView<MovieModel> tblView, String filter){
+
+    }
+
+    public void filterGenre(TableView<MovieModel> tblView, String filter){
+
+    }
+
+    public void filterImbdRating(TableView<MovieModel> tblView, String filter){
+
+    }
 
 }
