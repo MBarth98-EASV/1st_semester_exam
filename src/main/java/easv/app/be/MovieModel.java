@@ -153,10 +153,16 @@ public class MovieModel
         return imdbRating.get();
     }
 
+    public double getImbdRatingAsDouble(){
+            double returnValue = Double.parseDouble(imdbRating.get());
+            return returnValue;
+    }
+
     public StringProperty imdbRatingProperty()
     {
         return imdbRating;
     }
+
 
     public void setImdbRating(String rated)
     {
@@ -292,6 +298,11 @@ public class MovieModel
         return personalRating.get();
     }
 
+    public int getPersonalRatingAsInt(){
+        int returnValue = Integer.parseInt(personalRating.get());
+        return returnValue;
+    }
+
     public StringProperty personalRatingProperty()
     {
         return personalRating;
@@ -359,7 +370,11 @@ public class MovieModel
         }
     }
 
-
+    @Override
+    public String toString(){
+        return title.get() + " (" + year.get() + ")";
+    }
+/*
     @Override
     public String toString()
     {
@@ -385,4 +400,6 @@ public class MovieModel
                 ", poster=" + poster +
                 '}';
     }
+
+ */
 }

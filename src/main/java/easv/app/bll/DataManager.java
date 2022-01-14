@@ -7,9 +7,11 @@ import easv.app.be.json.MovieInfo;
 import easv.app.dal.api.OpenMovieNetwork;
 import easv.app.be.DBMovieData;
 import easv.app.dal.db.MovieDatabase;
+import javafx.beans.Observable;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -26,6 +28,9 @@ public class DataManager
 {
     MovieDatabase database = null;
     private final ListProperty<MovieModel> movies = new SimpleListProperty<>();
+
+    private ObservableList<MovieModel> backupMovies = FXCollections.observableArrayList();
+
 
     private static DataManager instance = null;
 
@@ -46,7 +51,8 @@ public class DataManager
     }
 
     // get all movies from db
-    public void load() throws IOException, SQLException 
+
+    public void load() throws IOException, SQLException
     {
         List<DBMovieData> DBMovies = database.getAllMovies();
 
@@ -54,13 +60,16 @@ public class DataManager
 
         // get any and all movie info from api with id from db
         List<MovieInfo> ApiMovies = OpenMovieNetwork.getInstance().get(DBMovies.stream().map(DBMovieData::getImdbid).collect(Collectors.toList()));
-
         movies.setAll(Converters.convert(DBMovies, ApiMovies));
+        backupMovies.addAll(movies.get());
     }
-
     public ListProperty<MovieModel> getMovies()
     {
         return movies;
+    }
+
+    public ObservableList<MovieModel> getBackupMovies() {
+        return backupMovies;
     }
 
     //TODO: Make DB method
