@@ -200,4 +200,13 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
                     WHERE genre = '%s'
                 """.formatted(newname, oldname));
     }
+
+    private void updateMovieGenres()
+    {
+        dbaccess.execute("""
+                UPDATE CatMovie
+                SET categoryid = '%s'
+                WHERE categoryid = '%s' AND movieid ='%s'
+                """.formatted());
+    }
 }

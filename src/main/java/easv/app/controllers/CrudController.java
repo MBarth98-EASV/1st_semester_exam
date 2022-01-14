@@ -51,7 +51,6 @@ public class CrudController implements Initializable {
     @FXML public Button btnEditGenreFinish;
 
     MovieModel movie;
-    DataManager dataManager = new DataManager();
 
     public CrudController() {
 
@@ -148,7 +147,7 @@ public class CrudController implements Initializable {
         if (btnEditGenreFinish != null){
             try
             {
-                ObservableList<String> genres = FXCollections.observableArrayList(dataManager.getAllGenres());
+                ObservableList<String> genres = FXCollections.observableArrayList(DataManager.getInstance().getAllGenres());
                 lstViewEditGenre.setItems(genres);
                 lstViewEditGenre.getSelectionModel().selectedItemProperty().addListener(observable -> updateGenreBindings());
             } catch (SQLException e)
@@ -184,7 +183,7 @@ public class CrudController implements Initializable {
         var selected = lstViewEditGenre.getSelectionModel().getSelectedItem();
         if (!selected.equals(txtFieldEditGenreName.getText()))
         {
-            dataManager.updateGenre(selected, txtFieldEditGenreName.getText());
+            DataManager.getInstance().updateGenre(selected, txtFieldEditGenreName.getText());
         }
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
@@ -196,7 +195,7 @@ public class CrudController implements Initializable {
             {
                 movie = (MovieModel) resources.getObject("selectedMovie");
 
-                ObservableList<String> genres = FXCollections.observableArrayList(dataManager.getAllGenres());
+                ObservableList<String> genres = FXCollections.observableArrayList(DataManager.getInstance().getAllGenres());
                 cmboBoxEditGenre1.setItems(genres);
                 cmboBoxEditGenre2.setItems(genres);
                 cmboBoxEditGenre3.setItems(genres);
@@ -233,7 +232,7 @@ public class CrudController implements Initializable {
         movie.setGenre(genreCSV);
         movie.setTitle(txtFieldEditMovieTitle.getText());
 
-        dataManager.update(movie);
+        DataManager.getInstance().update(movie);
 
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
