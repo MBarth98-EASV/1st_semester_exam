@@ -10,11 +10,13 @@ import easv.app.dal.db.MovieDatabase;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class DataManager
         return instance;
     }
 
-    private DataManager()
+    public DataManager()
     {
         movies.set(FXCollections.observableArrayList());
         database = new MovieDatabase();
@@ -71,7 +73,7 @@ public class DataManager
      * Can possibly be replaced with SQL statement.
      * @return List of MovieModels whose LastViewed date is older than two years.
      */
-    public List<MovieModel> getOldLastViewedMovies(){
+    public List<MovieModel> sortOldLastViewedMovies(){
         ArrayList<MovieModel> returnList = new ArrayList<>();
         for (MovieModel m : movies.get()){
             if (!m.getLastViewed().equals(null) && !m.getLastViewed().isEmpty()){
@@ -83,6 +85,8 @@ public class DataManager
         }
         return returnList;
     }
+
+
 
     public void add(String filepath, String ImdbID) throws SQLException, IOException
     {
@@ -108,8 +112,18 @@ public class DataManager
         database.update(new DBMovieData(-1, selectedItem.getTitle(), Integer.parseInt(selectedItem.getPersonalRating()), selectedItem.getPath(), selectedItem.getID(), "1944/06/06"));
     }
 
-    public void delete(MovieModel selectedItem) throws SQLException
-    {
+    public void delete(MovieModel selectedItem) throws SQLException {
         database.delete(selectedItem.getID());
+
+        this.movies.removeIf(movieModel -> Objects.equals(movieModel.getID(), selectedItem.getID()));
+    }
+
+    public List<String> getAllGenres() throws SQLException {
+        return database.getCategories();
+    }
+
+    public void updateGenre(String selected, String text)
+    {
+
     }
 }

@@ -5,6 +5,7 @@ import easv.app.be.MovieModel;
 import easv.app.be.SearchedMovieModel;
 import easv.app.bll.DataManager;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CrudController implements Initializable {
@@ -36,9 +38,9 @@ public class CrudController implements Initializable {
 
     //EditMovie
     @FXML public TextField txtFieldEditMovieTitle;
-    @FXML public SearchableComboBox cmboBoxEditGenre1;
-    @FXML public SearchableComboBox cmboBoxEditGenre2;
-    @FXML public SearchableComboBox cmboBoxEditGenre3;
+    @FXML public SearchableComboBox<String> cmboBoxEditGenre1;
+    @FXML public SearchableComboBox<String> cmboBoxEditGenre2;
+    @FXML public SearchableComboBox<String> cmboBoxEditGenre3;
     @FXML public Button btnEditMovieFinish;
 
     //EditGenre
@@ -49,6 +51,7 @@ public class CrudController implements Initializable {
     @FXML public Button btnEditGenreFinish;
 
     MovieModel movie;
+    DataManager dataManager = new DataManager();
 
     public CrudController() {
 
@@ -76,7 +79,7 @@ public class CrudController implements Initializable {
         if (selected != null) {
             lblNewMovieTitle.textProperty().set(selected.getTitle());
             if (selected.getImageURL() == null || selected.getImageURL().equals("N/A")) {
-                imgViewPosterNewMovie.setImage(new Image(App.class.getResource("images/posterError.png").toExternalForm()));
+                imgViewPosterNewMovie.setImage(new Image(Objects.requireNonNull(App.class.getResource("images/posterError.png")).toExternalForm()));
             } else {
                 imgViewPosterNewMovie.setImage(new Image(selected.getImageURL()));
             }
@@ -98,7 +101,7 @@ public class CrudController implements Initializable {
         File selectedFile =  fc.showOpenDialog(new Stage());
         if (!checkForMp4(selectedFile.getName())){
             Alert alert = new Alert(Alert.AlertType.WARNING, "Unsupported file format. Please choose a different movie.");
-            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
             alert.showAndWait();
             return;
         }
@@ -142,9 +145,18 @@ public class CrudController implements Initializable {
 
     //EditGenreBar
     private void initEditGenre(){
-        if (btnEditGenreFinish != null){ //If the button exists, EditGenreBar.fxml is open and the appropriate values are initialized.
-            //lstViewEditGenre.setItems(dataManager.getAllGenres);
-            lstViewEditGenre.getSelectionModel().selectedItemProperty().addListener(observable -> updateGenreBindings());
+        if (btnEditGenreFinish != null){
+            try
+            {
+                ObservableList<String> genres = FXCollections.observableArrayList(dataManager.getAllGenres());
+                lstViewEditGenre.setItems(genres);
+                lstViewEditGenre.getSelectionModel().selectedItemProperty().addListener(observable -> updateGenreBindings());
+            } catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+
+
         }
     }
 
@@ -167,33 +179,37 @@ public class CrudController implements Initializable {
         //dataManager.addGenre();
     }
 
-    public void onSaveEditGenre(ActionEvent event) {
+    public void onSaveEditGenre(ActionEvent event)
+    {
         var selected = lstViewEditGenre.getSelectionModel().getSelectedItem();
-        if (!selected.equals(txtFieldEditGenreName.getText())){
-            //dataManager.updateGenre(selected, txtFieldEditGenreName.getText());
+        if (!selected.equals(txtFieldEditGenreName.getText()))
+        {
+            dataManager.updateGenre(selected, txtFieldEditGenreName.getText());
         }
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 
 
-    private void initEditMovie(ResourceBundle resources){
-        if (btnEditMovieFinish != null) { //If the button exists, EditMovie.fxml is open and the appropriate values are initialized.
+    private void initEditMovie(ResourceBundle resources) {
+        if (btnEditMovieFinish != null) {
             try {
                 resources.getObject("selectedMovie");
                 movie = (MovieModel) resources.getObject("selectedMovie");
+
+                ObservableList<String> genres = FXCollections.observableArrayList(dataManager.getAllGenres());
+                cmboBoxEditGenre1.setItems(genres);
+                cmboBoxEditGenre2.setItems(genres);
+                cmboBoxEditGenre3.setItems(genres);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
-                alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+                alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
                 alert.showAndWait();
                 e.printStackTrace();
             }
+
+
             txtFieldEditMovieTitle.setText(movie.getTitle());
-            //cmboBoxEditGenre1.setItems(dataManager.getAllGenres);
-            //cmboBoxEditGenre2.setItems(dataManager.getAllGenres);
-            //cmboBoxEditGenre3.setItems(dataManager.getAllGenres);
-            //cmboBoxEditGenre1.setSelectionModel(movie.getGenre()[0]);
-            //cmboBoxEditGenre2.setSelectionModel(movie.getGenre()[1]);
-            //cmboBoxEditGenre3.setSelectionModel(movie.getGenre()[2]);
+
         }
     }
 

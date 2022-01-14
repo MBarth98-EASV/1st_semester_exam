@@ -1,5 +1,6 @@
 package easv.app.be;
 
+import easv.app.Utils.CustomComponent.AutoCompleteTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -8,7 +9,7 @@ import org.controlsfx.control.Rating;
 
 public class FXMLProperties {
 
-    @FXML public TextField txtFieldSearch;
+    @FXML public AutoCompleteTextField txtFieldSearch;
     @FXML public ComboBox cmboBoxFilter;
 
     @FXML public Button btnPlayMovie;

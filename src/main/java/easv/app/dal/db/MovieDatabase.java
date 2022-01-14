@@ -4,13 +4,11 @@ import easv.app.App;
 import easv.app.be.DBMovieData;
 import javafx.scene.control.Alert;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
 public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
 {
@@ -20,8 +18,6 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
     {
         dbaccess = new EASVDatabaseConnector();
     }
-
-
     public ArrayList<DBMovieData> getAllMovies() throws SQLException
     {
         ArrayList<DBMovieData> movies = new ArrayList<>();
@@ -45,16 +41,15 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         return movies;
     }
 
-
-    private Dictionary<Integer, String> getCategories() throws SQLException {
-        Dictionary<Integer, String> dictionary = new Hashtable();
+    public List<String> getCategories() throws SQLException {
+        List<String> list = new ArrayList<>();
         ResultSet results = dbaccess.query("SELECT * FROM Category");
 
         while (results.next())
         {
-               dictionary.put(results.getInt("id"), results.getString("genre"));
+            list.add(results.getString("genre"));
         }
-        return dictionary;
+        return list;
     }
 
     private int addGenre(String genre) throws SQLException {
@@ -165,7 +160,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         if (imdbID != null)
         {
             ResultSet results = dbaccess.query("""
-                    SELECT FROM Movie WHERE imdbid = '%s'
+                    SELECT * FROM Movie WHERE imdbid = '%s'
                     """.formatted(imdbID));
 
             while (results.next())
@@ -190,5 +185,14 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         dbaccess.execute("""
                     DELETE FROM Movie where id = '%s'
                     """.formatted(id));
+    }
+
+    private void updateGenre(String oldname, String newname)
+    {
+        dbaccess.execute("""
+                    UPDATE Category
+                    SET genre ='%s'
+                    WHERE genre = '%s'
+                """.formatted(newname, oldname));
     }
 }

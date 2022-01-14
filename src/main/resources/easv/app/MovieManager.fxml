@@ -23,6 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
+<?import easv.app.Utils.CustomComponent.AutoCompleteTextField?>
 <GridPane cache="true" cacheHint="QUALITY" minHeight="845.0" minWidth="900.0" prefHeight="972.0" prefWidth="900.0" style="-fx-background-color: #303030;" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.controllers.MovieManagerController">
   <columnConstraints>
     <ColumnConstraints />
@@ -237,7 +238,7 @@
             <RowConstraints />
         </rowConstraints>
          <children>
-            <TextField fx:id="txtFieldSearch" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" onAction="#onSearch" scaleY="1.04" style="-fx-background-color: #464646; -fx-max-height: 32; -fx-min-height: 32; -fx-font-size: 13; -fx-border-color: derive( #404040,20%); -fx-border-radius: 5;" styleClass="text-field" translateY="-1.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowSpan="3" GridPane.valignment="CENTER">
+            <AutoCompleteTextField fx:id="txtFieldSearch" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" onAction="#onSearch" scaleY="1.04" style="-fx-background-color: #464646; -fx-max-height: 32; -fx-min-height: 32; -fx-font-size: 13; -fx-border-color: derive( #404040,20%); -fx-border-radius: 5;" styleClass="text-field" translateY="-1.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowSpan="3" GridPane.valignment="CENTER">
                <promptText>Press enter to search
                </promptText>
                <opaqueInsets>
@@ -249,7 +250,7 @@
                <GridPane.margin>
                   <Insets left="50.0" />
                </GridPane.margin>
-            </TextField>
+            </AutoCompleteTextField>
             <ComboBox fx:id="cmboBoxFilter" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" onAction="#onComboBox" promptText="Filter" style="-fx-max-height: 34; -fx-min-height: 34; -fx-border-radius: 5;" styleClass="choice-box" stylesheets="@styles/dark.css" translateY="-1.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
