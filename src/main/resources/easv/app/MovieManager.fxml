@@ -23,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
-<?import easv.app.Utils.CustomComponent.AutoCompleteTextField?>
+<?import easv.app.utils.customComponent.AutoCompleteTextField?>
 <GridPane cache="true" cacheHint="QUALITY" minHeight="845.0" minWidth="900.0" prefHeight="972.0" prefWidth="900.0" style="-fx-background-color: #303030;" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.controllers.MovieManagerController">
   <columnConstraints>
     <ColumnConstraints />

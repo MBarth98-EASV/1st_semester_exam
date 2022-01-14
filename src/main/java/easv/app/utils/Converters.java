@@ -1,4 +1,4 @@
-package easv.app.Utils;
+package easv.app.utils;
 
 import easv.app.be.MovieModel;
 import easv.app.be.json.MovieInfo;

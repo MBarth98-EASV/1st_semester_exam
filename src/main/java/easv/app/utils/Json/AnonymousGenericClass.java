@@ -1,4 +1,4 @@
-package easv.app.Utils.Json;
+package easv.app.utils.Json;
 
 import java.lang.reflect.ParameterizedType;
 

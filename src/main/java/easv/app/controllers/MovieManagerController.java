@@ -1,10 +1,9 @@
 package easv.app.controllers;
 
 import easv.app.App;
-import easv.app.Utils.CustomComponent.ComboBoxEnum;
+import easv.app.utils.customComponent.ComboBoxEnum;
 import easv.app.be.FXMLProperties;
 import easv.app.be.MovieModel;
-import easv.app.be.SearchModel;
 import easv.app.bll.DataManager;
 import easv.app.model.UserSearchModel;
 import javafx.beans.property.ListProperty;

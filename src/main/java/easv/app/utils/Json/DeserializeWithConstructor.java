@@ -1,4 +1,4 @@
-package easv.app.Utils.Json;
+package easv.app.utils.Json;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;

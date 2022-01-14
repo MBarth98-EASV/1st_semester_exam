@@ -1,4 +1,4 @@
-package easv.app.Utils.Json;
+package easv.app.utils.Json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

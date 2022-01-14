@@ -1,6 +1,6 @@
 package easv.app.be;
 
-import easv.app.Utils.CustomComponent.AutoCompleteTextField;
+import easv.app.utils.customComponent.AutoCompleteTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;

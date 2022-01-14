@@ -1,7 +1,6 @@
 package easv.app.bll;
 
-import easv.app.Utils.Converters;
-import easv.app.Utils.CustomComponent.ComboBoxEnum;
+import easv.app.utils.Converters;
 import easv.app.be.MovieModel;
 import easv.app.be.SearchModel;
 import easv.app.be.json.MovieInfo;
@@ -11,7 +10,6 @@ import easv.app.dal.db.MovieDatabase;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.Date;

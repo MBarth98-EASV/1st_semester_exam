@@ -1,4 +1,4 @@
-package easv.app.Utils.CustomComponent;
+package easv.app.utils.customComponent;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
