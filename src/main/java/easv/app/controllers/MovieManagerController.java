@@ -96,7 +96,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         lblMovWriters.textProperty().set(selected.getWriter());
         lblMovYear.textProperty().set(selected.getYear());
         txtAreaMovPlot.setText(selected.getPlot());
-        tblClmLastViewed.setText(selected.getLastViewed());
 
         btnLblGenre1.setText(selected.getGenre()[0]);
         btnLblGenre2.setText(selected.getGenre()[1]);
@@ -132,7 +131,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.show();
 
             selectedMovie.setLastViewed(LocalDate.now().toString());
-            //dataManager.update(selectedMovie);
+            DataManager.getInstance().update(selectedMovie);
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie. Please make sure a movie is selected.");
