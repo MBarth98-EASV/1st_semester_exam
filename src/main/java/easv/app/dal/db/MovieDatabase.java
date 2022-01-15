@@ -1,6 +1,5 @@
 package easv.app.dal.db;
 
-import easv.app.App;
 import easv.app.be.DBMovieData;
 import javafx.scene.control.Alert;
 
@@ -16,27 +15,33 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
     {
         dbaccess = new EASVDatabaseConnector();
     }
-    public ArrayList<DBMovieData> getAllMovies() throws SQLException
+
+    public ArrayList<DBMovieData> getAllMovies()
     {
-        ArrayList<DBMovieData> movies = new ArrayList<>();
+        try {
+            ArrayList<DBMovieData> movies = new ArrayList<>();
 
-        ResultSet results = dbaccess.query("""
-                SELECT * FROM Movie
-                """);
+            ResultSet results = dbaccess.query("""
+                    SELECT * FROM Movie
+                    """);
 
-        while (results.next())
+            while (results.next()) {
+                movies.add(new DBMovieData(
+                        results.getInt("id"),
+                        results.getString("title"),
+                        results.getInt("rating"),
+                        results.getString("filepath"),
+                        results.getString("imdbid"),
+                        results.getString("lastviewed")
+                ));
+            }
+
+            return movies;
+        } catch (SQLException e)
         {
-            movies.add(new DBMovieData(
-                    results.getInt("id"),
-                    results.getString("title"),
-                    results.getInt("rating"),
-                    results.getString("filepath"),
-                    results.getString("imdbid"),
-                    results.getString("lastviewed")
-            ));
+            alert("Something went wrong.");
+            return null;
         }
-
-        return movies;
     }
 
     private void alert (String alertmessage)
@@ -78,56 +83,67 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         return -1;
     }
 
-    private DBMovieData addMovie(DBMovieData partialData) throws SQLException
+    private DBMovieData addMovie(DBMovieData partialData)
     {
-        ResultSet movieresult = dbaccess.query("""
-                IF NOT EXISTS (SELECT * FROM Movie WHERE imdbid='%s')
-                INSERT INTO Movie (title, rating, filepath, imdbid, lastviewed)
-                VALUES ('%s', '%s', '%s', '%s','%s')
-                
-                SELECT * FROM Movie WHERE imdbid='%s'
-                """.formatted(
-                        partialData.getImdbid(),
-                        partialData.getTitle(),
-                        partialData.getRating(),
-                        partialData.getFilepath(),
-                        partialData.getImdbid(),
-                        partialData.getLastViewed(),
-                        partialData.getImdbid())
-        );
+        try {
+            ResultSet movieresult = dbaccess.query("""
+                    IF NOT EXISTS (SELECT * FROM Movie WHERE imdbid='%s')
+                    INSERT INTO Movie (title, rating, filepath, imdbid, lastviewed)
+                    VALUES ('%s', '%s', '%s', '%s','%s')
+                                    
+                    SELECT * FROM Movie WHERE imdbid='%s'
+                    """.formatted(
+                    partialData.getImdbid(),
+                    partialData.getTitle(),
+                    partialData.getRating(),
+                    partialData.getFilepath(),
+                    partialData.getImdbid(),
+                    partialData.getLastViewed(),
+                    partialData.getImdbid())
+            );
 
-        movieresult.next();
+            movieresult.next();
 
-        return new DBMovieData(
-                movieresult.getInt("id"),
-                movieresult.getString("title"),
-                movieresult.getInt("rating"),
-                movieresult.getString("filepath"),
-                movieresult.getString("imdbid"),
-                movieresult.getString("lastviewed")
-        );
+            return new DBMovieData(
+                    movieresult.getInt("id"),
+                    movieresult.getString("title"),
+                    movieresult.getInt("rating"),
+                    movieresult.getString("filepath"),
+                    movieresult.getString("imdbid"),
+                    movieresult.getString("lastviewed")
+            );
+        } catch (SQLException e)
+        {
+            alert("Something went wrong.");
+            return null;
+        }
     }
 
     @Override
-    public DBMovieData create(DBMovieData input) throws SQLException {
+    public DBMovieData create(DBMovieData input)
+    {
+        try {
 
-        DBMovieData movie = addMovie(input);
+            DBMovieData movie = addMovie(input);
 
-        if (!input.getGenre().isBlank() && input.getGenre() != null)
-        {
-            String[] separatedGenres = input.getGenre().split(",");
+            if (!input.getGenre().isBlank() && input.getGenre() != null) {
+                String[] separatedGenres = input.getGenre().split(",");
 
-            for (String genre : separatedGenres)
-            {
-                int id = this.addGenre(genre);
+                for (String genre : separatedGenres) {
+                    int id = this.addGenre(genre);
 
-                dbaccess.execute("""
-                        INSERT INTO CatMovie VALUES ('%s', '%s')
-                        """.formatted(movie.getId(), id));
+                    dbaccess.execute("""
+                            INSERT INTO CatMovie VALUES ('%s', '%s')
+                            """.formatted(movie.getId(), id));
+                }
             }
-        }
 
-        return movie;
+            return movie;
+        } catch (SQLException e)
+        {
+            alert("Something went wrong.");
+            return null;
+        }
     }
 
     @Override
@@ -156,7 +172,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
     }
 
     @Override
-    public void delete(DBMovieData input) throws SQLException
+    public void delete(DBMovieData input)
     {
         if (input != null)
         {
@@ -212,7 +228,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
     {
         try {
             ResultSet getnewgenreid = dbaccess.query("""
-                    SELECT FROM Category WHERE genre '%s'
+                    SELECT FROM Category WHERE genre = '%s'
                     """.formatted(newgenre));
 
             getnewgenreid.next();
