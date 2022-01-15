@@ -11,8 +11,6 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 
@@ -62,31 +60,27 @@ public class DataManager
                     for (var added : c.getAddedSubList())
                     {
                         System.out.println("movie added");
-                        added.addListener(onMovieChanged());
+                        added.addListener(onMovieDataInvalidated());
                     }
 
                     for (var removed : c.getRemoved())
                     {
                         System.out.println("movie removed");
-                        removed.removeListener(onMovieChanged());
+                        removed.removeListener(onMovieDataInvalidated());
                     }
                 }
             }
         };
     }
 
-    private InvalidationListener onMovieChanged()
+    private InvalidationListener onMovieDataInvalidated()
     {
         return new InvalidationListener()
         {
             @Override
             public void invalidated(Observable observable)
             {
-                var movie = (MovieModel)observable;
-
-                // some properties may have been changed... update any ways.
-                System.out.println(movie);
-                System.out.println("movie updated");
+                DataManager.getInstance().update((MovieModel)observable);
             }
         };
     }
@@ -185,7 +179,7 @@ public class DataManager
 
     public void update(MovieModel selectedItem)
     {
-        database.update(new DBMovieData(-1, selectedItem.getTitle(), Integer.parseInt(selectedItem.getPersonalRating()), selectedItem.getPath(), selectedItem.getID(), selectedItem.getLastViewed()));
+        database.update(new DBMovieData(selectedItem.getID(), selectedItem.getTitle(), selectedItem.getGenre(), Integer.parseInt(selectedItem.getPersonalRating()), selectedItem.getPath(), selectedItem.getLastViewed()));
     }
 
     public void delete(MovieModel selectedItem) throws SQLException {

@@ -28,6 +28,16 @@ public class DBMovieData {
         this.lastviewed = lastviewed;
     }
 
+    public DBMovieData(String imdbid, String title, String[] genreCSV, int rating, String file, String lastviewed)
+    {
+        this.imdbid = imdbid;
+        this.title = title;
+        this.genre = "%s, %s, %s".formatted(genreCSV[0], genreCSV[1], genreCSV[2]);
+        this.rating = rating;
+        this.filepath = file;
+        this.lastviewed = lastviewed;
+    }
+
     public DBMovieData() {}
 
     public int getId() {

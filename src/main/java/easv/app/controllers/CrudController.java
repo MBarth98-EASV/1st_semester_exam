@@ -253,6 +253,7 @@ public class CrudController implements Initializable {
         movie.setGenre(genreCSV);
         movie.setTitle(txtFieldEditMovieTitle.getText());
 
+
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 }

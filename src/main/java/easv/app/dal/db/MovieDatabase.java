@@ -161,6 +161,9 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
     @Override
     public void update(DBMovieData input)
     {
+        // todo update movie genres with content from input...
+        System.out.println("genres: " + input.getGenre());
+
         if (input != null)
         {
             dbaccess.execute("""

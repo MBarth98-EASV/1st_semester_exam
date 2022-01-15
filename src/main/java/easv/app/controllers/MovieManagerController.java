@@ -155,6 +155,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.show();
 
             selectedMovie.setLastViewed(LocalDate.now().toString());
+            this.tblViewMovies.refresh();
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie. Please make sure a movie is selected.");
@@ -224,6 +225,10 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setMinWidth(353);
             stage.setScene(new Scene(root, 353, 314));
             stage.show();
+
+            // hack: find a better way to update movie details in gui (the data itself does not depend on this call - it is bound.)
+            // - signal observable list change in data manager or preferably on the table view itself ???
+            root.getScene().getWindow().setOnHiding(event1 -> updateSelectedItemBindings());
         }
         catch (IOException | NullPointerException e)
         {
