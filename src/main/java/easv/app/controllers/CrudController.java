@@ -57,29 +57,38 @@ public class CrudController implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //this.txtFieldSearchNewMovie.setText("avengers");
-        //onSearchNewMovieTitles(new ActionEvent());
+    public void initialize(URL location, ResourceBundle resources)
+    {
         initNewMovie();
         initEditGenre();
         initEditMovie(resources);
     }
 
     //NewMovie
-    private void initNewMovie(){
-        if (btnNewMovieFinish != null){ //If the button exists, NewMovie.fxml is open and the appropriate values are initialized.
+    private void initNewMovie()
+    {
+        if (btnNewMovieFinish != null)
+        {
+            //If the button exists, NewMovie.fxml is open and the appropriate values are initialized.
             imgViewPosterNewMovie.setPreserveRatio(true);
             lstViewNewMoviePick.getSelectionModel().selectedItemProperty().addListener(observable -> updateNewMovieBindings());
         }
     }
 
-    private void updateNewMovieBindings(){
+    private void updateNewMovieBindings()
+    {
         var selected = this.lstViewNewMoviePick.getSelectionModel().getSelectedItem();
-        if (selected != null) {
+
+        if (selected != null)
+        {
             lblNewMovieTitle.textProperty().set(selected.getTitle());
-            if (selected.getImageURL() == null || selected.getImageURL().equals("N/A")) {
+
+            if (selected.getImageURL() == null || selected.getImageURL().equals("N/A"))
+            {
                 imgViewPosterNewMovie.setImage(new Image(Objects.requireNonNull(App.class.getResource("images/posterError.png")).toExternalForm()));
-            } else {
+            }
+            else
+            {
                 imgViewPosterNewMovie.setImage(new Image(selected.getImageURL()));
             }
         }
@@ -87,25 +96,30 @@ public class CrudController implements Initializable {
 
     public void onSearchNewMovieTitles(ActionEvent event)
     {
-        try {
+        try
+        {
             var search = DataManager.searchMovies(this.txtFieldSearchNewMovie.getText());
             lstViewNewMoviePick.setItems(FXCollections.observableArrayList(search.getMovies()));
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
 
-    public void onPickFile(ActionEvent event) {
+    public void onPickFile(ActionEvent event)
+    {
         FileChooser fc = new FileChooser();
         File selectedFile =  fc.showOpenDialog(new Stage());
-        if (!checkForMp4(selectedFile.getName())){
+        if (!checkForMp4(selectedFile.getName()))
+        {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Unsupported file format. Please choose a different movie.");
             alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
             alert.showAndWait();
             return;
         }
-        txtFieldPickFile.setText(selectedFile.getAbsolutePath());
 
+        txtFieldPickFile.setText(selectedFile.getAbsolutePath());
     }
 
     public void onNewMovieDone(ActionEvent event)
@@ -143,30 +157,34 @@ public class CrudController implements Initializable {
     }
 
     //EditGenreBar
-    private void initEditGenre(){
-        if (btnEditGenreFinish != null){
+    private void initEditGenre()
+    {
+        if (btnEditGenreFinish != null)
+        {
             try
             {
                 ObservableList<String> genres = FXCollections.observableArrayList(DataManager.getInstance().getAllGenres());
                 lstViewEditGenre.setItems(genres);
                 lstViewEditGenre.getSelectionModel().selectedItemProperty().addListener(observable -> updateGenreBindings());
-            } catch (SQLException e)
+            }
+            catch (SQLException e)
             {
                 e.printStackTrace();
             }
-
-
         }
     }
 
-    private void updateGenreBindings(){
+    private void updateGenreBindings()
+    {
         var selected = lstViewEditGenre.getSelectionModel().getSelectedItem();
-        if (selected != null){
+        if (selected != null)
+        {
             txtFieldEditGenreName.setText(selected);
         }
     }
 
-    public void onDeleteGenre(ActionEvent event) {
+    public void onDeleteGenre(ActionEvent event)
+    {
         //dataManager.deleteGenre();
     }
 
@@ -174,28 +192,34 @@ public class CrudController implements Initializable {
      * Adds a blank "New Genre" for the user to edit.
      * @param event
      */
-    public void onNewGenre(ActionEvent event) {
+    public void onNewGenre(ActionEvent event)
+    {
         //dataManager.addGenre();
     }
 
     public void onSaveEditGenre(ActionEvent event)
     {
         var selected = lstViewEditGenre.getSelectionModel().getSelectedItem();
+
         if (!selected.equals(txtFieldEditGenreName.getText()))
         {
             DataManager.getInstance().updateGenre(selected, txtFieldEditGenreName.getText());
         }
+
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 
 
-    private void initEditMovie(ResourceBundle resources) {
-        if (btnEditMovieFinish != null) {
+    private void initEditMovie(ResourceBundle resources)
+    {
+        if (btnEditMovieFinish != null)
+        {
             try
             {
                 movie = (MovieModel) resources.getObject("selectedMovie");
 
                 ObservableList<String> genres = FXCollections.observableArrayList(DataManager.getInstance().getAllGenres());
+
                 cmboBoxEditGenre1.setItems(genres);
                 cmboBoxEditGenre2.setItems(genres);
                 cmboBoxEditGenre3.setItems(genres);
@@ -213,17 +237,14 @@ public class CrudController implements Initializable {
                 e.printStackTrace();
             }
 
-
             txtFieldEditMovieTitle.setText(movie.getTitle());
-
         }
     }
 
     //EditMovie
     public void onEditMovieSave(ActionEvent event)
     {
-        String genreCSV = "%s, %s, %s".formatted
-                (
+        String genreCSV = "%s, %s, %s".formatted(
                 cmboBoxEditGenre1.getSelectionModel().getSelectedItem(),
                 cmboBoxEditGenre2.getSelectionModel().getSelectedItem(),
                 cmboBoxEditGenre3.getSelectionModel().getSelectedItem()
@@ -231,8 +252,6 @@ public class CrudController implements Initializable {
 
         movie.setGenre(genreCSV);
         movie.setTitle(txtFieldEditMovieTitle.getText());
-
-        DataManager.getInstance().update(movie);
 
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }

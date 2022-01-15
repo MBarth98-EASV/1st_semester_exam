@@ -6,7 +6,12 @@ import easv.app.be.FXMLProperties;
 import easv.app.be.MovieModel;
 import easv.app.bll.DataManager;
 import easv.app.model.UserSearchModel;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,10 +41,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.*;
+import java.util.concurrent.Callable;
 
 public class MovieManagerController extends FXMLProperties implements Initializable
 {
-
     MovieModel selectedMovie;
     UserSearchModel searchModel;
 
@@ -71,8 +76,20 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         initializeComboBox();
         lstViewGenreContextMenu();
         tblViewMovieContextMenu();
-        tblViewMovies.getSelectionModel().selectedItemProperty().addListener(observable -> updateSelectedItemBindings());
+        tblViewMovies.getSelectionModel().selectedItemProperty().addListener(selectionChanged());
         tblViewMovies.getSelectionModel().selectFirst();
+    }
+
+    private ChangeListener<MovieModel> selectionChanged()
+    {
+        return new ChangeListener<MovieModel>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends MovieModel> observable, MovieModel oldValue, MovieModel newValue)
+            {
+                updateSelectedItemBindings();
+            }
+        };
     }
 
     public void updateSelectedItemBindings()
@@ -83,7 +100,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         {
             return;
         }
-
 
         // simple text fields
         lblMovTitle.textProperty().set(selected.getTitle());
@@ -118,11 +134,19 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             try {
             Stage stage = new Stage();
 
-                ResourceBundle resources = new ListResourceBundle() {
-                @Override
-                protected Object[][] getContents() {
-                    return new Object[][]{
-                            {"selectedMovie", selectedMovie}, {"playerStage", stage}};}};
+                ResourceBundle resources = new ListResourceBundle()
+                {
+                    @Override
+                    protected Object[][] getContents()
+                    {
+                        return new Object[][]
+                                {
+                                    {"selectedMovie", selectedMovie},
+                                    {"playerStage", stage}
+                                };
+                    }
+                };
+
             Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("Player.fxml")), resources);
             stage.setTitle("Player");
             stage.setMinHeight(400);
@@ -131,7 +155,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.show();
 
             selectedMovie.setLastViewed(LocalDate.now().toString());
-            DataManager.getInstance().update(selectedMovie);
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie. Please make sure a movie is selected.");
@@ -167,28 +190,30 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         }
     }
 
-    public void onDeleteMovie(ActionEvent event) {
-        try
-        {
-            DataManager.getInstance().delete(selectedMovie);
+    public void onDeleteMovie(ActionEvent event)
+    {
+            tblViewMovies.getItems().remove(selectedMovie);
             this.tblViewMovies.refresh();
             this.tblViewMovies.getSelectionModel().selectNext();
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
     }
 
 
-    public void onEditMovie(ActionEvent event) {
+    public void onEditMovie(ActionEvent event)
+    {
         Parent root = null;
-        try {
-            ResourceBundle resources = new ListResourceBundle() {
+        try
+        {
+            ResourceBundle resources = new ListResourceBundle()
+            {
                 @Override
-                protected Object[][] getContents() {
-                    return new Object[][]{
-                            {"selectedMovie", selectedMovie}};}};
+                protected Object[][] getContents()
+                {
+                    return new Object[][]
+                            {
+                                    {"selectedMovie", selectedMovie}
+                            };
+                }
+            };
 
             root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("EditMovie.fxml")), resources);
             Stage stage = new Stage();
@@ -199,10 +224,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setMinWidth(353);
             stage.setScene(new Scene(root, 353, 314));
             stage.show();
-
-            
-
-        } catch (IOException | NullPointerException e) {
+        }
+        catch (IOException | NullPointerException e)
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the editing panel.");
             alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
             alert.showAndWait();
@@ -210,9 +234,12 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         }
     }
 
-    public void onEditGenre(ActionEvent event) {
+    public void onEditGenre(ActionEvent event)
+    {
         Parent root = null;
-        try {
+
+        try
+        {
             root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("EditGenreBar.fxml")));
             Stage stage = new Stage();
             stage.setTitle("Edit Genre");
@@ -222,8 +249,9 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setMinWidth(378);
             stage.setScene(new Scene(root, 378, 332));
             stage.show();
-
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Unable to load the editing panel.");
             alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
             alert.showAndWait();
@@ -231,15 +259,10 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         }
     }
 
-    public void onMovieRated(MouseEvent mouseEvent) {
-        int rating = (int) movieRating.getRating();
-
-        var selected =  this.tblViewMovies.getSelectionModel().getSelectedItem();
-
-        selected.setPersonalRating(rating + "");
-        DataManager.getInstance().update(selected);
+    public void onMovieRated(MouseEvent mouseEvent)
+    {
+        selectedMovie.setPersonalRating((int)movieRating.getRating() + "");
     }
-
 
     private void initializeMovieTable()
     {
@@ -249,7 +272,8 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             var poster = param.getValue().posterProperty();
             poster.get().setFitHeight(50);
             poster.get().setPreserveRatio(true);
-            return poster; });
+            return poster;
+        });
 
         this.tblClmTitle.setCellValueFactory(param -> param.getValue().titleProperty());
         this.tblClmType.setCellValueFactory(param -> param.getValue().typeProperty());
@@ -264,27 +288,32 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         setCellFactory(tblClmImbdRating, Pos.CENTER_LEFT);
         setCellFactory(tblClmPersonalRating, Pos.CENTER_LEFT);
         setCellFactory(tblClmLastViewed, Pos.CENTER_LEFT);
-
     }
 
-    private void setCellFactory(TableColumn tblClm, Pos pos){
+    private void setCellFactory(TableColumn<MovieModel, String> tblClm, Pos pos)
+    {
         tblClm.setCellFactory(param -> {
-
-            TableCell<?, ?> tc = new TableCell<MovieModel, String>(){
+            TableCell<MovieModel, String> tc = new TableCell<>()
+            {
                 @Override
-                public void updateItem(String item, boolean empty) {
-                    if (item != null){
+                public void updateItem(String item, boolean empty)
+                {
+                    if (item != null)
+                    {
                         setText(item);
                     }
                 }
             };
+
             tc.setAlignment(pos);
             tc.setStyle("-fx-font-size: 14");
+
             return tc;
         });
     }
 
-    public void onSearch(ActionEvent event) {
+    public void onSearch(ActionEvent event)
+    {
         txtFieldSearch.setOnKeyPressed(new EventHandler<KeyEvent>()
         {
             @Override
@@ -436,10 +465,10 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         MenuItem deleteMovie = new MenuItem("Delete");
         deleteMovie.setStyle("-fx-text-fill: #d5d4d4;");
 
-        play.setOnAction(event -> onPlayMovie(event));
-        newMovie.setOnAction(event -> onNewMovie(event));
-        editMovie.setOnAction(event -> onEditMovie(event));
-        deleteMovie.setOnAction(event -> onDeleteMovie(event));
+        play.setOnAction(this::onPlayMovie);
+        newMovie.setOnAction(this::onNewMovie);
+        editMovie.setOnAction(this::onEditMovie);
+        deleteMovie.setOnAction(this::onDeleteMovie);
 
         contextMenuMovie.getItems().add(play);
         contextMenuMovie.getItems().add(newMovie);
@@ -454,7 +483,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         MenuItem edit = new MenuItem("Edit Genres");
         edit.setStyle("-fx-text-fill: #d5d4d4;");
-        edit.setOnAction(event -> onEditGenre(event));
+        edit.setOnAction(this::onEditGenre);
         contextMenuGenre.getItems().add(edit);
     }
 

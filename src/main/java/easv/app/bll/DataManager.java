@@ -7,9 +7,14 @@ import easv.app.be.json.MovieInfo;
 import easv.app.dal.api.OpenMovieNetwork;
 import easv.app.be.DBMovieData;
 import easv.app.dal.db.MovieDatabase;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -19,8 +24,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-
 
 public class DataManager
 {
@@ -43,6 +46,49 @@ public class DataManager
     {
         movies.set(FXCollections.observableArrayList());
         database = new MovieDatabase();
+
+        movies.addListener(onMovieListChanged());
+    }
+
+    private ListChangeListener<MovieModel> onMovieListChanged()
+    {
+        return new ListChangeListener<>()
+        {
+            @Override
+            public void onChanged(Change<? extends MovieModel> c)
+            {
+                while (c.next())
+                {
+                    for (var added : c.getAddedSubList())
+                    {
+                        System.out.println("movie added");
+                        added.addListener(onMovieChanged());
+                    }
+
+                    for (var removed : c.getRemoved())
+                    {
+                        System.out.println("movie removed");
+                        removed.removeListener(onMovieChanged());
+                    }
+                }
+            }
+        };
+    }
+
+    private InvalidationListener onMovieChanged()
+    {
+        return new InvalidationListener()
+        {
+            @Override
+            public void invalidated(Observable observable)
+            {
+                var movie = (MovieModel)observable;
+
+                // some properties may have been changed... update any ways.
+                System.out.println(movie);
+                System.out.println("movie updated");
+            }
+        };
     }
 
     // get all movies from db
@@ -52,7 +98,6 @@ public class DataManager
 
         database.getAllMovies();
 
-        // get any and all movie info from api with id from db
         List<MovieInfo> ApiMovies = OpenMovieNetwork.getInstance().get(DBMovies.stream().map(DBMovieData::getImdbid).collect(Collectors.toList()));
 
         movies.setAll(Converters.convert(DBMovies, ApiMovies));

@@ -1,9 +1,6 @@
 package easv.app.be;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -11,11 +8,16 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class MovieModel
+public class MovieModel extends SimpleObjectProperty<MovieModel>
 {
     /*
     *   BELOW: bindable properties
     */
+
+    public MovieModel()
+    {
+        this.set(this);
+    }
 
     private final StringProperty ID = new SimpleStringProperty();
     private final StringProperty title = new SimpleStringProperty();
@@ -29,7 +31,6 @@ public class MovieModel
     private final StringProperty writer = new SimpleStringProperty();
     private final StringProperty actors = new SimpleStringProperty();
     private final StringProperty plot = new SimpleStringProperty();
-    private final StringProperty language = new SimpleStringProperty();
     private final StringProperty country = new SimpleStringProperty();
     private final StringProperty personalRating = new SimpleStringProperty();
     private final StringProperty path = new SimpleStringProperty();
@@ -55,6 +56,7 @@ public class MovieModel
     public void setTitle(String title)
     {
         this.title.set(title);
+        this.fireValueChangedEvent();
     }
 
     public String getID()
@@ -70,6 +72,7 @@ public class MovieModel
     public void setID(String ID)
     {
         this.ID.set(ID);
+        this.fireValueChangedEvent();
     }
 
     public String getYear()
@@ -85,6 +88,7 @@ public class MovieModel
     public void setYear(String year)
     {
         this.year.set(year);
+        this.fireValueChangedEvent();
     }
 
     public String getAgeRating()
@@ -100,6 +104,7 @@ public class MovieModel
     public void setAgeRating(String ageRating)
     {
         this.ageRating.set(ageRating);
+        this.fireValueChangedEvent();
     }
 
     public String getReleaseDate()
@@ -115,6 +120,7 @@ public class MovieModel
     public void setReleaseDate(String releaseDate)
     {
         this.releaseDate.set(releaseDate);
+        this.fireValueChangedEvent();
     }
 
     public String getType()
@@ -130,6 +136,7 @@ public class MovieModel
     public void setType(String type)
     {
         this.type.set(type);
+        this.fireValueChangedEvent();
     }
 
 
@@ -146,6 +153,7 @@ public class MovieModel
     public void setRuntime(String runtime)
     {
         this.runtime.set(runtime);
+        this.fireValueChangedEvent();
     }
 
     public String getImdbRating()
@@ -161,6 +169,7 @@ public class MovieModel
     public void setImdbRating(String rated)
     {
         this.imdbRating.set(rated);
+        this.fireValueChangedEvent();
     }
 
     public String[] getGenre()
@@ -195,6 +204,7 @@ public class MovieModel
     public void setGenre(String genre)
     {
         this.genre.set(genre);
+        this.fireValueChangedEvent();
     }
 
     public String getDirector()
@@ -210,6 +220,7 @@ public class MovieModel
     public void setDirector(String director)
     {
         this.director.set(director);
+        this.fireValueChangedEvent();
     }
 
     public String getWriter()
@@ -225,6 +236,7 @@ public class MovieModel
     public void setWriter(String writer)
     {
         this.writer.set(writer);
+        this.fireValueChangedEvent();
     }
 
     public String getActors()
@@ -240,6 +252,7 @@ public class MovieModel
     public void setActors(String actors)
     {
         this.actors.set(actors);
+        this.fireValueChangedEvent();
     }
 
     public String getPlot()
@@ -255,21 +268,7 @@ public class MovieModel
     public void setPlot(String plot)
     {
         this.plot.set(plot);
-    }
-
-    public String getLanguage()
-    {
-        return language.get();
-    }
-
-    public StringProperty languageProperty()
-    {
-        return language;
-    }
-
-    public void setLanguage(String language)
-    {
-        this.language.set(language);
+        this.fireValueChangedEvent();
     }
 
     public String getCountry()
@@ -285,6 +284,7 @@ public class MovieModel
     public void setCountry(String country)
     {
         this.country.set(country);
+        this.fireValueChangedEvent();
     }
 
     public String getPersonalRating()
@@ -300,6 +300,7 @@ public class MovieModel
     public void setPersonalRating(String personalRating)
     {
         this.personalRating.set(personalRating);
+        this.fireValueChangedEvent();
     }
 
     public String getPath()
@@ -315,6 +316,7 @@ public class MovieModel
     public void setPath(String path)
     {
         this.path.set(path);
+        this.fireValueChangedEvent();
     }
 
     public String getLastViewed()
@@ -330,6 +332,7 @@ public class MovieModel
     public void setLastViewed(String lastViewed)
     {
         this.lastViewed.set(lastViewed);
+        this.fireValueChangedEvent();
     }
 
     public ImageView getPoster()
@@ -345,6 +348,7 @@ public class MovieModel
     public void setPoster(ImageView poster)
     {
         this.poster.set(poster);
+        this.fireValueChangedEvent();
     }
 
     public void setPoster(String posterURL)
@@ -357,6 +361,8 @@ public class MovieModel
         {
             this.poster.set(new ImageView(posterURL));
         }
+
+        this.fireValueChangedEvent();
     }
 
 
@@ -376,7 +382,6 @@ public class MovieModel
                 ", writer=" + writer +
                 ", actors=" + actors +
                 ", plot=" + plot +
-                ", language=" + language +
                 ", country=" + country +
                 ", personalRating=" + personalRating +
                 ", path=" + path +
