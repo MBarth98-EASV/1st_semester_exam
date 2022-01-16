@@ -227,24 +227,35 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
                 """.formatted(newname, oldname));
     }
 
-    private void updateMovieGenres(int movieid, String oldgenre, String newgenre)
+    public void updateMovieGenres(String imdbid, String oldgenre, String newgenre)
     {
         try {
+            ResultSet getmovieid = dbaccess.query("""
+                    SELECT id FROM Movie WHERE imdbid = '%s'
+                    """.formatted(imdbid));
+
+            getmovieid.next();
+            int movieid = getmovieid.getInt("id");
+
             ResultSet getnewgenreid = dbaccess.query("""
-                    SELECT FROM Category WHERE genre = '%s'
+                    SELECT id FROM Category WHERE genre = '%s'
                     """.formatted(newgenre));
 
             getnewgenreid.next();
-
             int newgenreid = getnewgenreid.getInt("id");
 
+            ResultSet getoldgenreid = dbaccess.query("""
+                    SELECT id FROM Category WHERE genre = '%s'
+                    """.formatted(oldgenre));
+            getoldgenreid.next();
+            int oldgenreid = getoldgenreid.getInt("id");
+
             dbaccess.execute("""
-                    UPDATE CatMovie
-                    SET categoryid = '%s'
-                    FROM Category
-                    INNER JOIN CatMovie ON Category.id = CatMovie.categoryid
-                    WHERE CatMovie.movieid = '%s' AND genre = '%s'
-                    """.formatted(newgenreid, movieid, oldgenre));
+                            UPDATE CatMovie
+                            SET categoryid = '%s'
+                            WHERE movieid = '%s' AND categoryid ='%s'
+                            """.formatted(newgenreid, movieid, oldgenreid));
+
         } catch (SQLException e)
         {
             alert("Something went wrong.");

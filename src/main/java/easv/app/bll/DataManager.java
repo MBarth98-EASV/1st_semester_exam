@@ -200,6 +200,16 @@ public class DataManager
 
     public void updateGenre(String selected, String text)
     {
+    }
 
+    public void updateMovieGenre(String imdbid, String[] oldgenre, String newgenre)
+    {
+        String[] separatedNewGenres = newgenre.split(",");
+
+        for (int i = 0; i < oldgenre.length; i++)
+        {
+            database.updateMovieGenres(imdbid, oldgenre[i].trim(), separatedNewGenres[i].trim());
+            i++;
+        }
     }
 }

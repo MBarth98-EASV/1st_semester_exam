@@ -250,6 +250,8 @@ public class CrudController implements Initializable {
                 cmboBoxEditGenre3.getSelectionModel().getSelectedItem()
         );
 
+        DataManager.getInstance().updateMovieGenre(movie.getID(), movie.getGenre(), genreCSV);
+
         movie.setGenre(genreCSV);
         movie.setTitle(txtFieldEditMovieTitle.getText());
 
