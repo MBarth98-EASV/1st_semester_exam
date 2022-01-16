@@ -28,10 +28,14 @@ public class Converters
         return movies;
     }
 
+    /**
+     * create a MovieModel using data from Database and web api
+     * */
     public static MovieModel convert(DBMovieData dbData, MovieInfo apiInfo)
     {
         MovieModel movie = new MovieModel();
 
+        // api data (imdb)
         movie.setPoster(apiInfo.imageURL);
         movie.setRuntime(apiInfo.runtime);
         movie.setWriter(apiInfo.writers);
@@ -43,21 +47,15 @@ public class Converters
         movie.setReleaseDate(apiInfo.releaseDate);
         movie.setAgeRating(apiInfo.ageRating);
         movie.setImdbRating(apiInfo.imdbRating);
-        movie.setTitle(apiInfo.title);
         movie.setYear(apiInfo.year);
 
-        if (dbData.getGenre() == null || dbData.getGenre().isBlank())
-        {
-            movie.setGenre(apiInfo.genre);
-        }
-        else
-        {
-            movie.setGenre(dbData.getGenre());
-        }
+        // use data where available (data changed by user is prioritized)
+        movie.setTitle(dbData.getTitle() == null || dbData.getTitle().isBlank() ? apiInfo.title : dbData.getTitle());
+        movie.setGenre(dbData.getGenre() == null || dbData.getGenre().isBlank() ? apiInfo.genre : dbData.getGenre());
 
+        // data stored in database
         movie.setLastViewed(dbData.getLastViewed());
         movie.setID(dbData.getImdbid());
-
         movie.setPath(dbData.getFilepath());
         movie.setPersonalRating(dbData.getRating() + "");
 

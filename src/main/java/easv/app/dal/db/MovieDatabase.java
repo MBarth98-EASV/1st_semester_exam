@@ -143,7 +143,12 @@ public class MovieDatabase
         }
     }
 
-    private int addGenre(String genre) throws SQLException
+    public void deleteGenre(String genre)
+    {
+        // todo:
+    }
+
+    public int addGenre(String genre) throws SQLException
     {
         if (genre != null && !genre.isBlank())
         {

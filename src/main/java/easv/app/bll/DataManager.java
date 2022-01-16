@@ -27,6 +27,7 @@ public class DataManager
 {
     MovieDatabase database = null;
     private final ListProperty<MovieModel> movies = new SimpleListProperty<>();
+    private final ListProperty<String> genres = new SimpleListProperty<>();
 
     private static DataManager instance = null;
 
@@ -42,10 +43,58 @@ public class DataManager
 
     public DataManager()
     {
-        movies.set(FXCollections.observableArrayList());
         database = new MovieDatabase();
 
+        movies.set(FXCollections.observableArrayList());
+        genres.set(FXCollections.observableArrayList());
+
         movies.addListener(onMovieListChanged());
+        genres.addListener(onGenreListChanged());
+    }
+
+    private ListChangeListener<String> onGenreListChanged()
+    {
+        return new ListChangeListener<String>()
+        {
+            @Override
+            public void onChanged(Change<? extends String> c)
+            {
+                while (c.next())
+                {
+                    if (c.wasAdded())
+                    {
+                        for (String added : c.getAddedSubList())
+                        {
+                            try
+                            {
+                                System.out.println("genre added: " + added);
+                                database.addGenre(added);
+                            }
+                            catch (SQLException e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    else if (c.wasRemoved())
+                    {
+                        for (String removed : c.getRemoved())
+                        {
+                            database.deleteGenre(removed);
+                        }
+                    }
+                    else if (c.wasUpdated())
+                    {
+                        for (int i = c.getFrom(); i < c.getTo(); i++)
+                        {
+                            System.out.println(c.getList());
+                            System.out.println(DataManager.getInstance().getGenres());
+                        }
+
+                    }
+                }
+            }
+        };
     }
 
     private ListChangeListener<MovieModel> onMovieListChanged()
@@ -97,11 +146,17 @@ public class DataManager
         List<MovieInfo> ApiMovies = OpenMovieNetwork.getInstance().get(DBMovies.stream().map(DBMovieData::getImdbid).collect(Collectors.toList()));
 
         movies.setAll(Converters.convert(DBMovies, ApiMovies));
+        genres.setAll(database.getCategories());
     }
 
     public ListProperty<MovieModel> getMovies()
     {
         return movies;
+    }
+
+    public ListProperty<String> getGenres()
+    {
+        return genres;
     }
 
     //TODO: Make DB method

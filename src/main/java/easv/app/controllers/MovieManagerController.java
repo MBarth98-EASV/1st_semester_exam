@@ -72,6 +72,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             e.printStackTrace();
         }
 
+        lstViewGenre.itemsProperty().bindBidirectional(DataManager.getInstance().getGenres());
         initializeMovieTable();
         initializeComboBox();
         lstViewGenreContextMenu();
