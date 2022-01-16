@@ -60,12 +60,14 @@ public class DataManager
                     for (var added : c.getAddedSubList())
                     {
                         System.out.println("movie added");
+
                         added.addListener(onMovieDataInvalidated());
                     }
 
                     for (var removed : c.getRemoved())
                     {
                         System.out.println("movie removed");
+                        database.delete(removed.getID());
                         removed.removeListener(onMovieDataInvalidated());
                     }
                 }
@@ -182,12 +184,6 @@ public class DataManager
         database.update(new DBMovieData(selectedItem.getID(), selectedItem.getTitle(), selectedItem.getGenre(), Integer.parseInt(selectedItem.getPersonalRating()), selectedItem.getPath(), selectedItem.getLastViewed()));
     }
 
-    public void delete(MovieModel selectedItem) throws SQLException {
-        database.delete(selectedItem.getID());
-
-        this.movies.removeIf(movieModel -> Objects.equals(movieModel.getID(), selectedItem.getID()));
-    }
-
 
     public List<String> getAllGenres() throws SQLException
     {
@@ -208,8 +204,13 @@ public class DataManager
 
         for (int i = 0; i < oldgenre.length; i++)
         {
-            database.updateMovieGenres(imdbid, oldgenre[i].trim(), separatedNewGenres[i].trim());
-            i++;
+            if (oldgenre[i].strip().equals(separatedNewGenres[i].strip()))
+            {
+                // we don't need to make a call to the database if the genres are the same.
+                continue;
+            }
+
+            database.updateMovieGenres(imdbid, oldgenre[i].strip(), separatedNewGenres[i].strip());
         }
     }
 }
