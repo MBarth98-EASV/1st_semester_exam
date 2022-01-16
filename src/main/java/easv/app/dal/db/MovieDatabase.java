@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
+public class MovieDatabase
 {
     private final EASVDatabaseConnector dbaccess;
 
@@ -26,14 +26,16 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
                     """);
 
             while (results.next()) {
-                movies.add(new DBMovieData(
-                        results.getInt("id"),
-                        results.getString("title"),
-                        results.getInt("rating"),
-                        results.getString("filepath"),
-                        results.getString("imdbid"),
-                        results.getString("lastviewed")
-                ));
+                DBMovieData data = new DBMovieData();
+
+                data.setTitle(results.getString("title"));
+                data.setFilepath(results.getString("filepath"));
+                data.setImdbid(results.getString("imdbid"));
+                data.setRating(results.getInt("rating"));
+                data.setLastViewed(results.getString("lastviewed"));
+                data.setId(results.getInt("id"));
+
+                movies.add(data);
             }
 
             return movies;
@@ -119,7 +121,6 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         }
     }
 
-    @Override
     public DBMovieData create(DBMovieData input)
     {
         try {
@@ -146,19 +147,6 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         }
     }
 
-    @Override
-    public DBMovieData read(DBMovieData input)
-    {
-        return null;
-    }
-
-    @Override
-    public DBMovieData[] readAll()
-    {
-        return new DBMovieData[0];
-    }
-
-    @Override
     public void update(DBMovieData input)
     {
         // todo update movie genres with content from input...
@@ -174,7 +162,6 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         }
     }
 
-    @Override
     public void delete(DBMovieData input)
     {
         if (input != null)
@@ -235,6 +222,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
                     """.formatted(imdbid));
 
             getmovieid.next();
+
             int movieid = getmovieid.getInt("id");
 
             ResultSet getnewgenreid = dbaccess.query("""
@@ -247,6 +235,7 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
             ResultSet getoldgenreid = dbaccess.query("""
                     SELECT id FROM Category WHERE genre = '%s'
                     """.formatted(oldgenre));
+
             getoldgenreid.next();
             int oldgenreid = getoldgenreid.getInt("id");
 
@@ -260,5 +249,30 @@ public class MovieDatabase implements IDatabaseCRUD<DBMovieData>
         {
             alert("Something went wrong.");
         }
+    }
+
+    private void setMovieCatIds(String ImdbID, String[] oldGenres, String[] newGenres)
+    {
+        if (oldGenres.length != newGenres.length)
+            throw new IllegalArgumentException();
+
+        String sqlQuery = """
+                SELECT id FROM Movie WHERE imdbid = '%s'               
+                """;
+
+        int movieID = 0;
+
+        for (int i = 0; i < oldGenres.length; i++)
+        {
+            if (oldGenres[i].equals(newGenres[i]))
+                continue;
+
+            setMovieCatIds(movieID, oldGenres[i], newGenres[i]);
+        }
+    }
+
+    private void setMovieCatIds(int movieID, String oldGenre, String newGenre)
+    {
+
     }
 }
