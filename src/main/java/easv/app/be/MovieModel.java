@@ -201,6 +201,12 @@ public class MovieModel extends SimpleObjectProperty<MovieModel>
         return genre;
     }
 
+    public void setGenre(String[] genre)
+    {
+        this.genre.set("%s, %s, %s".formatted(genre[0], genre[1], genre[2]));
+        this.fireValueChangedEvent();
+    }
+
     public void setGenre(String genre)
     {
         this.genre.set(genre);

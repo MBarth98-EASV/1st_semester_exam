@@ -3,7 +3,8 @@ package easv.app.dal.db;
 import easv.app.be.DBMovieData;
 import javafx.scene.control.Alert;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +19,16 @@ public class MovieDatabase
 
     public ArrayList<DBMovieData> getAllMovies()
     {
-        try {
+        try
+        {
             ArrayList<DBMovieData> movies = new ArrayList<>();
 
             ResultSet results = dbaccess.query("""
-                    SELECT * FROM Movie
-                    """);
+                                                       SELECT * FROM Movie
+                                                       """);
 
-            while (results.next()) {
+            while (results.next())
+            {
                 DBMovieData data = new DBMovieData();
 
                 data.setTitle(results.getString("title"));
@@ -35,29 +38,34 @@ public class MovieDatabase
                 data.setLastViewed(results.getString("lastviewed"));
                 data.setId(results.getInt("id"));
 
+                data.setGenre(this.getGenresForMovieCSV(data.getImdbid()));
+
                 movies.add(data);
             }
 
             return movies;
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
             alert("Something went wrong.");
             return null;
         }
     }
 
-    private void alert (String alertmessage)
+    private void alert(String alertmessage)
     {
         Alert alert = new Alert(Alert.AlertType.ERROR, alertmessage);
         alert.showAndWait();
     }
 
-    public ArrayList<DBMovieData> getMoviesByGenre(String genre){
+    public ArrayList<DBMovieData> getMoviesByGenre(String genre)
+    {
         //Some SQL statement...
         return new ArrayList<>();
     }
 
-    public List<String> getCategories() throws SQLException {
+    public List<String> getCategories() throws SQLException
+    {
         List<String> list = new ArrayList<>();
         ResultSet results = dbaccess.query("SELECT * FROM Category");
 
@@ -68,15 +76,83 @@ public class MovieDatabase
         return list;
     }
 
-    private int addGenre(String genre) throws SQLException {
+    private String getGenresForMovieCSV(String imdbID)
+    {
+        String[] genres = getGenresForMovie(imdbID);
+
+        if (genres == null)
+            return null;
+
+        return "%s, %s, %s".formatted(genres[0], genres[1], genres[2]);
+    }
+
+    private String[] getGenresForMovie(String imdbID)
+    {
+        String sql = """
+                DECLARE @array TABLE (
+                    id int,
+                    catid int
+                )
+                                
+                DECLARE @name_array TABLE (
+                    _name varchar(255)
+                )
+                               
+                insert into @array (id, catid) select distinct row_number() over (order by categoryid) as id, categoryid from (select categoryid from CatMovie where movieid = (select id from Movie where imdbid = '%s')) as CMc
+                                
+                declare @index int = 0
+                declare @max_index int = (select count(*) from @array)
+                                
+                declare @cat_name varchar(255)
+                declare @cat_id int
+                                
+                while @index <= @max_index
+                begin
+                    set @cat_id = (select catid from @array where id = @index)
+                    set @cat_name = (select genre from Category where id = @cat_id)
+                                
+                    insert into @name_array (_name) values (@cat_name)
+                                
+                    set @index = @index + 1
+                end
+                                
+                select * from @name_array
+                """.formatted(imdbID);
+
+        try
+        {
+            ResultSet result = dbaccess.query(sql);
+
+            List<String> genres = new ArrayList<>();
+            while (result.next())
+            {
+                String genre = result.getString("_name");
+
+                if (genre != null)
+                {
+                    genres.add(genre);
+                }
+            }
+
+            return genres.toArray(new String[0]);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private int addGenre(String genre) throws SQLException
+    {
         if (genre != null && !genre.isBlank())
         {
             ResultSet results = dbaccess.query("""
-                    IF NOT EXISTS (SELECT * FROM Category WHERE genre='%s')
-                    INSERT INTO Category VALUES ('%s')
-                                            
-                    SELECT * from Category WHERE genre='%s'
-                    """.formatted(genre.trim(), genre.trim(), genre.trim()));
+                                                       IF NOT EXISTS (SELECT * FROM Category WHERE genre='%s')
+                                                       INSERT INTO Category VALUES ('%s')
+                                                                               
+                                                       SELECT * from Category WHERE genre='%s'
+                                                       """.formatted(genre.trim(), genre.trim(), genre.trim()));
 
             results.next();
 
@@ -87,14 +163,15 @@ public class MovieDatabase
 
     private DBMovieData addMovie(DBMovieData partialData)
     {
-        try {
+        try
+        {
             ResultSet movieresult = dbaccess.query("""
-                    IF NOT EXISTS (SELECT * FROM Movie WHERE imdbid='%s')
-                    INSERT INTO Movie (title, rating, filepath, imdbid, lastviewed)
-                    VALUES ('%s', '%s', '%s', '%s','%s')
-                                    
-                    SELECT * FROM Movie WHERE imdbid='%s'
-                    """.formatted(
+                                                           IF NOT EXISTS (SELECT * FROM Movie WHERE imdbid='%s')
+                                                           INSERT INTO Movie (title, rating, filepath, imdbid, lastviewed)
+                                                           VALUES ('%s', '%s', '%s', '%s','%s')
+                                                                           
+                                                           SELECT * FROM Movie WHERE imdbid='%s'
+                                                           """.formatted(
                     partialData.getImdbid(),
                     partialData.getTitle(),
                     partialData.getRating(),
@@ -114,7 +191,8 @@ public class MovieDatabase
                     movieresult.getString("imdbid"),
                     movieresult.getString("lastviewed")
             );
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
             alert("Something went wrong.");
             return null;
@@ -123,24 +201,28 @@ public class MovieDatabase
 
     public DBMovieData create(DBMovieData input)
     {
-        try {
+        try
+        {
 
             DBMovieData movie = addMovie(input);
 
-            if (!input.getGenre().isBlank() && input.getGenre() != null) {
+            if (!input.getGenre().isBlank() && input.getGenre() != null)
+            {
                 String[] separatedGenres = input.getGenre().split(",");
 
-                for (String genre : separatedGenres) {
+                for (String genre : separatedGenres)
+                {
                     int id = this.addGenre(genre);
 
                     dbaccess.execute("""
-                            INSERT INTO CatMovie VALUES ('%s', '%s')
-                            """.formatted(movie.getId(), id));
+                                             INSERT INTO CatMovie VALUES ('%s', '%s')
+                                             """.formatted(movie.getId(), id));
                 }
             }
 
             return movie;
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
             alert("Something went wrong.");
             return null;
@@ -149,43 +231,38 @@ public class MovieDatabase
 
     public void update(DBMovieData input)
     {
-        // todo update movie genres with content from input...
         System.out.println("genres: " + input.getGenre());
 
         if (input != null)
         {
             dbaccess.execute("""
-                    UPDATE Movie
-                    SET title = '%s', rating = '%s', filepath = '%s', lastviewed = '%s'
-                    WHERE imdbid = '%s'
-                    """.formatted(input.getTitle(), input.getRating(), input.getFilepath(), input.getLastViewed(), input.getImdbid()));
-        }
-    }
-
-    public void delete(DBMovieData input)
-    {
-        if (input != null)
-        {
-            this.delete(input.getImdbid());
+                                     UPDATE Movie
+                                     SET title = '%s', rating = '%s', filepath = '%s', lastviewed = '%s'
+                                     WHERE imdbid = '%s'
+                                     """.formatted(input.getTitle(), input.getRating(), input.getFilepath(), input.getLastViewed(), input.getImdbid()));
         }
     }
 
     public void delete(String imdbID)
     {
-        try {
-            if (imdbID != null) {
+        try
+        {
+            if (imdbID != null)
+            {
                 ResultSet results = dbaccess.query("""
-                        SELECT * FROM Movie WHERE imdbid = '%s'
-                        """.formatted(imdbID));
+                                                           SELECT * FROM Movie WHERE imdbid = '%s'
+                                                           """.formatted(imdbID));
 
-                while (results.next()) {
+                while (results.next())
+                {
                     int movieid = results.getInt("id");
 
                     this.deleteCatMovie(movieid);
                     this.deleteMovie(movieid);
                 }
             }
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
             alert("Something went wrong.");
         }
@@ -194,85 +271,52 @@ public class MovieDatabase
     private void deleteCatMovie(int id)
     {
         dbaccess.execute("""
-                    DELETE FROM CatMovie WHERE movieid = '%s'
-                    """.formatted(id));
+                                 DELETE FROM CatMovie WHERE movieid = '%s'
+                                 """.formatted(id));
     }
 
     private void deleteMovie(int id)
     {
         dbaccess.execute("""
-                    DELETE FROM Movie where id = '%s'
-                    """.formatted(id));
+                                 DELETE FROM Movie where id = '%s'
+                                 """.formatted(id));
     }
 
     private void updateGenre(String oldname, String newname)
     {
         dbaccess.execute("""
-                    UPDATE Category
-                    SET genre ='%s'
-                    WHERE genre = '%s'
-                """.formatted(newname, oldname));
+                                     UPDATE Category
+                                     SET genre ='%s'
+                                     WHERE genre = '%s'
+                                 """.formatted(newname, oldname));
     }
 
-    public void updateMovieGenres(String imdbid, String oldgenre, String newgenre)
-    {
-        try {
-            ResultSet getmovieid = dbaccess.query("""
-                    SELECT id FROM Movie WHERE imdbid = '%s'
-                    """.formatted(imdbid));
-
-            getmovieid.next();
-
-            int movieid = getmovieid.getInt("id");
-
-            ResultSet getnewgenreid = dbaccess.query("""
-                    SELECT id FROM Category WHERE genre = '%s'
-                    """.formatted(newgenre));
-
-            getnewgenreid.next();
-            int newgenreid = getnewgenreid.getInt("id");
-
-            ResultSet getoldgenreid = dbaccess.query("""
-                    SELECT id FROM Category WHERE genre = '%s'
-                    """.formatted(oldgenre));
-
-            getoldgenreid.next();
-            int oldgenreid = getoldgenreid.getInt("id");
-
-            dbaccess.execute("""
-                            UPDATE CatMovie
-                            SET categoryid = '%s'
-                            WHERE movieid = '%s' AND categoryid ='%s'
-                            """.formatted(newgenreid, movieid, oldgenreid));
-
-        } catch (SQLException e)
-        {
-            alert("Something went wrong.");
-        }
-    }
-
-    private void setMovieCatIds(String ImdbID, String[] oldGenres, String[] newGenres)
+    public void setMovieCatIds(String ImdbID, String[] oldGenres, String[] newGenres)
     {
         if (oldGenres.length != newGenres.length)
+        {
             throw new IllegalArgumentException();
-
-        String sqlQuery = """
-                SELECT id FROM Movie WHERE imdbid = '%s'               
-                """;
-
-        int movieID = 0;
+        }
 
         for (int i = 0; i < oldGenres.length; i++)
         {
             if (oldGenres[i].equals(newGenres[i]))
+            {
                 continue;
+            }
 
-            setMovieCatIds(movieID, oldGenres[i], newGenres[i]);
+            setMovieCatIds(ImdbID, oldGenres[i], newGenres[i]);
         }
     }
 
-    private void setMovieCatIds(int movieID, String oldGenre, String newGenre)
+    private void setMovieCatIds(String imdbID, String oldGenre, String newGenre)
     {
+        String sql = """    
+                update CatMovie
+                set categoryid = (select id from Category where genre = '%s')
+                where movieid = (select id from Movie where imdbid = '%s') and categoryid = (select id from Category where genre = '%s')
+                """.formatted(newGenre, imdbID, oldGenre);
 
+        dbaccess.execute(sql);
     }
 }

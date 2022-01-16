@@ -244,15 +244,15 @@ public class CrudController implements Initializable {
     //EditMovie
     public void onEditMovieSave(ActionEvent event)
     {
-        String genreCSV = "%s, %s, %s".formatted(
+        String[] genres = new String[] {
                 cmboBoxEditGenre1.getSelectionModel().getSelectedItem(),
                 cmboBoxEditGenre2.getSelectionModel().getSelectedItem(),
                 cmboBoxEditGenre3.getSelectionModel().getSelectedItem()
-        );
+        };
 
-        DataManager.getInstance().updateMovieGenre(movie.getID(), movie.getGenre(), genreCSV);
+        DataManager.getInstance().updateMovieGenre(movie.getID(), movie.getGenre(), genres);
 
-        movie.setGenre(genreCSV);
+        movie.setGenre(genres);
         movie.setTitle(txtFieldEditMovieTitle.getText());
 
 

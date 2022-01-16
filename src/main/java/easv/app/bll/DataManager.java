@@ -198,19 +198,8 @@ public class DataManager
     {
     }
 
-    public void updateMovieGenre(String imdbid, String[] oldgenre, String newgenre)
+    public void updateMovieGenre(String imdbid, String[] oldgenre, String[] newgenre)
     {
-        String[] separatedNewGenres = newgenre.split(",");
-
-        for (int i = 0; i < oldgenre.length; i++)
-        {
-            if (oldgenre[i].strip().equals(separatedNewGenres[i].strip()))
-            {
-                // we don't need to make a call to the database if the genres are the same.
-                continue;
-            }
-
-            database.updateMovieGenres(imdbid, oldgenre[i].strip(), separatedNewGenres[i].strip());
-        }
+        database.setMovieCatIds(imdbid, oldgenre, newgenre);
     }
 }
