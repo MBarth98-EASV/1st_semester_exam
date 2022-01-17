@@ -329,11 +329,11 @@ public class MovieDatabase
 
     private void setMovieCatIds(String imdbID, String oldGenre, String newGenre)
     {
-        String sql = """    
-                update CatMovie
-                set categoryid = (select id from Category where genre = '%s')
-                where movieid = (select id from Movie where imdbid = '%s') and categoryid = (select id from Category where genre = '%s')
-                """.formatted(newGenre, imdbID, oldGenre);
+        String sql = """
+                UPDATE TOP (1) CatMovie
+                SET categoryid = (SELECT id FROM Category WHERE genre = '%s')
+                WHERE movieid = (SELECT id FROM Movie WHERE imdbid = '%s') AND categoryid = (SELECT id FROM Category WHERE genre = '%s')
+                     """.formatted(newGenre, imdbID, oldGenre);
 
         dbaccess.execute(sql);
     }
