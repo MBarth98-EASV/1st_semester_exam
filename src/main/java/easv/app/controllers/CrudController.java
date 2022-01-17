@@ -120,6 +120,7 @@ public class CrudController implements Initializable
 
     /**
      * Sets the listview in NewMovie.fxml to display SearchModels from the API query.
+     *
      * @param event
      */
     public void onSearchNewMovieTitles(ActionEvent event)
@@ -249,11 +250,11 @@ public class CrudController implements Initializable
             lstViewEditGenre.getItems().add(_newName);
         }
 
-        ((Node)(event.getSource())).getScene().getWindow().hide(); //Closes the window/stage
+        ((Node) (event.getSource())).getScene().getWindow().hide(); //Closes the window/stage
     }
 
 
-    private void initEditMovie(ResourceBundle resources) 
+    private void initEditMovie(ResourceBundle resources)
     {
         if (btnEditMovieFinish != null)
         {
@@ -279,7 +280,6 @@ public class CrudController implements Initializable
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the selected movie.");
                 alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
                 alert.showAndWait();
-                e.printStackTrace();
             }
 
             txtFieldEditMovieTitle.setText(movie.getTitle());
@@ -289,7 +289,8 @@ public class CrudController implements Initializable
     //EditMovie
     public void onEditMovieSave(ActionEvent event)
     {
-       
+        try
+        {
             String[] genres = new String[]{
                     cmboBoxEditGenre1.getSelectionModel().getSelectedItem(),
                     cmboBoxEditGenre2.getSelectionModel().getSelectedItem(),
@@ -300,9 +301,15 @@ public class CrudController implements Initializable
 
             movie.setGenre(genres);
             movie.setTitle(txtFieldEditMovieTitle.getText());
-
-
+        }
+        catch (SQLException e)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "could not save");
+            alert.showAndWait();
+        }
+        finally
+        {
             ((Node) (event.getSource())).getScene().getWindow().hide();
-    
+        }
     }
 }

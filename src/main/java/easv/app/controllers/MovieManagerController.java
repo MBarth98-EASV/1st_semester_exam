@@ -5,7 +5,6 @@ import easv.app.utils.customComponent.ComboBoxEnum;
 import easv.app.be.FXMLProperties;
 import easv.app.be.MovieModel;
 import easv.app.bll.DataManager;
-import easv.app.model.UserSearchModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -73,7 +72,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         lstViewGenre.itemsProperty().bindBidirectional(DataManager.getInstance().getGenres());
         initializeMovieTable();
-        initializeGenreBar();
         initializeComboBox();
         lstViewGenreContextMenu();
         tblViewMovieContextMenu();
@@ -452,15 +450,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     private void selectInTable(MovieModel movie){
         tblViewMovies.getSelectionModel().select(movie);
         tblViewMovies.scrollTo(movie);
-    }
-
-    private void initializeGenreBar(){
-            lstViewGenre.getItems().add("All");
-        try {
-            lstViewGenre.getItems().addAll(FXCollections.observableArrayList(DataManager.getInstance().getAllGenres()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
