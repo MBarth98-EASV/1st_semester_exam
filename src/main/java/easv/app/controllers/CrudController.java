@@ -228,6 +228,8 @@ public class CrudController implements Initializable
         lstViewEditGenre.getItems().remove("Unknown");
         lstViewEditGenre.getItems().add("Unknown");
         lstViewEditGenre.getSelectionModel().selectLast();
+
+        txtFieldEditGenreName.requestFocus();
     }
 
     public void onSaveEditGenre(ActionEvent event)
