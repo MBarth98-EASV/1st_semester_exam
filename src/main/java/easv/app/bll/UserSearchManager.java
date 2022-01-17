@@ -48,9 +48,9 @@ public class UserSearchManager {
      * Gets matching MovieModel and returns it.
      * @param textField The searchbar input.
      */
-    public MovieModel search(String textField)
+    public MovieModel search(ObservableList<MovieModel> tblViewItems,String textField)
     {
-        MovieModel movie = getObjectFromText(DataManager.getInstance().getMovies(), textField);
+        MovieModel movie = getObjectFromText(tblViewItems, textField);
 
         if (movie != null)
         {
@@ -74,12 +74,12 @@ public class UserSearchManager {
      * @return
      */
     //Filter current movies show in tableview - for use in search
-    public List<String> getCurrentFilterEntries(ComboBoxEnum param){
+    public List<String> getCurrentFilterEntries(ObservableList<MovieModel> tblViewItems, ComboBoxEnum param){
         return switch (param) {
-            case TITLE -> DataManager.getInstance().getMovies().stream().map(MovieModel::getTitle).collect(Collectors.toList());
-            case RATING -> DataManager.getInstance().getMovies().stream().map(MovieModel::getPersonalRating).collect(Collectors.toList());
-            case IMBDRATING -> DataManager.getInstance().getMovies().stream().map(MovieModel::getImdbRating).collect(Collectors.toList());
-            default -> DataManager.getInstance().getMovies().stream().map(MovieModel::toString).collect(Collectors.toList());
+            case TITLE -> tblViewItems.stream().map(MovieModel::getTitle).collect(Collectors.toList());
+            case RATING -> tblViewItems.stream().map(MovieModel::getPersonalRating).collect(Collectors.toList());
+            case IMBDRATING -> tblViewItems.stream().map(MovieModel::getImdbRating).collect(Collectors.toList());
+            default -> tblViewItems.stream().map(MovieModel::toString).collect(Collectors.toList());
         };
     }
 
@@ -92,11 +92,11 @@ public class UserSearchManager {
      * @returnA filtered list of Movies, or should the query not match any movie,
      * it displays an alert and returns and empty movie.
      */
-    public ObservableList<MovieModel> filterTitle(String filter){
+    public ObservableList<MovieModel> filterTitle(ObservableList<MovieModel> tblViewItems, String filter){
         ObservableList<MovieModel> returnList = FXCollections.observableArrayList();
         ArrayList<String> filterList = new ArrayList<>();
 
-        for (MovieModel movie : DataManager.getInstance().getMovies()){
+        for (MovieModel movie : tblViewItems){
             filterList.add(movie.getTitle());
         }
 
@@ -104,7 +104,7 @@ public class UserSearchManager {
                 m.toLowerCase().contains(filter.toLowerCase())).sorted().collect(Collectors.toList());
 
         for (String title : filteredStringList ){
-            for (MovieModel movie : DataManager.getInstance().getMovies())
+            for (MovieModel movie : tblViewItems)
             {
                 if (movie.getTitle().equalsIgnoreCase(title)) {
                     returnList.add(movie);
@@ -122,11 +122,11 @@ public class UserSearchManager {
      * @return A filtered list of Movies, or should the query not match any movie,
      * it displays an alert and returns and empty movie.
      */
-    public ObservableList<MovieModel> filterRating(String filter){
+    public ObservableList<MovieModel> filterRating(ObservableList<MovieModel> tblViewItems, String filter){
         ObservableList<MovieModel> returnList = FXCollections.observableArrayList();
         Integer filterValue = Integer.parseInt(filter);
 
-        for (MovieModel movie : DataManager.getInstance().getMovies()){
+        for (MovieModel movie : tblViewItems){
             if (movie.getPersonalRatingAsInt() >= filterValue.intValue()){
                 returnList.add(movie);
             }
@@ -142,11 +142,11 @@ public class UserSearchManager {
      * @return A filtered list of Movies, or should the query not match any movie,
      * it displays an alert and returns and empty movie.
      */
-    public ObservableList<MovieModel> filterImbdRating(String filter){
+    public ObservableList<MovieModel> filterImbdRating(ObservableList<MovieModel> tblViewItems, String filter){
         ObservableList<MovieModel> returnList = FXCollections.observableArrayList();
         Double filterValue = Double.parseDouble(filter);
 
-        for (MovieModel movie : DataManager.getInstance().getMovies()){
+        for (MovieModel movie : tblViewItems){
             if (movie.getImbdRatingAsDouble() >= filterValue.doubleValue()){
                 returnList.add(movie);
             }
