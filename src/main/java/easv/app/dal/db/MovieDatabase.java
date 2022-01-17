@@ -145,6 +145,12 @@ public class MovieDatabase
 
     public void deleteGenre(String genre)
     {
+        String sql = """
+            DELETE FROM Category where genre = '%s'
+            """.formatted(genre);
+
+        dbaccess.execute(sql);
+
         // todo:
     }
 

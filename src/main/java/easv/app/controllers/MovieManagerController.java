@@ -6,10 +6,7 @@ import easv.app.be.FXMLProperties;
 import easv.app.be.MovieModel;
 import easv.app.bll.DataManager;
 import easv.app.model.UserSearchModel;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -41,7 +38,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.*;
-import java.util.concurrent.Callable;
 
 public class MovieManagerController extends FXMLProperties implements Initializable
 {
@@ -77,11 +73,24 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         initializeComboBox();
         lstViewGenreContextMenu();
         tblViewMovieContextMenu();
-        tblViewMovies.getSelectionModel().selectedItemProperty().addListener(selectionChanged());
+        tblViewMovies.getSelectionModel().selectedItemProperty().addListener(movieSelectionChanged());
+        lstViewGenre.getSelectionModel().selectedItemProperty().addListener(genreSelectionChanged());
         tblViewMovies.getSelectionModel().selectFirst();
     }
 
-    private ChangeListener<MovieModel> selectionChanged()
+    private ChangeListener<String> genreSelectionChanged()
+    {
+        return new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+
+            }
+        };
+    }
+
+    private ChangeListener<MovieModel> movieSelectionChanged()
     {
         return new ChangeListener<MovieModel>()
         {
@@ -246,7 +255,20 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         try
         {
-            root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("EditGenreBar.fxml")));
+            ResourceBundle resources = new ListResourceBundle()
+            {
+                @Override
+                protected Object[][] getContents()
+                {
+                    return new Object[][]
+                            {
+                                    {"genres", lstViewGenre.getItems()},
+
+                            };
+                }
+            };
+
+            root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("EditGenreBar.fxml")), resources);
             Stage stage = new Stage();
             stage.setTitle("Edit Genre");
             stage.setMaxHeight(332);

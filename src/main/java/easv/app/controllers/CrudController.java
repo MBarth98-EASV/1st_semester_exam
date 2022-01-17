@@ -60,7 +60,7 @@ public class CrudController implements Initializable {
     public void initialize(URL location, ResourceBundle resources)
     {
         initNewMovie();
-        initEditGenre();
+        initEditGenre(resources);
         initEditMovie(resources);
     }
 
@@ -157,20 +157,12 @@ public class CrudController implements Initializable {
     }
 
     //EditGenreBar
-    private void initEditGenre()
+    private void initEditGenre(ResourceBundle resources)
     {
         if (btnEditGenreFinish != null)
         {
-            try
-            {
-                ObservableList<String> genres = FXCollections.observableArrayList(DataManager.getInstance().getAllGenres());
-                lstViewEditGenre.setItems(genres);
-                lstViewEditGenre.getSelectionModel().selectedItemProperty().addListener(observable -> updateGenreBindings());
-            }
-            catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
+            lstViewEditGenre.itemsProperty().set((ObservableList<String>) resources.getObject("genres"));
+            lstViewEditGenre.getSelectionModel().selectedItemProperty().addListener(observable -> updateGenreBindings());
         }
     }
 
@@ -185,6 +177,7 @@ public class CrudController implements Initializable {
 
     public void onDeleteGenre(ActionEvent event)
     {
+        lstViewEditGenre.getItems().remove(lstViewEditGenre.getSelectionModel().getSelectedItem());
         //dataManager.deleteGenre();
     }
 
@@ -194,16 +187,21 @@ public class CrudController implements Initializable {
      */
     public void onNewGenre(ActionEvent event)
     {
+        lstViewEditGenre.getItems().remove("unknown");
+        lstViewEditGenre.getItems().add("unknown");
+
         //dataManager.addGenre();
     }
 
     public void onSaveEditGenre(ActionEvent event)
     {
         var selected = lstViewEditGenre.getSelectionModel().getSelectedItem();
+        String _newName = txtFieldEditGenreName.getText();
 
-        if (!selected.equals(txtFieldEditGenreName.getText()))
+        if (!selected.equals(_newName))
         {
-            DataManager.getInstance().updateGenre(selected, txtFieldEditGenreName.getText());
+            lstViewEditGenre.getItems().remove(selected);
+            lstViewEditGenre.getItems().add(_newName);
         }
 
         ((Node)(event.getSource())).getScene().getWindow().hide();

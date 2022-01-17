@@ -80,17 +80,9 @@ public class DataManager
                     {
                         for (String removed : c.getRemoved())
                         {
+                            System.out.println("genre removed: " + removed);
                             database.deleteGenre(removed);
                         }
-                    }
-                    else if (c.wasUpdated())
-                    {
-                        for (int i = c.getFrom(); i < c.getTo(); i++)
-                        {
-                            System.out.println(c.getList());
-                            System.out.println(DataManager.getInstance().getGenres());
-                        }
-
                     }
                 }
             }
