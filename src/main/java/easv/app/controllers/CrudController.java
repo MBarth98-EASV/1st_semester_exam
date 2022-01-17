@@ -1,10 +1,13 @@
+/**
+ * @author Mads, Philip
+ */
+
 package easv.app.controllers;
 
 import easv.app.App;
 import easv.app.be.MovieModel;
 import easv.app.be.SearchedMovieModel;
 import easv.app.bll.DataManager;
-import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
