@@ -86,8 +86,12 @@ public class MovieDatabase
         return "%s, %s, %s".formatted(genres[0], genres[1], genres[2]);
     }
 
+    /**
+     *
+     * */
     private String[] getGenresForMovie(String imdbID)
     {
+        // an optimization should be using stored procedures instead a query (the database can optimize it internally, and it reduces data transfer)
         String sql = """
                 DECLARE @array TABLE (
                     id int,

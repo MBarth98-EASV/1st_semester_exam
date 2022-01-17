@@ -85,7 +85,8 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
             {
-                tblViewMovies.itemsProperty().setValue(FXCollections.observableArrayList(DataManager.getInstance().getMovies().filtered(movieModel -> Arrays.stream(movieModel.getGenre()).toList().contains(newValue))));
+                tblViewMovies.itemsProperty().get().setAll(DataManager.getInstance().getMovies().filtered(movieModel -> Arrays.stream(movieModel.getGenre()).toList().contains(newValue)));
+                tblViewMovies.refresh();
             }
         };
     }
@@ -98,6 +99,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             public void changed(ObservableValue<? extends MovieModel> observable, MovieModel oldValue, MovieModel newValue)
             {
                 updateSelectedItemBindings();
+                tblViewMovies.refresh();
             }
         };
     }
@@ -192,6 +194,8 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setMinWidth(600);
             stage.setScene(new Scene(root, 600, 400));
             stage.show();
+
+            tblViewMovies.refresh();
 
         } catch (IOException | NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the movie creation panel.");
@@ -310,7 +314,8 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         this.tblClmPersonalRating.setCellValueFactory(param -> param.getValue().personalRatingProperty());
         this.tblClmLastViewed.setCellValueFactory(param -> param.getValue().lastViewedProperty());
 
-        this.tblViewMovies.itemsProperty().setValue(DataManager.getInstance().getMovies());
+        this.tblViewMovies.itemsProperty().set(FXCollections.observableArrayList());
+        this.tblViewMovies.itemsProperty().get().setAll(DataManager.getInstance().getMovies());
 
         setCellFactory(tblClmTitle, Pos.CENTER_LEFT);
         setCellFactory(tblClmType, Pos.CENTER_LEFT);
@@ -375,27 +380,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         });
     }
 
-
-    /*
-    Pull any use of TableView out of model.
-
-
-    Add listView Functionality
-
-
-    Add additional SQL statements for
-
-	Retrieving All movies where "filtertype" like/greater than "input"
-	Binding it to table
-	Handle listview either locally, Select and compare, or have it reset filter.
-
-
-            **??** Try to handle the data locally
-     */
-    private void updateOnFilter(ListProperty<MovieModel> activeMovies, ComboBoxEnum useCase){
-        this.tblViewMovies.itemsProperty().bindBidirectional(activeMovies);
-
-    }
 
     public void onComboBox(ActionEvent event) {
         int selectedItem = cmboBoxFilter.getSelectionModel().getSelectedIndex();
