@@ -274,7 +274,18 @@ public class DataManager
     }
 
 
-    public void updateMovieGenre(String imdbid, String[] oldgenre, String[] newgenre) throws SQLException {
-        database.setMovieCatIds(imdbid, oldgenre, newgenre);
+
+    public void updateMovieGenre(String ImdbID, String[] oldGenres, String[] newGenres) throws SQLException
+    {
+        if (oldGenres.length != newGenres.length) {
+            throw new IllegalArgumentException();
+        }
+
+        for (int i = 0; i < oldGenres.length; i++) {
+            if (oldGenres[i].equals(newGenres[i])) {
+                continue;
+            }
+            database.setMovieCatIds(ImdbID, oldGenres[i], newGenres[i]);
+        }
     }
 }

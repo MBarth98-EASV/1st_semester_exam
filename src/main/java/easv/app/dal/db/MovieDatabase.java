@@ -262,21 +262,7 @@ public class MovieDatabase {
                 """.formatted(newname, oldname));
     }
 
-    public void setMovieCatIds(String ImdbID, String[] oldGenres, String[] newGenres) throws SQLException {
-        if (oldGenres.length != newGenres.length) {
-            throw new IllegalArgumentException();
-        }
-
-        for (int i = 0; i < oldGenres.length; i++) {
-            if (oldGenres[i].equals(newGenres[i])) {
-                continue;
-            }
-
-            setMovieCatIds(ImdbID, oldGenres[i], newGenres[i]);
-        }
-    }
-
-    private void setMovieCatIds(String imdbID, String oldGenre, String newGenre) throws SQLException {
+    public void setMovieCatIds(String imdbID, String oldGenre, String newGenre) throws SQLException {
         String sql = """
                 UPDATE TOP (1) CatMovie
                 SET categoryid = (SELECT id FROM Category WHERE genre = '%s')
