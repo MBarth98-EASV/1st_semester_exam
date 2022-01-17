@@ -14,8 +14,7 @@ public class EASVDatabaseConnector {
 
     private SQLServerDataSource dbaccess = null;
 
-    public EASVDatabaseConnector()
-    {
+    public EASVDatabaseConnector() {
         dbaccess = new SQLServerDataSource();
         dbaccess.setServerName("10.176.111.31");
         dbaccess.setDatabaseName("CSe21A_29_MovieManager");
@@ -25,13 +24,10 @@ public class EASVDatabaseConnector {
         dbaccess.setTrustServerCertificate(true);
     }
 
-    public Connection getConnection()
-    {
+    public Connection getConnection() {
         try {
             return dbaccess.getConnection();
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not connect to the database.");
             alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
             alert.showAndWait();
@@ -39,32 +35,18 @@ public class EASVDatabaseConnector {
         }
     }
 
-    public void execute(String sql)
-    {
-        try
-        {
-            Statement statement = getConnection().createStatement();
-            statement.execute(sql);
-        }
-        catch (SQLException e)
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR,"Error executing statement. Please try again");
-            alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
-            alert.showAndWait();
-        }
+    public void execute(String sql) throws SQLException {
+        Statement statement = getConnection().createStatement();
+        statement.execute(sql);
     }
 
-    public ResultSet query(String sql)
-    {
-        try
-        {
+    public ResultSet query(String sql) {
+        try {
             Statement statement = getConnection().createStatement();
 
             return statement.executeQuery(sql);
-        }
-        catch (SQLException e)
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR,"Error executing statement. Please try again");
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error executing statement. Please try again");
             alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
             alert.showAndWait();
             return null;

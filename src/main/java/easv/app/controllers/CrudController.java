@@ -191,8 +191,8 @@ public class CrudController implements Initializable {
      */
     public void onNewGenre(ActionEvent event)
     {
-        lstViewEditGenre.getItems().remove("unknown");
-        lstViewEditGenre.getItems().add("unknown");
+        lstViewEditGenre.getItems().remove("Unknown");
+        lstViewEditGenre.getItems().add("Unknown");
         lstViewEditGenre.getSelectionModel().selectLast();
     }
 
@@ -244,20 +244,24 @@ public class CrudController implements Initializable {
     }
 
     //EditMovie
-    public void onEditMovieSave(ActionEvent event)
-    {
-        String[] genres = new String[] {
-                cmboBoxEditGenre1.getSelectionModel().getSelectedItem(),
-                cmboBoxEditGenre2.getSelectionModel().getSelectedItem(),
-                cmboBoxEditGenre3.getSelectionModel().getSelectedItem()
-        };
+    public void onEditMovieSave(ActionEvent event) {
+        try {
+            String[] genres = new String[]{
+                    cmboBoxEditGenre1.getSelectionModel().getSelectedItem(),
+                    cmboBoxEditGenre2.getSelectionModel().getSelectedItem(),
+                    cmboBoxEditGenre3.getSelectionModel().getSelectedItem()
+            };
 
-        DataManager.getInstance().updateMovieGenre(movie.getID(), movie.getGenre(), genres);
+            DataManager.getInstance().updateMovieGenre(movie.getID(), movie.getGenre(), genres);
 
-        movie.setGenre(genres);
-        movie.setTitle(txtFieldEditMovieTitle.getText());
+            movie.setGenre(genres);
+            movie.setTitle(txtFieldEditMovieTitle.getText());
 
 
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+        } catch (SQLException e)
+        {
+
+        }
     }
 }

@@ -13,6 +13,7 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -97,6 +98,8 @@ public class DataManager
                             }
                             catch (SQLException e)
                             {
+                                Alert alert = new Alert(Alert.AlertType.ERROR, "Category must not be assigned to any movies.");
+                                alert.showAndWait();
                                 try
                                 {
                                     DataManager.getInstance().genres.setAll(database.getCategories());
@@ -148,7 +151,11 @@ public class DataManager
             @Override
             public void invalidated(Observable observable)
             {
-                DataManager.getInstance().update((MovieModel)observable);
+                try {
+                    DataManager.getInstance().update((MovieModel)observable);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         };
     }
@@ -251,14 +258,12 @@ public class DataManager
         this.movies.add(Converters.convert(dbMovie, apiMovie));
     }
 
-    public void update(MovieModel selectedItem)
-    {
+    public void update(MovieModel selectedItem) throws SQLException {
         database.update(new DBMovieData(selectedItem.getID(), selectedItem.getTitle(), selectedItem.getGenre(), Integer.parseInt(selectedItem.getPersonalRating()), selectedItem.getPath(), selectedItem.getLastViewed()));
     }
 
 
-    public void updateMovieGenre(String imdbid, String[] oldgenre, String[] newgenre)
-    {
+    public void updateMovieGenre(String imdbid, String[] oldgenre, String[] newgenre) throws SQLException {
         database.setMovieCatIds(imdbid, oldgenre, newgenre);
     }
 }
