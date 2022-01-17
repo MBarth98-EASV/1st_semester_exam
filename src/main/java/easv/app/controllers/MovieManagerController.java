@@ -426,6 +426,8 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         {
             txtFieldSearch.getEntries().add((inputList.get(i)));
         }
+
+
     }
 
     public void onClearSearchFilter(ActionEvent event) {
@@ -527,5 +529,8 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
     public void onImbdClicked(MouseEvent mouseEvent) {
         openImbdPage();
+    }
+
+    public void onBtnShowAllMovies(ActionEvent event) {
     }
 }

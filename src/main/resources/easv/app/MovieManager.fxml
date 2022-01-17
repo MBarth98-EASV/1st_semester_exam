@@ -11,7 +11,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -211,19 +211,21 @@
       </GridPane>
       <GridPane style="-fx-background-color: #262626;" GridPane.columnIndex="1" GridPane.rowIndex="3">
         <columnConstraints>
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="867.39990234375" prefWidth="871.9999267578125" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="28.800073242187523" minWidth="-Infinity" prefWidth="28.800073242187523" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="41.6" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="811.2000122070312" prefWidth="828.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="-Infinity" prefWidth="30.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="47.0" minHeight="47.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
         </rowConstraints>
          <children>
-            <ListView fx:id="lstViewGenre" maxHeight="45.0" minHeight="45.0" orientation="HORIZONTAL" prefHeight="45.0" prefWidth="1176.0" stylesheets="@styles/ListViewHorizontal.css">
+            <ListView fx:id="lstViewGenre" maxHeight="46.0" minHeight="45.0" orientation="HORIZONTAL" prefHeight="46.0" prefWidth="851.0" stylesheets="@styles/ListViewHorizontal.css" GridPane.columnIndex="1">
                <styleClass>
                   <String fx:value="list-view" />
                   <String fx:value="workspace-grid" />
                </styleClass></ListView>
-            <Button fx:id="btnGenreOptions" maxWidth="23.0" minWidth="23.0" mnemonicParsing="false" onAction="#onEditGenre" prefHeight="23.0" prefWidth="6.0" style="-fx-border-radius: 5;" styleClass="EditButton2" stylesheets="@styles/CrudButtons.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button fx:id="btnGenreOptions" maxWidth="23.0" minWidth="23.0" mnemonicParsing="false" onAction="#onEditGenre" prefHeight="23.0" prefWidth="6.0" style="-fx-border-radius: 5;" styleClass="EditButton2" stylesheets="@styles/CrudButtons.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <ToggleButton fx:id="btnShowAllMovies" mnemonicParsing="false" onAction="#onBtnShowAllMovies" prefHeight="47.0" prefWidth="38.0" styleClass="Button" stylesheets="@styles/togglebutton.css" text="All" />
          </children>
       </GridPane>
       <GridPane style="-fx-background-color: #404040;" styleClass="background" stylesheets="@styles/dark.css" GridPane.columnIndex="1">
