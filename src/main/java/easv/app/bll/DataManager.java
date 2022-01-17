@@ -57,11 +57,11 @@ public class DataManager
     {
         try
         {
-            this.genres.setAll(database.getCategories());
+            this.genres.get().setAll(database.getCategories());
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            //
         }
     }
 
@@ -84,7 +84,7 @@ public class DataManager
                             }
                             catch (SQLException e)
                             {
-                                e.printStackTrace();
+                                //e.printStackTrace();
                             }
                         }
                     }
@@ -100,15 +100,6 @@ public class DataManager
                             {
                                 Alert alert = new Alert(Alert.AlertType.ERROR, "Category must not be assigned to any movies.");
                                 alert.showAndWait();
-                                try
-                                {
-                                    DataManager.getInstance().genres.setAll(database.getCategories());
-                                }
-                                catch (SQLException ex)
-                                {
-                                    ex.printStackTrace();
-                                }
-
                             }
                         }
                     }
