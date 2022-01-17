@@ -4,22 +4,27 @@
 }
 
 .list-cell:even {
-    -fx-background-color: rgba(61, 61, 61, .2);
+    -fx-background-color: #262626;
 }
 
+
+.list-cell:odd {
+    -fx-background-color: #262626;
+}
+
+
 .list-cell:filled:hover {
-    -fx-background-color: rgba(61, 61, 61, .2);;
+    -fx-background-color: #262626;
     -fx-text-fill: #d8d8d8;
 }
 
 .list-view{
-    -fx-background-color:#262626;
+    -fx-background-color: #262626;
     -fx-text-fill: #d8d8d8;
 }
 
 .list-cell {
-    -fx-control-inner-background: rgba(61, 61, 61, .2);
-
+    -fx-control-inner-background: #262626;
 }
 
 /* The main scrollbar **track** CSS class  */

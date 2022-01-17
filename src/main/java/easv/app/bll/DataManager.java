@@ -8,6 +8,7 @@ import easv.app.be.json.MovieInfo;
 import easv.app.dal.api.OpenMovieNetwork;
 import easv.app.be.DBMovieData;
 import easv.app.dal.db.MovieDatabase;
+
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.ListProperty;
@@ -15,6 +16,7 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Alert;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -30,6 +32,11 @@ public class DataManager
     MovieDatabase database = null;
     private final ListProperty<MovieModel> movies = new SimpleListProperty<>();
     private final ListProperty<String> genres = new SimpleListProperty<>();
+
+    //Backup of the all the movies retrieved upon load(). Used to reset the tableView after it's data
+    //has been manipulated, as the bidirectional binding causes the movies list to be altered along with the tableView.
+    private ObservableList<MovieModel> backupMovies = FXCollections.observableArrayList();
+
 
     private static DataManager instance = null;
 
@@ -154,16 +161,16 @@ public class DataManager
     }
 
     // get all movies from db
-    public void load() throws IOException, SQLException 
+    public void load() throws IOException, SQLException
     {
         List<DBMovieData> DBMovies = database.getAllMovies();
 
         database.getAllMovies();
 
         List<MovieInfo> ApiMovies = OpenMovieNetwork.getInstance().get(DBMovies.stream().map(DBMovieData::getImdbid).collect(Collectors.toList()));
-
         movies.setAll(Converters.convert(DBMovies, ApiMovies));
         genres.setAll(database.getCategories());
+        backupMovies.addAll(movies.get());
     }
 
     public ListProperty<MovieModel> getMovies()
@@ -186,6 +193,11 @@ public class DataManager
         returnlist.setAll(Converters.convert(DBMovies, ApiMovies));
         return returnlist;
     }
+    
+    public ObservableList<MovieModel> getBackupMovies() {
+        return backupMovies;
+    }
+
 
     public static SearchModel searchMovies(String title) throws IOException
     {
@@ -218,7 +230,12 @@ public class DataManager
         }
         return returnList;
     }
-
+    /**
+     * Checks whether or any instantiated movie been rated a score of 2 or below by the user.
+     * When the method is called, one should make sure the list is not empty before doing anything with it.
+     * Can possibly be replaced with SQL statement.
+     * @return List of MovieModels whose personalRating is 2 or below.
+     */
     public List<MovieModel> sortBadMovies() {
         ArrayList<MovieModel> returnList = new ArrayList<>();
         for (MovieModel m : movies.get()){

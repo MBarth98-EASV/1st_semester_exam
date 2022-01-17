@@ -118,6 +118,10 @@ public class CrudController implements Initializable
         }
     }
 
+    /**
+     * Sets the listview in NewMovie.fxml to display SearchModels from the API query.
+     * @param event
+     */
     public void onSearchNewMovieTitles(ActionEvent event)
     {
         try
@@ -177,10 +181,12 @@ public class CrudController implements Initializable
         String extension = "";
 
         int i = fileName.lastIndexOf('.');
+
         if (i > 0)
         {
             extension = fileName.substring(i + 1);
         }
+
         return extension.equals("mp4");
     }
 
@@ -243,12 +249,11 @@ public class CrudController implements Initializable
             lstViewEditGenre.getItems().add(_newName);
         }
 
-
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        ((Node)(event.getSource())).getScene().getWindow().hide(); //Closes the window/stage
     }
 
 
-    private void initEditMovie(ResourceBundle resources)
+    private void initEditMovie(ResourceBundle resources) 
     {
         if (btnEditMovieFinish != null)
         {
@@ -284,8 +289,7 @@ public class CrudController implements Initializable
     //EditMovie
     public void onEditMovieSave(ActionEvent event)
     {
-        try
-        {
+       
             String[] genres = new String[]{
                     cmboBoxEditGenre1.getSelectionModel().getSelectedItem(),
                     cmboBoxEditGenre2.getSelectionModel().getSelectedItem(),
@@ -299,10 +303,6 @@ public class CrudController implements Initializable
 
 
             ((Node) (event.getSource())).getScene().getWindow().hide();
-        }
-        catch (SQLException e)
-        {
-
-        }
+    
     }
 }
