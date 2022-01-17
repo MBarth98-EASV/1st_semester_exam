@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -71,6 +72,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         }
 
         lstViewGenre.itemsProperty().bindBidirectional(DataManager.getInstance().getGenres());
+        ;
         initializeMovieTable();
         initializeComboBox();
         lstViewGenreContextMenu();
@@ -604,6 +606,11 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         openImbdPage();
     }
 
-    public void onBtnShowAllMovies(ActionEvent event) {
+    public void onBtnShowAllMovies(ActionEvent event)
+    {
+        tblViewMovies.itemsProperty().get().setAll(DataManager.getInstance().getMovies().filtered(Objects::nonNull));
+
+        lstViewGenre.getSelectionModel().clearSelection();
+        tblViewMovies.refresh();
     }
 }
