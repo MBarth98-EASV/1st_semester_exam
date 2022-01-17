@@ -1,0 +1,46 @@
+
+
+.Button {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 10pt;
+    -fx-text-fill: #d5d4d4;
+    -fx-font-weight: bold;
+    -fx-content-display: CENTER;
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+
+
+.Button:hover {
+    -fx-background-color: transparent;
+    -fx-border-color: #5786cb;
+}
+
+.Button:pressed {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8592c0;
+    -fx-background-radius: 30;
+}
+
+.Button:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #11223f;
+    -fx-text-fill: #d5d4d4;
+}
+
+
+.Button:selected {
+    -fx-background-color: transparent;
+    -fx-border-color: #4678c5;
+    -fx-text-fill: #4678c5;
+
+}
+
+.Button:selected:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: #4678c5;
+
+}

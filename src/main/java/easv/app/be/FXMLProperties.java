@@ -31,7 +31,7 @@ public class FXMLProperties {
     @FXML public Button btnLblGenre3;
     @FXML public Rating movieRating;
 
-    @FXML public ToggleButton btnShowAllMovies;
+
     @FXML public ListView<String> lstViewGenre;
     @FXML public Button btnGenreOptions;
 

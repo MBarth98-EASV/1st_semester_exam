@@ -30,6 +30,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -96,6 +97,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
                 tblViewMovies.itemsProperty().get().setAll(DataManager.getInstance().getMovies().filtered(movieModel -> Arrays.stream(movieModel.getGenre()).toList().contains(newValue)));
                 tblViewMovies.refresh();
                 lstViewGenre.refresh();
+                onComboBox(new ActionEvent());
             }
         };
     }
@@ -498,7 +500,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             txtFieldSearch.getEntries().add((inputList.get(i)));
         }
 
-
     }
 
     public void onClearSearchFilter(ActionEvent event) {
@@ -609,11 +610,12 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         openImbdPage();
     }
 
-    public void onBtnShowAllMovies(MouseEvent event)
+    public void onBtnShowAllMovies(ActionEvent event)
     {
         lstViewGenre.getSelectionModel().clearSelection();
         tblViewMovies.itemsProperty().get().setAll(DataManager.getInstance().getMovies().filtered(Objects::nonNull));
 
         tblViewMovies.refresh();
+        onComboBox(event);
     }
 }

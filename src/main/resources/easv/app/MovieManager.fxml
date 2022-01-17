@@ -11,7 +11,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,6 +23,7 @@
 <?import org.controlsfx.control.Rating?>
 
 <?import easv.app.utils.customComponent.AutoCompleteTextField?>
+
 <GridPane cache="true" cacheHint="QUALITY" minHeight="845.0" minWidth="900.0" prefHeight="972.0" prefWidth="900.0" style="-fx-background-color: #303030;" stylesheets="@styles/dark.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.app.controllers.MovieManagerController">
   <columnConstraints>
     <ColumnConstraints />
@@ -211,8 +211,8 @@
       </GridPane>
       <GridPane style="-fx-background-color: #262626;" GridPane.columnIndex="1" GridPane.rowIndex="3">
         <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="41.6" />
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="811.2000122070312" prefWidth="828.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="72.79997787475585" minWidth="-Infinity" prefWidth="71.2000244140625" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="796.8000221252441" prefWidth="799.1999755859375" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="-Infinity" prefWidth="30.0" />
         </columnConstraints>
         <rowConstraints>
@@ -225,7 +225,13 @@
                   <String fx:value="workspace-grid" />
                </styleClass></ListView>
             <Button fx:id="btnGenreOptions" maxWidth="23.0" minWidth="23.0" mnemonicParsing="false" onAction="#onEditGenre" prefHeight="23.0" prefWidth="6.0" style="-fx-border-radius: 5;" styleClass="EditButton2" stylesheets="@styles/CrudButtons.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <Button fx:id="btnShowAllMovies" mnemonicParsing="false" onMouseClicked="#onBtnShowAllMovies" prefHeight="46.0" prefWidth="46.0" styleClass="Button" stylesheets="@styles/togglebutton.css" text="All" />
+            <Button fx:id="btnShowAllMovies" mnemonicParsing="false" onAction="#onBtnShowAllMovies" prefHeight="46.0" prefWidth="65.0" style="-fx-border-radius: 5;" styleClass="Button" stylesheets="@styles/AllButton.css" text="All">
+               <padding>
+                  <Insets left="-10.0" right="-10.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets left="3.0" right="3.0" />
+               </GridPane.margin></Button>
          </children>
       </GridPane>
       <GridPane style="-fx-background-color: #404040;" styleClass="background" stylesheets="@styles/dark.css" GridPane.columnIndex="1">
