@@ -32,7 +32,6 @@
     -fx-background-color: transparent;
     -fx-border-color: #4678c5;
     -fx-text-fill: #4678c5;
-
 }
 
 .Button:selected:focused {

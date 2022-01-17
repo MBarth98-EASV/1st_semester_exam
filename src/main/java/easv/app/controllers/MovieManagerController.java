@@ -5,7 +5,6 @@ import easv.app.utils.customComponent.ComboBoxEnum;
 import easv.app.be.FXMLProperties;
 import easv.app.be.MovieModel;
 import easv.app.bll.DataManager;
-import javafx.beans.property.ListProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import easv.app.bll.UserSearchManager;
@@ -13,13 +12,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.*;
@@ -35,7 +35,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.*;
@@ -44,8 +43,12 @@ import static easv.app.utils.customComponent.ComboBoxEnum.*;
 
 public class MovieManagerController extends FXMLProperties implements Initializable
 {
+    @FXML
+    public Button btnShowAllMovies;
+
     MovieModel selectedMovie;
     UserSearchManager searchModel;
+
 
     public MovieManagerController()
     {
@@ -628,11 +631,11 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         openImbdPage();
     }
 
-    public void onBtnShowAllMovies(ActionEvent event)
+    public void onBtnShowAllMovies(MouseEvent event)
     {
+        lstViewGenre.getSelectionModel().clearSelection();
         tblViewMovies.itemsProperty().get().setAll(DataManager.getInstance().getMovies().filtered(Objects::nonNull));
 
-        lstViewGenre.getSelectionModel().clearSelection();
         tblViewMovies.refresh();
     }
 }
