@@ -329,6 +329,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         this.tblViewMovies.itemsProperty().set(FXCollections.observableArrayList());
         this.tblViewMovies.itemsProperty().get().setAll(DataManager.getInstance().getMovies());
 
+
         setCellFactory(tblClmTitle, Pos.CENTER_LEFT);
         setCellFactory(tblClmType, Pos.CENTER_LEFT);
         setCellFactory(tblClmImbdRating, Pos.CENTER_LEFT);
@@ -376,36 +377,33 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
                     switch (ComboBoxEnum.values()[selectedItem])
                     {
-                        case SEARCH_ALL -> {
-                            resetTable();
-                            lstViewGenre.getSelectionModel().select(0);
-                            lstViewGenre.scrollTo(0);
-                            selectInTable(searchModel.search(txtFieldSearch.getText()));
-                        }
                         case TITLE ->{
-                            tblViewMovies.setItems(searchModel.filterTitle(txtFieldSearch.getText()));
+                            tblViewMovies.setItems(searchModel.filterTitle(tblViewMovies.getItems(), txtFieldSearch.getText()));
                             tblViewMovies.refresh();
                             tblViewMovies.getSelectionModel().selectFirst();
+                            break;
                         }
                         case RATING -> {
                             if (checkInvalidInput(txtFieldSearch.getText())){
                                 break;
                             }
-                            tblViewMovies.setItems(searchModel.filterRating(txtFieldSearch.getText()));
+                            tblViewMovies.setItems(searchModel.filterRating(tblViewMovies.getItems(), txtFieldSearch.getText()));
                             tblViewMovies.refresh();
                             tblViewMovies.getSelectionModel().selectFirst();
+                            break;
                         }
                         case IMBDRATING -> {
                             if (checkInvalidInput(txtFieldSearch.getText())){
                                 break;
                             }
-                            tblViewMovies.setItems(searchModel.filterImbdRating(txtFieldSearch.getText()));
+                            tblViewMovies.setItems(searchModel.filterImbdRating(tblViewMovies.getItems(), txtFieldSearch.getText()));
                             tblViewMovies.refresh();
                             tblViewMovies.getSelectionModel().selectFirst();
+                            break;
                         }
                         default -> {
-                            resetTable();
-                            selectInTable(searchModel.search(txtFieldSearch.getText()));
+                            selectInTable(searchModel.search(tblViewMovies.getItems(), txtFieldSearch.getText()));
+                            break;
                         }
                     }
                 }
@@ -453,16 +451,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
     /**
-     * Resets the table to its original state.
-     * Used for disabling active filters.
-     */
-    private void resetTable(){
-        tblViewMovies.setItems(DataManager.getInstance().getBackupMovies());
-        tblViewMovies.refresh();
-        tblViewMovies.getSelectionModel().selectFirst();
-    }
-
-    /**
      * Sets the prompt text of txtFieldSearch and it's search entries depending on the
      * the combobox value chosen by the user. Resets the table to disable any active filter.
      * @param event
@@ -472,29 +460,20 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
         switch (ComboBoxEnum.values()[selectedItem])
         {
-            case SEARCH_ALL -> {
-                resetTable();
-                initializeStringSearchEntries(searchModel.getCurrentFilterEntries(SEARCH_ALL));
-                txtFieldSearch.setPromptText("Press enter to search");
-            }
             case TITLE -> {
-                resetTable();
-                initializeStringSearchEntries(searchModel.getCurrentFilterEntries(TITLE));
+                initializeStringSearchEntries(searchModel.getCurrentFilterEntries(tblViewMovies.getItems(), TITLE));
                 txtFieldSearch.setPromptText("Enter a title to filter");
             }
             case RATING -> {
-                resetTable();
-                initializeStringSearchEntries(searchModel.getCurrentFilterEntries(RATING));
+                initializeStringSearchEntries(searchModel.getCurrentFilterEntries(tblViewMovies.getItems(), RATING));
                 txtFieldSearch.setPromptText("Enter a numerical rating to filter");
             }
             case IMBDRATING -> {
-                resetTable();
-                initializeStringSearchEntries(searchModel.getCurrentFilterEntries(IMBDRATING));
+                initializeStringSearchEntries(searchModel.getCurrentFilterEntries(tblViewMovies.getItems(), IMBDRATING));
                 txtFieldSearch.setPromptText("Enter a numerical, dot seperated score to filter");
             }
             default -> {
-                resetTable();
-                initializeStringSearchEntries(searchModel.getCurrentFilterEntries(SEARCH));
+                initializeStringSearchEntries(searchModel.getCurrentFilterEntries(tblViewMovies.getItems(), SEARCH));
                 txtFieldSearch.setPromptText("Press enter to search");
             }
         }
@@ -518,14 +497,13 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
     public void onClearSearchFilter(ActionEvent event) {
-        resetTable();
         cmboBoxFilter.getSelectionModel().select(0);
         txtFieldSearch.clear();
     }
 
     private void initializeComboBox(){
-        cmboBoxFilter.setItems(FXCollections.observableArrayList("Search", "Search All", "Title | Filter", "Rating | Filter", "IMBD Rating | Filter"));
-        initializeStringSearchEntries(searchModel.getCurrentFilterEntries(SEARCH));
+        cmboBoxFilter.setItems(FXCollections.observableArrayList("Search", "Title | Filter", "Rating | Filter", "IMBD Rating | Filter"));
+        initializeStringSearchEntries(searchModel.getCurrentFilterEntries(tblViewMovies.getItems(), SEARCH));
         cmboBoxFilter.getSelectionModel().select(0);
     }
 
