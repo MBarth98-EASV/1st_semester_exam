@@ -1,8 +1,8 @@
 package easv.app.controllers;
 
 import easv.app.App;
+import easv.app.utils.customComponent.AutoCompleteTextField;
 import easv.app.utils.customComponent.ComboBoxEnum;
-import easv.app.be.FXMLProperties;
 import easv.app.be.MovieModel;
 import easv.app.bll.DataManager;
 import javafx.beans.value.ChangeListener;
@@ -23,14 +23,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.*;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.controlsfx.control.Rating;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -42,10 +44,44 @@ import java.util.*;
 
 import static easv.app.utils.customComponent.ComboBoxEnum.*;
 
-public class MovieManagerController extends FXMLProperties implements Initializable
+public class MovieManagerController implements Initializable
 {
-    @FXML
-    public Button btnShowAllMovies;
+    @FXML public Button btnShowAllMovies;
+    @FXML public AutoCompleteTextField txtFieldSearch;
+    @FXML public ComboBox cmboBoxFilter;
+
+    @FXML public Button btnPlayMovie;
+
+    @FXML public Label lblMovTitle;
+    @FXML public Label lblMovYear;
+    @FXML public Label lblMovRating;
+    @FXML public Label lblMovRuntime;
+    @FXML public TextArea txtAreaMovPlot;
+    @FXML public Label lblMovDirector;
+    @FXML public Label lblMovWriters;
+    @FXML public Label lblMovActors;
+    @FXML public Label lblMovCountry;
+    @FXML public Label lblMovImbdRating;
+    @FXML public ImageView imgViewMovPoster;
+
+    @FXML public Button btnLblGenre1;
+    @FXML public Button btnLblGenre2;
+    @FXML public Button btnLblGenre3;
+    @FXML public Rating movieRating;
+
+
+    @FXML public ListView<String> lstViewGenre;
+    @FXML public Button btnGenreOptions;
+
+    @FXML public TableView<MovieModel> tblViewMovies = new TableView<>();
+    @FXML public TableColumn<MovieModel, ImageView> tblClmPoster = new TableColumn<>();
+    @FXML public TableColumn<MovieModel, String> tblClmTitle = new TableColumn<>();
+    @FXML public TableColumn<MovieModel, String> tblClmType = new TableColumn<>();
+    @FXML public TableColumn<MovieModel, String> tblClmImbdRating = new TableColumn<>();
+    @FXML public TableColumn<MovieModel, String> tblClmPersonalRating = new TableColumn<>();
+    @FXML public TableColumn<MovieModel, String> tblClmLastViewed = new TableColumn<>();
+
+
 
     MovieModel selectedMovie;
     UserSearchManager searchModel;
