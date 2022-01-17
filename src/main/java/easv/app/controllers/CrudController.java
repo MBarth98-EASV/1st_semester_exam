@@ -304,7 +304,7 @@ public class CrudController implements Initializable
         }
         catch (SQLException e)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not save");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not save.");
             alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
             alert.showAndWait();
         }
