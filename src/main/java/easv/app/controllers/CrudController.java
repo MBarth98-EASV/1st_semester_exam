@@ -59,8 +59,6 @@ public class CrudController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //this.txtFieldSearchNewMovie.setText("avengers");
-        //onSearchNewMovieTitles(new ActionEvent());
         initNewMovie();
         initEditGenre();
         initEditMovie(resources);
@@ -86,6 +84,10 @@ public class CrudController implements Initializable {
         }
     }
 
+    /**
+     * Sets the listview in NewMovie.fxml to display SearchModels from the API query.
+     * @param event
+     */
     public void onSearchNewMovieTitles(ActionEvent event)
     {
         try {
@@ -125,7 +127,7 @@ public class CrudController implements Initializable {
             }
         }
 
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        ((Node)(event.getSource())).getScene().getWindow().hide(); //Closes the window/stage
     }
 
     /**
@@ -186,7 +188,7 @@ public class CrudController implements Initializable {
         {
             dataManager.updateGenre(selected, txtFieldEditGenreName.getText());
         }
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        ((Node)(event.getSource())).getScene().getWindow().hide(); //Closes the window/stage
     }
 
 
@@ -215,6 +217,7 @@ public class CrudController implements Initializable {
 
     //EditMovie
     public void onEditMovieSave(ActionEvent event) {
+        //TODO: Add a check for if any of the comboboxes has the same genre selected. If true, display an alert and use return to break from the method.
        /* if (!cmboBoxEditGenre1.getSelectionModel().getSelectedItem().equals(movie.getGenre()[1]) ||
                 !cmboBoxEditGenre2.getSelectionModel().getSelectedItem().equals(movie.getGenre()[2]) ||
                 !cmboBoxEditGenre3.getSelectionModel().getSelectedItem().equals(movie.getGenre()[3]) )
@@ -226,6 +229,6 @@ public class CrudController implements Initializable {
         }
         */
 
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        ((Node)(event.getSource())).getScene().getWindow().hide(); //Closes the window/stage
     }
 }

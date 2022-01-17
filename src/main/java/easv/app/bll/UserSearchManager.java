@@ -15,6 +15,15 @@ import java.util.stream.Collectors;
 
 public class UserSearchManager {
 
+
+    /**
+     * Compares the searched string with the toString method of any MovieModel present in the inputList.
+     * Should there not be an exact match, the "backupSearch" will be used, which stores every MovieModel's toString,
+     * that contains the search query. The list is alphabetically sorted, and the first index is returned.
+     * @param inputList: The list to compare with.
+     * @param search: the searched string
+     * @return
+     */
     private MovieModel getObjectFromText(List<MovieModel> inputList, String search)
     {
         if (search != null && !search.isEmpty())
@@ -58,6 +67,12 @@ public class UserSearchManager {
         }
     }
 
+    /**
+     * Returns a list of Strings, containing the chosen characteristic of every MovieModel present in the TableView.
+     * Used for search entries.
+     * @param param: Currently selected function of the applications search textField.
+     * @return
+     */
     //Filter current movies show in tableview - for use in search
     public List<String> getCurrentFilterEntries(ComboBoxEnum param){
         return switch (param) {
@@ -68,6 +83,15 @@ public class UserSearchManager {
         };
     }
 
+    /**
+     * Gets a list of every MovieModel's titel currently present in the tableview. Said list is then filtered in a stream,
+     * wherein they are compared to the String filter. The filtered list iterated through,
+     * with a nested foreach loop where every filtered title is compared the title of any currently present Movie in the tableview.
+     * If there is a match between a filtered title and a movie's title, the movie is added to the return list and returned.
+     * @param filter the String used for the filter query.
+     * @returnA filtered list of Movies, or should the query not match any movie,
+     * it displays an alert and returns and empty movie.
+     */
     public ObservableList<MovieModel> filterTitle(String filter){
         ObservableList<MovieModel> returnList = FXCollections.observableArrayList();
         ArrayList<String> filterList = new ArrayList<>();
@@ -79,7 +103,7 @@ public class UserSearchManager {
         List<String> filteredStringList = filterList.stream().filter(m ->
                 m.toLowerCase().contains(filter.toLowerCase())).sorted().collect(Collectors.toList());
 
-        for (String title : filteredStringList){
+        for (String title : filteredStringList ){
             for (MovieModel movie : DataManager.getInstance().getMovies())
             {
                 if (movie.getTitle().equalsIgnoreCase(title)) {
@@ -90,6 +114,14 @@ public class UserSearchManager {
         return errorHandling(returnList);
     }
 
+    /**
+     * Parses the given String as an int and iterates through the Movies currently present in the tableview.
+     * If any movie has an personal rating greater than or equal to the inserted value, it will be added
+     * to the returnList and returned.
+     * @param filter the String to be parsed as a double
+     * @return A filtered list of Movies, or should the query not match any movie,
+     * it displays an alert and returns and empty movie.
+     */
     public ObservableList<MovieModel> filterRating(String filter){
         ObservableList<MovieModel> returnList = FXCollections.observableArrayList();
         Integer filterValue = Integer.parseInt(filter);
@@ -102,6 +134,14 @@ public class UserSearchManager {
         return errorHandling(returnList);
     }
 
+    /**
+     * Parses the given String as a double and iterates through the Movies currently present in the tableview.
+     * If any movie has an IMBD rating greater than or equal to the inserted value, it will be added
+     * to the returnList and returned.
+     * @param filter the String to be parsed as a double
+     * @return A filtered list of Movies, or should the query not match any movie,
+     * it displays an alert and returns and empty movie.
+     */
     public ObservableList<MovieModel> filterImbdRating(String filter){
         ObservableList<MovieModel> returnList = FXCollections.observableArrayList();
         Double filterValue = Double.parseDouble(filter);
@@ -114,6 +154,11 @@ public class UserSearchManager {
         return errorHandling(returnList);
     }
 
+    /**
+     * Display an Alert and returns an ObservableList with an empty movie object.
+     * Used to handle possible errors that might slip through checks when the methods
+     * are called.
+     */
     private ObservableList<MovieModel> errorHandling(ObservableList<MovieModel> returnList) {
         if (returnList.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
