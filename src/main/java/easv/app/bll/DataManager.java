@@ -1,5 +1,6 @@
 package easv.app.bll;
 
+import easv.app.App;
 import easv.app.utils.Converters;
 import easv.app.be.MovieModel;
 import easv.app.be.SearchModel;
@@ -99,6 +100,7 @@ public class DataManager
                             catch (SQLException e)
                             {
                                 Alert alert = new Alert(Alert.AlertType.ERROR, "Category must not be assigned to any movies.");
+                                alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
                                 alert.showAndWait();
                             }
                         }

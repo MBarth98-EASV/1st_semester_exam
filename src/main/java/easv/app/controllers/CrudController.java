@@ -1,3 +1,7 @@
+/**
+ * @author Mads, Philip
+ */
+
 package easv.app.controllers;
 
 import easv.app.App;
