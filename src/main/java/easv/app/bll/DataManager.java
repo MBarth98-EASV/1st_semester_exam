@@ -223,6 +223,7 @@ public class DataManager
         for (MovieModel m : movies.get()){
             if (!m.getLastViewed().equals(null) && !m.getLastViewed().isEmpty()){
                 LocalDate lastViewedDate = LocalDate.parse(m.getLastViewed());
+
                 if (LocalDate.now().minusYears(2).isAfter(lastViewedDate.minusDays(1))) {
                     returnList.add(m);
                 }

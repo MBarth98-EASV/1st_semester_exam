@@ -76,7 +76,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         }
 
         lstViewGenre.itemsProperty().bindBidirectional(DataManager.getInstance().getGenres());
-        ;
         initializeMovieTable();
         initializeComboBox();
         lstViewGenreContextMenu();
@@ -614,6 +613,14 @@ public class MovieManagerController extends FXMLProperties implements Initializa
                 vBox.getChildren().addAll(badListAndLabel);
                 hbox.getChildren().add(vBox);
             }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.getDialogPane().getStylesheets().add(App.class.getResource("styles/DialogPane.css").toExternalForm());
+            alert.getDialogPane().setContent(hbox);
+            alert.setHeaderText("Consider deleting the following movies");
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.setAlwaysOnTop(true);
+            alert.show();
         }
     }
 
