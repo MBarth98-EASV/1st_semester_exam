@@ -85,7 +85,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
             {
-
+                tblViewMovies.itemsProperty().setValue(FXCollections.observableArrayList(DataManager.getInstance().getMovies().filtered(movieModel -> Arrays.stream(movieModel.getGenre()).toList().contains(newValue))));
             }
         };
     }
@@ -309,7 +309,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         this.tblClmPersonalRating.setCellValueFactory(param -> param.getValue().personalRatingProperty());
         this.tblClmLastViewed.setCellValueFactory(param -> param.getValue().lastViewedProperty());
 
-        this.tblViewMovies.itemsProperty().bindBidirectional(DataManager.getInstance().getMovies());
+        this.tblViewMovies.itemsProperty().setValue(DataManager.getInstance().getMovies());
 
         setCellFactory(tblClmTitle, Pos.CENTER_LEFT);
         setCellFactory(tblClmType, Pos.CENTER_LEFT);

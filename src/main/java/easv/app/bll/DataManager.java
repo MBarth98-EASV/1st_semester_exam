@@ -81,7 +81,22 @@ public class DataManager
                         for (String removed : c.getRemoved())
                         {
                             System.out.println("genre removed: " + removed);
-                            database.deleteGenre(removed);
+                            try
+                            {
+                                database.deleteGenre(removed);
+                            }
+                            catch (SQLException e)
+                            {
+                                try
+                                {
+                                    DataManager.getInstance().genres.setAll(database.getCategories());
+                                }
+                                catch (SQLException ex)
+                                {
+                                    ex.printStackTrace();
+                                }
+
+                            }
                         }
                     }
                 }

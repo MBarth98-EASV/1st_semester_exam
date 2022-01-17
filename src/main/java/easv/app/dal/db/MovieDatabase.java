@@ -143,13 +143,16 @@ public class MovieDatabase
         }
     }
 
-    public void deleteGenre(String genre)
+    public void deleteGenre(String genre) throws SQLException
     {
+
+
         String sql = """
             DELETE FROM Category where genre = '%s'
             """.formatted(genre);
 
         dbaccess.execute(sql);
+
 
         // todo:
     }
