@@ -51,7 +51,6 @@ public class EASVDatabaseConnector {
             Alert alert = new Alert(Alert.AlertType.ERROR,"Error executing statement. Please try again");
             alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(App.class.getResource("styles/DialogPane.css")).toExternalForm());
             alert.showAndWait();
-            e.printStackTrace();
         }
     }
 
