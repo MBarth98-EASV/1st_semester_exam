@@ -52,6 +52,18 @@ public class DataManager
         genres.addListener(onGenreListChanged());
     }
 
+    public void loadGenres()
+    {
+        try
+        {
+            this.genres.setAll(database.getCategories());
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     private ListChangeListener<String> onGenreListChanged()
     {
         return new ListChangeListener<String>()
@@ -67,7 +79,6 @@ public class DataManager
                         {
                             try
                             {
-                                System.out.println("genre added: " + added);
                                 database.addGenre(added);
                             }
                             catch (SQLException e)
@@ -80,7 +91,6 @@ public class DataManager
                     {
                         for (String removed : c.getRemoved())
                         {
-                            System.out.println("genre removed: " + removed);
                             try
                             {
                                 database.deleteGenre(removed);
@@ -246,19 +256,6 @@ public class DataManager
         database.update(new DBMovieData(selectedItem.getID(), selectedItem.getTitle(), selectedItem.getGenre(), Integer.parseInt(selectedItem.getPersonalRating()), selectedItem.getPath(), selectedItem.getLastViewed()));
     }
 
-
-    public List<String> getAllGenres() throws SQLException
-    {
-        var list = database.getCategories();
-        if (!list.contains("N/A"))
-            list.add("N/A");
-
-        return list;
-    }
-
-    public void updateGenre(String selected, String text)
-    {
-    }
 
     public void updateMovieGenre(String imdbid, String[] oldgenre, String[] newgenre)
     {

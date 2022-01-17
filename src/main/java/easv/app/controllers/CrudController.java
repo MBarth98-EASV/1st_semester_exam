@@ -183,7 +183,6 @@ public class CrudController implements Initializable {
     public void onDeleteGenre(ActionEvent event)
     {
         lstViewEditGenre.getItems().remove(lstViewEditGenre.getSelectionModel().getSelectedItem());
-        //dataManager.deleteGenre();
     }
 
     /**
@@ -194,14 +193,11 @@ public class CrudController implements Initializable {
     {
         lstViewEditGenre.getItems().remove("unknown");
         lstViewEditGenre.getItems().add("unknown");
-
-        //dataManager.addGenre();
+        lstViewEditGenre.getSelectionModel().selectLast();
     }
 
     public void onSaveEditGenre(ActionEvent event)
     {
-
-
         var selected = lstViewEditGenre.getSelectionModel().getSelectedItem();
         String _newName = txtFieldEditGenreName.getText();
 
@@ -224,7 +220,7 @@ public class CrudController implements Initializable {
             {
                 movie = (MovieModel) resources.getObject("selectedMovie");
 
-                ObservableList<String> genres = FXCollections.observableArrayList(DataManager.getInstance().getAllGenres());
+                ObservableList<String> genres = FXCollections.observableArrayList(DataManager.getInstance().getGenres());
 
                 cmboBoxEditGenre1.setItems(genres);
                 cmboBoxEditGenre2.setItems(genres);
@@ -260,8 +256,6 @@ public class CrudController implements Initializable {
 
         movie.setGenre(genres);
         movie.setTitle(txtFieldEditMovieTitle.getText());
-
-
 
 
         ((Node)(event.getSource())).getScene().getWindow().hide();

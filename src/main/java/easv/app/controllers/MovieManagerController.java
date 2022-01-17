@@ -277,6 +277,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
             stage.setMinWidth(378);
             stage.setScene(new Scene(root, 378, 332));
             stage.show();
+            root.getScene().getWindow().setOnHiding(event1 -> DataManager.getInstance().loadGenres());
         }
         catch (IOException e)
         {
@@ -374,21 +375,6 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         });
     }
 
-    private void initializeGenreBar(){
-        try {
-            lstViewGenre.setItems(FXCollections.observableArrayList(DataManager.getInstance().getAllGenres()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void updateTableOnGenre(){
-        try {
-            tblViewMovies.setItems(DataManager.getInstance().getMoviesOfGenre(lstViewGenre.getSelectionModel().getSelectedItem()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /*
     Pull any use of TableView out of model.
