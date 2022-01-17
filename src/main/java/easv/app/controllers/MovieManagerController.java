@@ -384,7 +384,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
 
                     switch (ComboBoxEnum.values()[selectedItem])
                     {
-                        case TITLE ->{
+                        case TITLE -> {
                             tblViewMovies.setItems(searchModel.filterTitle(tblViewMovies.getItems(), txtFieldSearch.getText()));
                             tblViewMovies.refresh();
                             tblViewMovies.getSelectionModel().selectFirst();
@@ -486,6 +486,20 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         }
     }
 
+    private void resetTable(ActionEvent event){
+        if (!lstViewGenre.getSelectionModel().isEmpty()){
+            tblViewMovies.itemsProperty().get().setAll(DataManager.getInstance().getMovies().filtered(movieModel -> Arrays.stream(movieModel.getGenre()).toList().contains(lstViewGenre.getSelectionModel().getSelectedItem())));
+            tblViewMovies.refresh();
+            lstViewGenre.refresh();
+            tblViewMovies.getSelectionModel().selectFirst();
+        }
+        else if (lstViewGenre.getSelectionModel().isEmpty()) {
+            tblViewMovies.itemsProperty().get().setAll(DataManager.getInstance().getMovies().filtered(Objects::nonNull));
+            tblViewMovies.refresh();
+            tblViewMovies.getSelectionModel().selectFirst();
+        }
+    }
+
     /**
      * Sets the searchbar's search entires for autocompletion to the input list of Strings.
      * Used for filter autocompletion - it's filled with a list of every unique value of the chosen parameter
@@ -503,6 +517,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
     }
 
     public void onClearSearchFilter(ActionEvent event) {
+        resetTable(event);
         cmboBoxFilter.getSelectionModel().select(0);
         txtFieldSearch.clear();
     }
