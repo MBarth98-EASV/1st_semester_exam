@@ -146,7 +146,7 @@ public class MovieManagerController extends FXMLProperties implements Initializa
         btnLblGenre3.setText(selected.getGenre()[2]);
 
         selectedMovie = selected;
-        if (selected.getPoster().getImage() == null) {
+        if (selected.getPoster() == null || selected.getPoster().getImage() == null) {
             selected.setPoster(App.class.getResource("images/posterError.png").toExternalForm());
         }
 
