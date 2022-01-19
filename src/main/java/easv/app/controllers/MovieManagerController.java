@@ -245,7 +245,7 @@ public class MovieManagerController implements Initializable
             stage.setScene(new Scene(root, 600, 400));
             stage.show();
 
-            tblViewMovies.refresh();
+            root.getScene().getWindow().setOnHidden(event1 -> resetTable());
 
         } catch (IOException | NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load the movie creation panel.");
@@ -339,6 +339,12 @@ public class MovieManagerController implements Initializable
             alert.showAndWait();
             e.printStackTrace();
         }
+    }
+
+    private void onHiddenRefreshTable(){
+        tblViewMovies.refresh();
+        tblViewMovies.getSelectionModel().selectFirst();
+
     }
 
     public void onMovieRated(MouseEvent mouseEvent)
@@ -521,7 +527,7 @@ public class MovieManagerController implements Initializable
         }
     }
 
-    private void resetTable(ActionEvent event){
+    private void resetTable(){
         if (!lstViewGenre.getSelectionModel().isEmpty()){
             tblViewMovies.itemsProperty().get().setAll(DataManager.getInstance().getMovies().filtered(movieModel -> Arrays.stream(movieModel.getGenre()).toList().contains(lstViewGenre.getSelectionModel().getSelectedItem())));
             tblViewMovies.refresh();
@@ -552,7 +558,7 @@ public class MovieManagerController implements Initializable
     }
 
     public void onClearSearchFilter(ActionEvent event) {
-        resetTable(event);
+        resetTable();
         cmboBoxFilter.getSelectionModel().select(0);
         txtFieldSearch.clear();
     }

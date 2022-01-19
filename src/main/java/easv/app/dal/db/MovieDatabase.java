@@ -67,11 +67,15 @@ public class MovieDatabase {
 
     private String getGenresForMovieCSV(String imdbID) {
         String[] genres = getGenresForMovie(imdbID);
-
         if (genres == null)
             return null;
 
-        return "%s, %s, %s".formatted(genres[0], genres[1], genres[2]);
+        switch (genres.length){
+            case 1: return "%s, N/A, N/A".formatted(genres[0]);
+            case 2: return "%s, %s, N/A".formatted(genres[0], genres[1]);
+            case 3: return "%s, %s, %s".formatted(genres[0], genres[1], genres[2]);
+            default: return "N/A, N/A, N/A";
+        }
     }
 
     /**
